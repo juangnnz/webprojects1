@@ -1,13 +1,77 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + Vue</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Player Management</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+		}
+		header {
+			background-color: #333;
+			color: #fff;
+			padding: 10px;
+			text-align: center;
+		}
+		nav {
+			background-color: #f2f2f2;
+			border: 1px solid #ccc;
+			padding: 10px;
+		}
+		nav ul {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+		nav li {
+			display: inline-block;
+			margin-right: 10px;
+		}
+		nav a {
+			color: #333;
+			text-decoration: none;
+			padding: 5px;
+		}
+		nav a:hover {
+			background-color: #333;
+			color: #fff;
+		}
+		section {
+			margin: 10px;
+			padding: 10px;
+			border: 1px solid #ccc;
+		}
+		h1 {
+			font-size: 24px;
+			margin: 0;
+			padding: 0;
+		}
+		table {
+			border-collapse: collapse;
+			width: 100%;
+		}
+		th, td {
+			border: 1px solid #ccc;
+			padding: 10px;
+			text-align: left;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h1>Player Management</h1>
+	</header>
+	<nav>
+		<ul>
+			<li><a href="#">Create Player</a></li>
+			<li><a href="#">Join Game</a></li>
+			<li><a href="#">Delete Player</a></li>
+			<li><a href="#">Player Info</a></li>
+		</ul>
+	</nav>
+	<section>
+		<!-- Player management content goes here -->
+	</section>
+</body>
 </html>

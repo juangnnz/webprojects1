@@ -33,6 +33,19 @@
             color: #fff;
             text-decoration: none;
         }
+        .submenu {
+            display: none;
+            background-color: #555;
+            position: absolute;
+            padding: 10px;
+        }
+        nav li:hover .submenu {
+            display: block;
+        }
+        .submenu li {
+            display: block;
+            margin: 5px 0;
+        }
     </style>
 </head>
 <body>
@@ -41,7 +54,15 @@
     </header>
     <nav>
         <ul>
-            <li><a href="#">Player Management</a></li>
+            <li>
+                <a href="#">Player Management</a>
+                <ul class="submenu">
+                    <li><a href="#">Create User</a></li>
+                    <li><a href="#">Join User</a></li>
+                    <li><a href="#">Delete User</a></li>
+                    <li><a href="#">Player Information</a></li>
+                </ul>
+            </li>
             <li><a href="#">Management of Attacks</a></li>
             <li><a href="#">List Players</a></li>
             <li><a href="#">Players Game History</a></li>
@@ -51,4 +72,5 @@
     </nav>
 </body>
 </html>
+
 

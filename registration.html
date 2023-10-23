@@ -34,13 +34,6 @@
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-        input[type="file"] {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
         input[type="submit"] {
             background-color: #646cff;
             color: #fff;
@@ -58,16 +51,17 @@
     </style>
 </head>
 <body>
-    <form action="process_registration.php" method="post" enctype="multipart/form-data">
+    <form action="process_registration.php" method="post">
         <h2>User Registration</h2>
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required>
-        <label for="profile_picture">Profile Picture:</label>
-        <input type="file" id="profile_picture" name="profile_picture" accept="image/*">
+        <label for="profile_picture">Profile Picture (URL):</label>
+        <input type="url" id="profile_picture" name="profile_picture" required>
         <input type="submit" value="Register">
     </form>
 </body>
 </html>
+
 

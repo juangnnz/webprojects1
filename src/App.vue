@@ -4,27 +4,47 @@ import HelloWorld from './components/HelloWorld.vue'
 
 <template>
   <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+    <header>
+      <h1>Welcome to Battle Arena!</h1>
+    </header>
+    <nav>
+      <ul>
+        <li>
+          <a href="#">Player Management</a>
+          <ul class="submenu">
+            <li><a @click="loadPlayerInfo">Player Information</a></li>
+            <li><a href="registration.html">Create User</a></li>
+            <li><a href="#">Join User</a></li>
+            <li><a href="#">Delete User</a></li>
+            <li><a href="player_info.html" target="playerInfoFrame">Player Information</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Management of Attacks</a></li>
+        <li><a href="#">List Players</a></li>
+        <li><a href="#">Players Game History</a></li>
+        <li><a href="#">Arenas Management</a></li>
+        <li><a href="#">Store</a></li>
+      </ul>
+    </nav>
+    <iframe ref="playerInfoFrame" width="100%" height="600" frameborder="0"></iframe>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
+<script>
+export default {
+  methods: {
+    loadPlayerInfo() {
+      this.$refs.playerInfoFrame.src = "player_info.html";
+    }
+  }
+};
+</script>
+
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
+/* Your CSS styles here */
+</style>
+
+
+<style scoped>
+
 </style>

@@ -4,24 +4,21 @@
       <h1 class="info-title">Player Information</h1>
     </header>
     <main class="player-info-main">
-      <dl class="info-list">
+      <div class="info-photo">
+        <img :src="playerPhoto" alt="Player Photo" class="player-photo">
+      </div>
+      <div class="info-details">
         <div class="info-item">
           <dt>Name:</dt>
           <dd class="info-value">{{ playerName }}</dd>
         </div>
         <div class="info-item">
-          <dt>Photo:</dt>
-          <dd class="info-value">
-            <img :src="playerPhoto" alt="Player Photo" class="player-photo">
-          </dd>
+          <dt>Level:</dt>
+          <dd class="info-value">{{ playerLevel }}</dd>
         </div>
         <div class="info-item">
           <dt>Experience:</dt>
           <dd class="info-value">{{ playerExperience }}</dd>
-        </div>
-        <div class="info-item">
-          <dt>Level:</dt>
-          <dd class="info-value">{{ playerLevel }}</dd>
         </div>
         <div class="info-item">
           <dt>Coins:</dt>
@@ -33,11 +30,14 @@
         </div>
         <div class="info-item">
           <dt>Equipped Attacks for the following games:</dt>
-          <ul>
-            <li v-for="game in equippedAttacksGames" :key="game.id">{{ game.name }} - {{ game.equippedAttacks }}</li>
+          <ul class="game-list">
+            <li v-for="game in equippedAttacksGames" :key="game.id" class="game-item">
+              <span class="game-name">{{ game.name }}:</span>
+              <span class="game-attacks">{{ game.equippedAttacks }}</span>
+            </li>
           </ul>
         </div>
-      </dl>
+      </div>
     </main>
   </section>
 </template>
@@ -62,38 +62,61 @@ export default {
 </script>
 
 <style scoped>
-.player-info-container {
-  text-align: center;
-  background-color: #f2f2f2;
+.player-info {
+  background-color: #222;
+  color: #fff;
   padding: 20px;
+  border: 2px solid #354a5e;
+  border-radius: 10px;
 }
 
 .info-title {
-  background-color: #354a5e;
-  color: #fff;
-  padding: 10px;
-  font-size: 24px;
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-.info-content {
+.player-photo {
+  max-width: 300px;
+  border: 2px solid #354a5e;
+  border-radius: 5px;
+  margin: 0 auto;
+  display: block;
+}
+
+.info-details {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
-  margin-top: 20px;
 }
 
 .info-item {
   margin: 10px;
-  text-align: left;
+  text-align: center;
+  font-size: 18px;
 }
 
 .info-value {
   font-weight: bold;
 }
 
-.player-photo {
-  max-width: 300px;
-  border: 2px solid #354a5e;
+.game-list {
+  list-style: none;
+  padding: 0;
+}
+
+.game-item {
+  display: flex;
+  align-items: center;
+  margin: 5px;
+}
+
+.game-name {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.game-attacks {
+  font-style: italic;
 }
 </style>

@@ -1,28 +1,28 @@
 <template>
   <section class="registration-form">
-    <form @submit="submitForm" class="form-container">
-      <h2>User Registration</h2>
-      <fieldset>
-        <legend>User Information</legend>
-        <div class="form-group">
-          <label for="username">Username:</label>
-          <input type="text" id="username" v-model="formData.username" required>
-        </div>
-        <div class="form-group">
-          <label for="password">Password:</label>
-          <input type="password" id="password" v-model="formData.password" required>
-        </div>
-        <div class="form-group">
-          <label for="profile_picture">Profile Picture (URL):</label>
-          <input type="url" id="profile_picture" v-model="formData.profile_picture" required>
-        </div>
-      </fieldset>
+    <header class="info-title">
+      <h1>User Registration</h1>
+    </header>
+    <form class="form-container">
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" v-model="formData.username" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" v-model="formData.password" required>
+      </div>
+      <div class="form-group">
+        <label for="profile_picture">Profile Picture (URL):</label>
+        <input type="url" id="profile_picture" v-model="formData.profile_picture" required>
+      </div>
       <div class="form-group">
         <button type="submit">Register</button>
       </div>
     </form>
   </section>
 </template>
+
 
   
   <script>

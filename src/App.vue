@@ -1,8 +1,5 @@
 <script setup>
-import { defineProps } from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
-import PlayerInfo from './components/playerInfo.vue'
-import Registration from './components/registration.vue'
+
 </script>
 
 <template>

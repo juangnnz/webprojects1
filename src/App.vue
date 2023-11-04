@@ -1,32 +1,3 @@
-<script setup>
-</script>
-
-<template>
-  <div>
-    <header>
-      <h1>Welcome to Battle Arena!</h1>
-      <nav>
-        <ul>
-          <li>
-            <router-link to="/">Player Management</router-link>
-            <ul class="submenu">
-              <li><router-link to="/player-info">Player Information</router-link></li>
-              <li><router-link to="/register">Register User</router-link></li>
-              <li><router-link to="/join">Join User</router-link></li>
-              <li><router-link to="/delete">Delete User</router-link></li>
-            </ul>
-          </li>
-          <li><router-link to="/attacks">Management of Attacks</router-link></li>
-          <li><router-link to="/players-list">List Players</router-link></li>
-          <li><router-link to="/game-history">Players Game History</router-link></li>
-          <li><router-link to="/arenas">Arenas Management</router-link></li>
-          <li><router-link to="/store">Store</router-link></li>
-        </ul>
-      </nav>
-    </header>
-    <router-view></router-view> 
-  </div>
-</template>
 <style>
   body {
     font-family: Arial, sans-serif;
@@ -36,10 +7,13 @@
   }
 
   header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
     background-color: #354a5e;
     color: #fff;
     text-align: center;
-    padding: 20px 0;
   }
 
   h1 {
@@ -94,15 +68,49 @@
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
-  
+
   header nav {
     background-color: #354a5e;
   }
-  
+
   header nav ul {
     display: flex;
     justify-content: center;
     padding: 0;
     margin: 0;
+  }
+
+  /* Additional media query for smaller screens */
+  @media (max-width: 768px) {
+    header {
+      padding: 10px 0;
+    }
+
+    header h1 {
+      font-size: 24px;
+    }
+
+    nav ul {
+      text-align: center;
+    }
+
+    nav li {
+      display: block;
+      margin-right: 0;
+      margin-bottom: 5px;
+    }
+
+    nav .submenu {
+      display: none;
+      position: static;
+    }
+
+    nav .submenu li {
+      display: block;
+    }
+
+    nav .submenu a {
+      padding: 10px 15px;
+    }
   }
 </style>

@@ -6,12 +6,12 @@ const routes = [
   {
     path: '/register',
     name: 'Registration', 
-    component: Registration, 
+    component: registration, 
   },
   {
     path: '/player-info',
     name: 'PlayerInfo', 
-    component: PlayerInfo, 
+    component: playerInfo, 
   },
 ];
 

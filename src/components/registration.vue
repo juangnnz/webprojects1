@@ -40,7 +40,7 @@ export default {
       this.formData.username = "";
       this.formData.password = "";
       this.formData.profile_picture = "";
-      this.$router.push({ path: '/' }); 
+      this.$router.push({ path: '/main-menu' }); 
     },
   },
 };

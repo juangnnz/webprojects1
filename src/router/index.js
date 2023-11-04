@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Registration from './components/registration.vue';
-import PlayerInfo from './components/playerInfo.vue';
+import registration from './components/registration.vue';
+import playerInfo from './components/playerInfo.vue';
 
 const routes = [
   {

@@ -1,12 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import registration from '../components/registration.vue';
 import playerInfo from '../components/playerInfo.vue';
+import mainMenu from '../views/app.vue';
 
 const routes = [
     {
         path: '/',
         name: 'main-menu',
-        component: () => import('@/views/MainMenu.vue'), 
+        component: mainMenu
       },
   {
     path: '/register',

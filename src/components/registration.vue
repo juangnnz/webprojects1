@@ -1,7 +1,9 @@
 <template>
-    <div class="registration-form">
-      <form @submit="submitForm" class="form-container">
-        <h2>User Registration</h2>
+  <section class="registration-form">
+    <form @submit="submitForm" class="form-container">
+      <h2>User Registration</h2>
+      <fieldset>
+        <legend>User Information</legend>
         <div class="form-group">
           <label for="username">Username:</label>
           <input type="text" id="username" v-model="formData.username" required>
@@ -14,12 +16,14 @@
           <label for="profile_picture">Profile Picture (URL):</label>
           <input type="url" id="profile_picture" v-model="formData.profile_picture" required>
         </div>
-        <div class="form-group">
-          <input type="submit" value="Register">
-        </div>
-      </form>
-    </div>
-  </template>
+      </fieldset>
+      <div class="form-group">
+        <button type="submit">Register</button>
+      </div>
+    </form>
+  </section>
+</template>
+
   
   <script>
   export default {

@@ -1,30 +1,37 @@
 <template>
-    <div class="player-info-container">
+  <section class="player-info">
+    <header class="player-info-header">
       <h1 class="info-title">Player Information</h1>
-      <div class="info-content">
+    </header>
+    <main class="player-info-main">
+      <dl class="info-list">
         <div class="info-item">
-          <p>Name:</p>
-          <p class="info-value">{{ playerName }}</p>
+          <dt>Name:</dt>
+          <dd class="info-value">{{ playerName }}</dd>
         </div>
         <div class="info-item">
-          <p>Photo:</p>
-          <img :src="playerPhoto" alt="Player Photo" class="player-photo">
+          <dt>Photo:</dt>
+          <dd class="info-value">
+            <img :src="playerPhoto" alt="Player Photo" class="player-photo">
+          </dd>
         </div>
         <div class="info-item">
-          <p>Experience:</p>
-          <p class="info-value">{{ playerExperience }}</p>
+          <dt>Experience:</dt>
+          <dd class="info-value">{{ playerExperience }}</dd>
         </div>
         <div class="info-item">
-          <p>Level:</p>
-          <p class="info-value">{{ playerLevel }}</p>
+          <dt>Level:</dt>
+          <dd class="info-value">{{ playerLevel }}</dd>
         </div>
         <div class="info-item">
-          <p>Coins:</p>
-          <p class="info-value">{{ playerCoins }}</p>
+          <dt>Coins:</dt>
+          <dd class="info-value">{{ playerCoins }}</dd>
         </div>
-      </div>
-    </div>
-  </template>
+      </dl>
+    </main>
+  </section>
+</template>
+
   
   <script>
   export default {

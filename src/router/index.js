@@ -7,7 +7,7 @@ const routes = [
     {
         path: '/main-menu',
         name: 'main-menu',
-        component: App
+        component: App,
       },
   {
     path: '/register',

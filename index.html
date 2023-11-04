@@ -1,88 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Battle Arena</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #e6e6e6;
-        }
-        header {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 20px;
-        }
-        nav {
-            background-color: #444;
-            text-align: center;
-            padding: 10px;
-        }
-        nav ul {
-            list-style: none;
-            padding: 0;
-        }
-        nav li {
-            display: inline;
-            margin-right: 20px;
-        }
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: bold;
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
-        .submenu {
-            display: none;
-            background-color: #555;
-            position: absolute;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        nav li:hover .submenu {
-            display: block;
-        }
-        .submenu li {
-            display: block;
-            margin: 5px 0;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>Welcome to Battle Arena!</h1>
-    </header>
-    <nav>
-        <ul>
-            <li>
-                <a href="#">Player Management</a>
-                <ul class="submenu">
-                    <li><a href="registration.html">Create User</a></li>
-                    <li><a href="#">Join User</a></li>
-                    <li><a href="#">Delete User</a></li>
-                    <li><a href="player_info.html" target="playerInfoFrame">Player Information</a></li>
-                </ul>
-            </li>
-            <li><a href="#">Management of Attacks</a></li>
-            <li><a href="#">List Players</a></li>
-            <li><a href="#">Players Game History</a></li>
-            <li><a href="#">Arenas Management</a></li>
-            <li><a href="#">Store</a></li>
-        </ul>
-    </nav>
-
-    <iframe src="about:blank" name="playerInfoFrame" id="playerInfoFrame" width="100%" height="600" frameborder="0"></iframe>
-
-    <script>
-        // JavaScript function to load player_info.html into the iframe
-        function loadPlayerInfo() {
-            var playerInfoFrame = document.getElementById("playerInfoFrame");
-            playerInfoFrame.src = "player_info.html";
-        }
-    </script>
-</body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + Vue</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
 </html>

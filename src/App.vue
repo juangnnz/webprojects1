@@ -13,10 +13,10 @@ import HelloWorld from './components/HelloWorld.vue'
           <a href="#">Player Management</a>
           <ul class="submenu">
             <li><a @click="loadPlayerInfo">Player Information</a></li>
-            <li><a href="registration.html">Create User</a></li>
+            <li><a href="#">Register User</a></li>
             <li><a href="#">Join User</a></li>
             <li><a href="#">Delete User</a></li>
-            <li><a href="player_info.html" target="playerInfoFrame">Player Information</a></li>
+            <li><a href="#">Player Information</a></li>
           </ul>
         </li>
         <li><a href="#">Management of Attacks</a></li>
@@ -41,10 +41,7 @@ export default {
 </script>
 
 <style scoped>
-/* Your CSS styles here */
 </style>
-
-
 <style scoped>
 
 </style>

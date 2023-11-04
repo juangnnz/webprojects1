@@ -61,7 +61,55 @@
         <input type="url" id="profile_picture" name="profile_picture" required>
         <input type="submit" value="Register">
     </form>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.addEventListener("DOMContentLoaded", function () {
+        // Get a reference to the form element
+        let form = document.querySelector("form");
+
+        // Add an event listener for the form submission
+        form.addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Get the form data
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+            let profilePicture = document.getElementById("profile_picture").value;
+
+            // Create a data object with the form data
+            let data = {
+                username: username,
+                password: password,
+                profile_picture: profilePicture,
+            };
+
+            // Send a POST request to the API
+            fetch("https://your-api-url.com/players", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            })
+                .then(function (response) {
+                    if (response.ok) {
+                        // Registration successful, you can redirect or display a success message
+                        console.log("Registration successful");
+                    } else {
+                        // Registration failed, handle the error
+                        console.error("Registration failed");
+                    }
+                })
+                .catch(function (error) {
+                    console.error("Error:", error);
+                });
+        });
+    });
+        });
+    </script>
 </body>
 </html>
+
 
 

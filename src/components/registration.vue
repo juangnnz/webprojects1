@@ -1,26 +1,25 @@
 <template>
-  <div class="registration-form">
-    <button @click="showRegistrationForm = !showRegistrationForm">Toggle Registration Form</button>
-    <form v-if="showRegistrationForm" @submit="submitForm" class="form-container">
-      <h2>User Registration</h2>
-      <div class="form-group">
-        <label for="username">Username:</label>
-        <input type="text" id="username" v-model="formData.username" required>
-      </div>
-      <div class="form-group">
-        <label for="password">Password:</label>
-        <input type="password" id="password" v-model="formData.password" required>
-      </div>
-      <div class="form-group">
-        <label for="profile_picture">Profile Picture (URL):</label>
-        <input type="url" id="profile_picture" v-model="formData.profile_picture" required>
-      </div>
-      <div class="form-group">
-        <input type="submit" value="Register">
-      </div>
-    </form>
-  </div>
-</template>
+    <div class="registration-form">
+      <form @submit="submitForm" class="form-container">
+        <h2>User Registration</h2>
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" id="username" v-model="formData.username" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" v-model="formData.password" required>
+        </div>
+        <div class="form-group">
+          <label for="profile_picture">Profile Picture (URL):</label>
+          <input type="url" id="profile_picture" v-model="formData.profile_picture" required>
+        </div>
+        <div class="form-group">
+          <input type="submit" value="Register">
+        </div>
+      </form>
+    </div>
+  </template>
   
   <script>
   export default {

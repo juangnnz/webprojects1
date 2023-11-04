@@ -55,6 +55,7 @@
     padding: 0;
     background-color: #354a5e;
     margin: 0;
+    text-align: center;
   }
 
   nav li {

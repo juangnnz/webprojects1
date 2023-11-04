@@ -1,21 +1,22 @@
 <template>
   <section class="registration-form">
-    <header class="info-title">
-      <h1>User Registration</h1>
-    </header>
-    <form class="form-container">
-      <div class="form-group">
-        <label for="username">Username:</label>
-        <input type="text" id="username" v-model="formData.username" required>
-      </div>
-      <div class="form-group">
-        <label for="password">Password:</label>
-        <input type="password" id="password" v-model="formData.password" required>
-      </div>
-      <div class="form-group">
-        <label for="profile_picture">Profile Picture (URL):</label>
-        <input type="url" id="profile_picture" v-model="formData.profile_picture" required>
-      </div>
+    <form @submit.prevent="registerUser" class="form-container">
+      <h2>User Registration</h2>
+      <fieldset>
+        <legend>User Information</legend>
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" id="username" v-model="formData.username" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" v-model="formData.password" required>
+        </div>
+        <div class="form-group">
+          <label for="profile_picture">Profile Picture (URL):</label>
+          <input type="url" id="profile_picture" v-model="formData.profile_picture" required>
+        </div>
+      </fieldset>
       <div class="form-group">
         <button type="submit">Register</button>
       </div>
@@ -23,21 +24,27 @@
   </section>
 </template>
 
-
-  
-  <script>
-  export default {
-    data() {
-      return {
-        formData: {
-          username: "",
-          password: "",
-          profile_picture: "",
-        },
-      };
+<script>
+export default {
+  data() {
+    return {
+      formData: {
+        username: "",
+        password: "",
+        profile_picture: "",
+      },
+    };
+  },
+  methods: {
+    registerUser() {
+      this.formData.username = "";
+      this.formData.password = "";
+      this.formData.profile_picture = "";
+      this.$router.push({ path: '/' }); 
     },
-  };
-  </script>
+  },
+};
+</script>
   
   <style scoped>
   .registration-form {

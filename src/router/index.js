@@ -3,6 +3,11 @@ import registration from '../components/registration.vue';
 import playerInfo from '../components/playerInfo.vue';
 
 const routes = [
+    {
+        path: '/',
+        name: 'main-menu',
+        component: () => import('@/views/MainMenu.vue'), 
+      },
   {
     path: '/register',
     name: 'registration', 

@@ -30,15 +30,7 @@ import HelloWorld from './components/HelloWorld.vue'
   </div>
 </template>
 
-<script>
-export default {
-  methods: {
-    loadPlayerInfo() {
-      this.$refs.playerInfoFrame.src = "player_info.html";
-    }
-  }
-};
-</script>
+
 
 <style scoped>
 </style>

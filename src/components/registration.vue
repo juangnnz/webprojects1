@@ -35,14 +35,7 @@ export default {
       },
     };
   },
-  methods: {
-    registerUser() {
-      this.formData.username = "";
-      this.formData.password = "";
-      this.formData.profile_picture = "";
-      this.$router.push({ path: '/main-menu' }); 
-    },
-  },
+  
 };
 </script>
   

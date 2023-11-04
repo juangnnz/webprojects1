@@ -24,10 +24,9 @@
         </ul>
       </nav>
     </header>
-    <router-view></router-view>
+    <router-view></router-view> 
   </div>
 </template>
-
 <style>
   body {
     font-family: Arial, sans-serif;

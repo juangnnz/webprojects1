@@ -4,14 +4,14 @@ import PlayerInfo from './components/PlayerInfo.vue';
 
 const routes = [
   {
-    path: '/',
-    name: 'Home', // Change 'Home' to the name you prefer
-    component: Registration, // Set the component for the root path
+    path: '/register',
+    name: 'Registration', 
+    component: Registration, 
   },
   {
     path: '/player-info',
-    name: 'PlayerInfo', // Change 'PlayerInfo' to the name you prefer
-    component: PlayerInfo, // Set the component for the '/player-info' path
+    name: 'PlayerInfo', 
+    component: PlayerInfo, 
   },
 ];
 

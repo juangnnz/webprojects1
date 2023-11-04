@@ -6,7 +6,7 @@ import App from '../views/App.vue';
 const routes = [
     {
         path: '/main-menu',
-        name: 'main-menu',
+        name: 'App',
         component: App,
       },
   {

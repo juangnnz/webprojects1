@@ -20,13 +20,12 @@
           <li><router-link to="/players-list">List Players</router-link></li>
           <li><router-link to="/game-history">Players Game History</router-link></li>
           <li><router-link to="/arenas">Arenas Management</router-link></li>
-          <li>
-            <router-link to="/store">Store</router-link>
-            <ul class="submenu">
+          <ul class="submenu">
               <li><router-link to="/create-game">Create a Game</router-link></li>
               <li><router-link to="/available-games">Show Available Games (Not Started)</router-link></li>
-              <li><router-link to="/game-record">Game Record</router-link></li>
+              <li><router-link to="/game-finder">List of all games</router-link></li>
             </ul>
+          <li><router-link to="/store">Store</router-link>
           </li>
         </ul>
       </nav>

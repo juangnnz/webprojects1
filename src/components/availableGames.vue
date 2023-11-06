@@ -17,7 +17,7 @@
         availableGames: [
           { id: 1, name: "Game 1" },
           { id: 2, name: "Game 2" },
-          // ejemplos de como se veria
+          // ejemplos de como se veria la info de los juegos
         ],
       };
     },

@@ -8,6 +8,9 @@ import playerLists from '../components/playerLists.vue';
 import gameHistory from '../components/gameHistory.vue';
 import arenas from '../components/arenas.vue';
 import store from '../components/store.vue';
+import createGame from '../components/createGame.vue';
+import availableGames from '../components/availableGames.vue';
+import gameFinder from '../components/gameFinder.vue';
 
 const routes = [
   {
@@ -55,6 +58,21 @@ const routes = [
     name: 'Store',
     component: store,
   },
+  {
+    path: '/create-game',
+    name: 'CreateGame',
+    component: createGame,
+  },
+  {
+    path: '/available-games',
+    name: 'AvailableGames',
+    component: availableGames,
+  },
+  {
+    path: '/game-finder',
+    name: 'GameFinder',
+    component: gameFinder,
+  }
 ];
 
 const router = createRouter({

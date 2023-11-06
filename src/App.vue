@@ -116,7 +116,7 @@
     margin: 0;
   }
 
-  /* Additional media query for smaller screens */
+  /* para pantallas pequeñas*/
   @media (max-width: 768px) {
     header {
       padding: 10px 0;

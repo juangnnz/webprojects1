@@ -24,11 +24,10 @@
         <div class="info-item">
           <dt>Backpacked Attacks:</dt>
           <dd class="info-value">{{ backpackedAttacks }}</dd>
-          <!-- Button to toggle display of backpacked attacks -->
+          <!-- aqui se enseña o se esconde -->
           <button @click="toggleBackpackedAttacks">
             {{ showBackpackedAttacks ? 'Hide' : 'Show' }} Backpacked Attacks
           </button>
-          <!-- Display backpacked attacks if showBackpackedAttacks is true -->
           <div v-if="showBackpackedAttacks" class="backpacked-attacks">
             <dt>Backpacked Attacks:</dt>
             <dd class="info-value">{{ backpackedAttacks }}</dd>
@@ -42,11 +41,10 @@
               <span class="game-attacks">{{ game.equippedAttacks }}</span>
             </li>
           </ul>
-          <!-- Button to toggle display of equipped attacks -->
+          <!-- boton para enseñar  -->
           <button @click="toggleEquippedAttacks">
             {{ showEquippedAttacks ? 'Hide' : 'Show' }} Equipped Attacks
           </button>
-          <!-- Display equipped attacks if showEquippedAttacks is true -->
           <div v-if="showEquippedAttacks" class="equipped-attacks">
             <dt>Equipped Attacks for the following games:</dt>
             <ul class="game-list">
@@ -57,7 +55,7 @@
             </ul>
           </div>
         </div>
-        <!-- Button to delete account -->
+        <!-- boton para borrar cuenta -->
         <button @click="deleteAccount" class="delete-account-btn">Delete Account</button>
       </div>
     </main>

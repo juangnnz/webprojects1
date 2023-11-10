@@ -13,8 +13,7 @@
 
 <script>
 
-import Logo from '@/components/logo.vue'; // Import the Logo component
-
+import Logo from '@/components/logo.vue'; 
 export default {
   components: {
     Logo, // Register the Logo component

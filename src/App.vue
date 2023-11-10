@@ -7,8 +7,6 @@
     <input type="text" v-model="userId" placeholder="Enter ID" />
     <input type="password" v-model="password" placeholder="Enter password" />
     <button @click="login">Login</button>
-
-    <h2>Sign Up</h2>
     <button @click="signup">Sign Up</button>
   </div>
 </template>
@@ -28,9 +26,11 @@ export default {
   },
   methods: {
     login() {
+      console.log('User Logged In');
      this.$router.push('/player-info');
     },
     signup() {
+      console.log('User Signed Up');
       this.$router.push('/register');
     },
   },

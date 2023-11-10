@@ -47,7 +47,7 @@ export default {
         currentPlayer: "player1",
       };
 
-      this.$router.push("/game");
+      this.$router.push({ name: '', params: { gameConfig } });
     },
   },
 };

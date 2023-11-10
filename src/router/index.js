@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import registration from '../components/registration.vue';
 import playerInfo from '../components/playerInfo.vue';
-import deletePlayer from '../components/deletePlayer.vue';
+import MainMenu from '../components/MainMenu.vue';
 import attacks from '../components/attacks.vue';
 import playerLists from '../components/playerLists.vue';
 import gameHistory from '../components/gameHistory.vue';
@@ -9,15 +9,15 @@ import store from '../components/store.vue';
 import createGame from '../components/createGame.vue';
 import availableGames from '../components/availableGames.vue';
 import gameFinder from '../components/gameFinder.vue';
-import logo from '../components/Logo.vue';
+
 
 
 const routes = [
 
   {
-    path: '/',
-    name: 'logo',
-    component: logo,
+    path: '/main-menu',
+    name: 'MainMenu',
+    component: MainMenu,
   },
   {
     path: '/register',

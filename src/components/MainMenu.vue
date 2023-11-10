@@ -12,11 +12,12 @@
             <li><router-link to="/create-game">Create an Arena</router-link></li>
             <li><router-link to="/available-games">Show Available Games (Not Started)</router-link></li>
             <li><router-link to="/game-finder">Search games</router-link></li>
+            <li><router-link to="/game-history">Game History</router-link></li>
           </ul>
           <li><router-link to="/">Players</router-link></li>
           <ul class="submenu">
             <li><router-link to="/">Player's History</router-link></li>
-            <li><router-link to="/">Player's Ranking</router-link></li>
+            <li><router-link to="/player-lists">Player's Ranking</router-link></li>
           </ul>
           <li><router-link to="/Store">Store</router-link>
             <ul class="submenu">

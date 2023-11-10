@@ -86,6 +86,55 @@ export default {
 };
 </script>
 
+
 <style scoped>
-/* ... your existing styles ... */
-</style>
+  .game-finder {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  
+  .filters {
+    margin-bottom: 20px;
+  }
+  
+  .filters label {
+    margin-right: 10px;
+  }
+  
+  .game-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .game-item {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .game-name {
+    flex: 1;
+  }
+  
+  .view-details-button {
+    background-color: #354a5e;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .view-details-button:hover {
+    background-color: #2e3e4f;
+  }
+  
+  .game-details {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+  </style>
+  
+

@@ -1,5 +1,5 @@
 <template>
- 
+
   <div class="login-form">
     <img :src="logo" alt="logo" />
     <h2>Log In</h2>
@@ -12,22 +12,30 @@
 
 <script>
 import logo from './assets/logo.png';
+
 export default {
   
   data() {
     return {
       userId: '',
       password: '',
+      isMobile: window.innerWidth <= 768,
     };
+  },
+  mounted() {
+    window.addEventListener('resize', this.handleResize);
   },
   methods: {
     login() {
       console.log('User Logged In');
-     this.$router.push('/player-info');
+      this.$router.push('/player-info');
     },
     signup() {
       console.log('User Signed Up');
       this.$router.push('/register');
+    },
+    handleResize() {
+      this.isMobile = window.innerWidth <= 768;
     },
   },
 };
@@ -38,5 +46,14 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 20px; /* extra padding para dar espacio entre objetos */
+}
+
+/* esto es como si fuera un if para cierrtas pantallas */
+@media (max-width: 768px) {
+  .login-form {
+    /* si quereis poner mas estilos
+     */
+  }
 }
 </style>

@@ -1,7 +1,9 @@
 <template>
+  <logo>
+    <img src="./assets/logo.svg" alt="Logo" />
+  </logo> 
   <div class="login-form">
     <h2>Log In</h2>
-    <logo></logo> 
     <input type="text" v-model="userId" placeholder="Enter ID" />
     <input type="password" v-model="password" placeholder="Enter password" />
     <button @click="login">Login</button>

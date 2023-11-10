@@ -1,23 +1,19 @@
 <template>
-  <logo>
-    <img src="./assets/logo.svg" alt="Logo" />
-  </logo> 
+ 
   <div class="login-form">
+    <img :src="logo" alt="logo" />
     <h2>Log In</h2>
     <input type="text" v-model="userId" placeholder="Enter ID" />
     <input type="password" v-model="password" placeholder="Enter password" />
-    <button @click="login">Login</button>
+    <button @click="login">Enter</button>
     <button @click="signup">Sign Up</button>
   </div>
 </template>
 
 <script>
-
-import Logo from './components/logo.vue'; 
+import logo from '@/assets/logo.png';
 export default {
-  components: {
-    Logo, // Register the Logo component
-  },
+  
   data() {
     return {
       userId: '',

@@ -18,10 +18,10 @@
             <li><router-link to="/">Player's History</router-link></li>
             <li><router-link to="/">Player's Ranking</router-link></li>
           </ul>
-          <li><router-link to="/store">Store</router-link>
+          <li><router-link to="/Store">Store</router-link>
             <ul class="submenu">
-              <li><router-link to="/">Sell/Create Attacks</router-link></li>
-              <li><router-link to="/">Buy Attacks</router-link></li>
+              <li><router-link to="/create-sell-attacks">Sell/Create Attacks</router-link></li>
+              <li><router-link to="/buy-attacks">Buy Attacks</router-link></li>
             </ul>
           </li>
           <li>

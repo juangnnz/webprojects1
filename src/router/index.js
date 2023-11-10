@@ -5,15 +5,14 @@ import MainMenu from '../components/MainMenu.vue';
 import attacks from '../components/attacks.vue';
 import playerLists from '../components/playerLists.vue';
 import gameHistory from '../components/gameHistory.vue';
-import store from '../components/store.vue';
 import createGame from '../components/createGame.vue';
 import availableGames from '../components/availableGames.vue';
 import gameFinder from '../components/gameFinder.vue';
-import PlayerHistory from '../components/PlayerHistory.vue';
-import arena from '../components/arena.vue';
+//import PlayerHistory from '../components/PlayerHistory.vue';
+//import arena from '../components/arena.vue';
 import BuyAttacks from '../components/BuyAttacks.vue';
 import CreateSellAttacks from '../components/CreateSellAttacks.vue';
-import RecordGameById from '../components/RecordGameById.vue';
+//import RecordGameById from '../components/RecordGameById.vue';
 
 const routes = [
 
@@ -27,7 +26,7 @@ const routes = [
     name: 'registration',
     component: registration,
   },
-  {
+  /*{
     path: '/player-history',
     name: 'PlayerHistory',
     component: PlayerHistory,
@@ -41,7 +40,7 @@ const routes = [
     path: '/record-game-by-id',
     name: 'RecordGameById',
     component: RecordGameById,
-  },
+  },*/
   {
     path: '/buy-attacks',
     name: 'BuyAttacks',
@@ -72,11 +71,6 @@ const routes = [
     path: '/game-history',
     name: 'GameHistory',
     component: gameHistory,
-  },
-  {
-    path: '/store',
-    name: 'Store',
-    component: store,
   },
   {
     path: '/create-game',

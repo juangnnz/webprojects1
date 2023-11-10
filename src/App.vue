@@ -52,8 +52,7 @@ export default {
 /* esto es como si fuera un if para cierrtas pantallas */
 @media (max-width: 768px) {
   .login-form {
-    /* si quereis poner mas estilos
-     */
+    padding: 0;
   }
 }
 </style>

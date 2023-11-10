@@ -1,58 +1,43 @@
 <template>
 
-  <div class="login-form">
-    <img :src="logo" alt="logo" />
-    <h2>Log In</h2>
-    <input type="text" v-model="userId" placeholder="Enter ID" />
-    <input type="password" v-model="password" placeholder="Enter password" />
-    <button @click="login">Enter</button>
-    <button @click="signup">Sign Up</button>
+  <div id="app">
+    <header>
+       <img src="src/assets/logo.png" alt="logo" />
+    </header>
+
+    <router-view></router-view>
+
+     <footer>
+      <!-- Pie de página común -->
+    </footer>
   </div>
 </template>
 
 <script>
-import logo from './assets/logo.png';
-
 export default {
-  
-  data() {
-    return {
-      userId: '',
-      password: '',
-      isMobile: window.innerWidth <= 768,
-    };
-  },
-  mounted() {
-    window.addEventListener('resize', this.handleResize);
-  },
-  methods: {
-    login() {
-      console.log('User Logged In');
-      this.$router.push('/player-info');
-    },
-    signup() {
-      console.log('User Signed Up');
-      this.$router.push('/register');
-    },
-    handleResize() {
-      this.isMobile = window.innerWidth <= 768;
-    },
-  },
+  // Otras configuraciones del componente, si es necesario
 };
 </script>
 
-<style scoped>
-.login-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px; /* extra padding para dar espacio entre objetos */
+<style>
+body, #app {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  weight: 100vh;
 }
 
-/* esto es como si fuera un if para cierrtas pantallas */
-@media (max-width: 768px) {
-  .login-form {
-    padding: 0;
-  }
+header {
+  display: flex;
+  align-items: center; /* Centra verticalmente */
+  justify-content: flex-start !important; /* Alinea a la izquierda */
+  background-color: #ffffff !important; /* Fondo blanco */
+  padding: 10px;
+
+}
+
+#logo {
+  margin-right: auto; /* Mueve el logo hacia la izquierda lo máximo posible */
+  width: 100px; /* Ajusta el tamaño según sea necesario */
 }
 </style>

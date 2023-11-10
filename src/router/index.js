@@ -13,6 +13,7 @@ import gameFinder from '../components/gameFinder.vue';
 import BuyAttacks from '../components/BuyAttacks.vue';
 import CreateSellAttacks from '../components/CreateSellAttacks.vue';
 //import RecordGameById from '../components/RecordGameById.vue';
+import home from '../components/home.vue';
 
 const routes = [
 
@@ -86,6 +87,11 @@ const routes = [
     path: '/game-finder',
     name: 'GameFinder',
     component: gameFinder,
+  },
+  {
+    path: '/home',
+    name: 'HomeView',
+    component: home,
   }
 ];
 

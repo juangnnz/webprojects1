@@ -109,6 +109,7 @@ export default {
   font-size: 28px;
   text-align: center;
   margin-bottom: 20px;
+  color: #000000;
 }
 
 .player-photo {

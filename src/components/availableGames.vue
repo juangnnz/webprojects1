@@ -16,7 +16,7 @@
           <td>{{ game.size }}</td>
           <td>{{ game.hpMax }}</td>
           <td>
-            <router-link :to="'/game/' + game.id" class="game-link">
+            <router-link :to="'/arena' + game.id" class="game-link">
               Enter
             </router-link>
           </td>

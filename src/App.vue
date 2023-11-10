@@ -28,10 +28,10 @@ export default {
   },
   methods: {
     login() {
-      // Your login logic here
+     this.$router.push('/player-info');
     },
     signup() {
-      // Your signup logic here
+      this.$router.push('/register');
     },
   },
 };

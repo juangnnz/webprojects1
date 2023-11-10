@@ -1,18 +1,24 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import registration from '../components/registration.vue';
 import playerInfo from '../components/playerInfo.vue';
-import join from '../components/join.vue';
 import deletePlayer from '../components/deletePlayer.vue';
 import attacks from '../components/attacks.vue';
 import playerLists from '../components/playerLists.vue';
 import gameHistory from '../components/gameHistory.vue';
-import arenas from '../components/arenas.vue';
 import store from '../components/store.vue';
 import createGame from '../components/createGame.vue';
 import availableGames from '../components/availableGames.vue';
 import gameFinder from '../components/gameFinder.vue';
+import logo from '../components/Logo.vue';
+
 
 const routes = [
+
+  {
+    path: '/',
+    name: 'logo',
+    component: logo,
+  },
   {
     path: '/register',
     name: 'registration',
@@ -22,11 +28,6 @@ const routes = [
     path: '/player-info',
     name: 'PlayerInfo',
     component: playerInfo,
-  },
-  {
-    path: '/join',
-    name: 'Join',
-    component: join,
   },
   {
     path: '/delete',
@@ -47,11 +48,6 @@ const routes = [
     path: '/game-history',
     name: 'GameHistory',
     component: gameHistory,
-  },
-  {
-    path: '/arenas',
-    name: 'Arenas',
-    component: arenas,
   },
   {
     path: '/store',

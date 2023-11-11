@@ -1,66 +1,34 @@
 <template>
   <section class="player-info">
     <header class="player-info-header">
-      <h1 class="info-title">Player Information</h1>
+      <h1 class="info-title">Welcome {{ playerName }} !</h1>
     </header>
     <main class="player-info-main">
       <div class="info-details">
-        <div class="info-item">
-          <dt>Name:</dt>
-          <dd class="info-value">{{ playerName }}</dd>
-        </div>
-        <div class="info-item">
-          <dt>Level:</dt>
-          <dd class="info-value">{{ playerLevel }}</dd>
-        </div>
-        <div class="info-item">
-          <dt>Experience:</dt>
-          <dd class="info-value">{{ playerExperience }}</dd>
-        </div>
-        <div class="info-item">
-          <dt>Coins:</dt>
-          <dd class="info-value">{{ playerCoins }}</dd>
-        </div>
-        <div class="info-item">
-          <dt>Backpacked Attacks:</dt>
-          <dd class="info-value">{{ backpackedAttacks }}</dd>
-          <!-- aqui se enseña o se esconde -->
-          <button @click="toggleBackpackedAttacks">
-            {{ showBackpackedAttacks ? 'Hide' : 'Show' }} Backpacked Attacks
-          </button>
-          <div v-if="showBackpackedAttacks" class="backpacked-attacks">
-            <dt>Backpacked Attacks:</dt>
-            <dd class="info-value">{{ backpackedAttacks }}</dd>
-          </div>
-        </div>
-        <div class="info-item">
-          <dt>Equipped Attacks for the following games:</dt>
+
+          <dt class="info-value">Experience: {{ playerExperience }}</dt>
+          <dt class="info-value">Level: {{ playerLevel }}</dt>
+          <dt class="info-value">Coins: {{ playerCoins }}</dt>
+          <dt class="info-value">Backpacked Attacks: {{ backpackedAttacks }}</dt>
+        <div class="info-attacks">
+          <dt class="info-value">Equipped Attacks:</dt>
           <ul class="game-list">
             <li v-for="game in equippedAttacksGames" :key="game.id" class="game-item">
               <span class="game-name">{{ game.name }}:</span>
               <span class="game-attacks">{{ game.equippedAttacks }}</span>
             </li>
           </ul>
-          <!-- boton para enseñar  -->
-          <button @click="toggleEquippedAttacks">
-            {{ showEquippedAttacks ? 'Hide' : 'Show' }} Equipped Attacks
-          </button>
-          <div v-if="showEquippedAttacks" class="equipped-attacks">
-            <dt>Equipped Attacks for the following games:</dt>
-            <ul class="game-list">
-              <li v-for="game in equippedAttacksGames" :key="game.id" class="game-item">
-                <span class="game-name">{{ game.name }}:</span>
-                <span class="game-attacks">{{ game.equippedAttacks }}</span>
-              </li>
-            </ul>
-          </div>
         </div>
-        <!-- boton para borrar cuenta -->
-        <button @click="deleteAccount" class="delete-account-btn">Delete Account</button>
+        
+      </div>
+      <div class="display-btn">
+        <button @click="logOut" class="btn">Log Out</button>
+        <button @click="deleteAccount" class="btn">Delete Account</button>
       </div>
     </main>
   </section>
 </template>
+
 
 <script>
 export default {
@@ -97,79 +65,93 @@ export default {
 </script>
 
 <style scoped>
-.player-info {
-  background-color: #222;
-  color: #fff;
-  padding: 20px;
-  border: 2px solid #354a5e;
-  border-radius: 10px;
-}
+  .player-info {
+    background-color: #ffffff;
+    color: #fff;
+    padding: 20px;
+    border: 2px solid #354a5e;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column; /* Cambio de dirección a columna */
+    align-items: flex-start; /* Alinea a la izquierda */
+  }
 
-.info-title {
-  font-size: 28px;
-  text-align: center;
-  margin-bottom: 20px;
-  color: #000000;
-}
+  .player-info-header {
+    width: 100%; /* Ancho completo */
+    margin-bottom: 20px; /* Espaciado entre el título y la información */
+    display: flex;
+    align-items: flex-start;
+  }
 
-.player-photo {
-  max-width: 300px;
-  border: 2px solid #354a5e;
-  border-radius: 5px;
-  margin: 0 auto;
-  display: block;
-}
+  .info-title {
+    font-size: 28px;
+    text-align: left; /* Alinea el texto a la izquierda */
+    color: #3D5CFF;
+  }
 
-.info-details {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
+  .player-info-main {
+    background-color: #ffffff;
+    color: #fff;
+    display: flex;
+    flex-direction: column; /* Cambio de dirección a columna */
+  }
 
-.info-item {
-  margin: 10px;
-  text-align: center;
-  font-size: 18px;
-}
+  .info-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
-.info-value {
-  font-weight: bold;
-}
+  .display-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra verticalmente */
+    justify-content: center; 
+  }
 
-.game-list {
-  list-style: none;
-  padding: 0;
-}
+  .info-attacks {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+    color: black;
+  }
 
-.game-item {
-  display: flex;
-  align-items: center;
-  margin: 5px;
-}
+  .info-value {
+    font-weight: bold;
+    margin-bottom: 5px; /* Añadido para separar cada pareja de dt y dd */
+    color: black;
+  }
 
-.game-name {
-  font-weight: bold;
-  margin-right: 5px;
-}
+  .game-list {
+    list-style: none;
+    padding: 0;
+  }
 
-.game-attacks {
-  font-style: italic;
-}
+  .game-item {
+    display: flex;
+    align-items: center;
+    margin: 5px;
+  }
 
-.backpacked-attacks,
-.equipped-attacks {
-  margin: 10px;
-  text-align: center;
-  font-size: 18px;
-}
+  .game-name {
+    font-weight: bold;
+    margin-right: 5px;
+  }
 
-.delete-account-btn {
-  margin-top: 20px;
-  background-color: #d9534f;
-  color: #fff;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-}
+  .game-attacks {
+    font-style: italic;
+  }
+
+  .btn {
+    border: 2px solid #3D5CFF;
+    border-radius: 10px;
+    background-color: #ffffff;
+    color: #000000;
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+
 </style>
+
+

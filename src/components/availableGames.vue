@@ -35,16 +35,19 @@ export default {
         { id: 2, name: "Game 2", size: "8x8", hpMax: 150 },
       ],
       selectedGame: null,
+      showActionColumn: false, // Initialize showActionColumn here
     };
   },
   methods: {
     toggleActionColumn(gameId) {
-      this.showActionColumn = true; // Set this to true to always show the action column when a row is clicked
+      // Toggle the showActionColumn value for the clicked row
+      this.showActionColumn = !this.showActionColumn;
       this.selectedGame = gameId;
     },
   },
 };
 </script>
+
 
 <style scoped>
 .available-games {

@@ -9,6 +9,7 @@
     <table class="player-table">
       <thead>
         <tr>
+          
           <th>Experience</th>
           <th>Name</th>
         </tr>
@@ -21,12 +22,14 @@
       </tbody>
       <tfoot>
         <tr>
-          <td>Total Players: {{ filteredPlayers.length }}</td>
+          
+          <td colspan="2">Total Players: {{ filteredPlayers.length }}</td>
         </tr>
       </tfoot>
     </table>
   </div>
 </template>
+
 
 <script>
 export default {
@@ -34,8 +37,11 @@ export default {
     return {
       searchQuery: '',
       players: [
-        { id: 1, name: 'Player 1', ranking: 2, experience: 3 },
-        { id: 2, name: 'Player 2', ranking: 1, experience: 5 },
+        { id: 1, name: 'Player 1', experience: 3 },
+        { id: 2, name: 'Player 2', experience: 5 },
+        { id: 3, name: 'Player 3', experience: 2 },
+        { id: 4, name: 'Player 4', experience: 7 },
+        { id: 5, name: 'Player 5', experience: 4 },
       ],
     };
   },
@@ -60,6 +66,7 @@ export default {
   },
 };
 </script>
+
 
 <style scoped>
 .list-players {

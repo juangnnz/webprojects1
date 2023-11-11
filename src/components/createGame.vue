@@ -3,6 +3,7 @@
     <h2 id="createArenaTitle">Create an Arena</h2>
     <form @submit.prevent="createGame">
       <div class="form-group">
+        <label for="gameId">Enter Game ID:</label>
         <input type="text" v-model="gameId" placeholder="Enter Game ID" id="gameId" required>
       </div>
 

@@ -7,15 +7,19 @@
           <th class="column">Game ID</th>
           <th class="column">Size</th>
           <th class="column">HP-max</th>
-          <th v-if="showActionColumn" class="column">Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="game in availableGames" :key="game.id" @click="toggleActionColumn(game.id)">
-          <td>{{ game.id }}</td>
+        <tr
+          v-for="game in availableGames"
+          :key="game.id"
+          @click="toggleActionColumn(game.id)"
+          :class="{ 'selected-row': selectedGame === game.id }"
+        >
+          <td :style="{ color: selectedGame === game.id ? 'blue' : 'black' }">{{ game.id }}</td>
           <td>{{ game.size }}</td>
           <td>{{ game.hpMax }}</td>
-          <td v-if="showActionColumn && selectedGame === game.id">
+          <td v-if="selectedGame === game.id" class="action-column">
             <router-link :to="'/arena' + game.id" class="game-link">
               Enter
             </router-link>
@@ -35,19 +39,16 @@ export default {
         { id: 2, name: "Game 2", size: "8x8", hpMax: 150 },
       ],
       selectedGame: null,
-      showActionColumn: false, // Initialize showActionColumn here
     };
   },
   methods: {
     toggleActionColumn(gameId) {
-      // Toggle the showActionColumn value for the clicked row
-      this.showActionColumn = !this.showActionColumn;
+      // Set the selectedGame to the clicked row
       this.selectedGame = gameId;
     },
   },
 };
 </script>
-
 
 <style scoped>
 .available-games {
@@ -83,6 +84,18 @@ th {
 
 .column {
   color: black;
+}
+
+.selected-row td {
+  color: blue;
+}
+
+.action-column {
+  visibility: hidden;
+}
+
+.selected-row .action-column {
+  visibility: visible; /* when the selected row is clicked, only there the column where the button is will be visible*/
 }
 
 .game-link {

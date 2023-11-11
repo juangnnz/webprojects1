@@ -9,7 +9,6 @@
     <table class="player-table">
       <thead>
         <tr>
-          
           <th>Experience</th>
           <th>Name</th>
         </tr>
@@ -22,14 +21,12 @@
       </tbody>
       <tfoot>
         <tr>
-          
           <td colspan="2">Total Players: {{ filteredPlayers.length }}</td>
         </tr>
       </tfoot>
     </table>
   </div>
 </template>
-
 
 <script>
 export default {
@@ -66,7 +63,6 @@ export default {
   },
 };
 </script>
-
 
 <style scoped>
 .list-players {

@@ -3,19 +3,16 @@
     <h2 id="createArenaTitle">Create an Arena</h2>
     <form @submit.prevent="createGame">
       <div class="form-group">
-        <input type="text" v-model="gameId"  placeholder="Enter Game ID" id="gameId" required>
+        <input type="text" v-model="gameId" placeholder="Enter Game ID" id="gameId" required>
       </div>
 
       <div class="form-group">
-        <input type="number" v-model="rows"  placeholder="Enter number of rows" id="rows" required>
+        <label for="matrixSize">Enter size of Arena (2-10):</label>
+        <input type="number" v-model="matrixSize" placeholder="Enter a number (2-10)" id="matrixSize" min="2" max="10" required>
       </div>
 
       <div class="form-group">
-        <input type="number" v-model="columns"  placeholder="Enter number of columns" id="columns" required>
-      </div>
-
-      <div class="form-group">
-        <input type="number" v-model="hp"  placeholder="Enter starting HP for players" id="hp" required>
+        <input type="number" v-model="hp" placeholder="Enter starting HP for players" id="hp" required>
       </div>
 
       <button class="create-button" type="submit">Create</button>
@@ -28,8 +25,7 @@ export default {
   data() {
     return {
       gameId: '',
-      rows: 0,
-      columns: 0,
+      matrixSize: 2, // Default value, you can adjust as needed
       hp: 0,
     };
   },
@@ -37,8 +33,8 @@ export default {
     createGame() {
       const gameConfig = {
         gameId: this.gameId,
-        rows: this.rows,
-        columns: this.columns,
+        rows: this.matrixSize,
+        columns: this.matrixSize,
         hp: this.hp,
         currentPlayer: "player1",
       };

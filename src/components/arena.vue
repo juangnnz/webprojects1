@@ -53,7 +53,7 @@ export default {
       this.currentColumn--;
     },
     leaveGame() {
-      this.$router.push('/home');
+      this.$router.push('/main-menu');
     },
     attack1() {
     

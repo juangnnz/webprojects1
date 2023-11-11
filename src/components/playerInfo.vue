@@ -60,6 +60,9 @@ export default {
     deleteAccount() {
       alert("Account deleted successfully!");
     },
+    logOut(){
+      this.$router.push('/home');
+    }
   },
 };
 </script>

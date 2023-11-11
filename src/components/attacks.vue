@@ -1,12 +1,12 @@
 <template>
     <main class="attacks-management">
-      <h2>Manage Equipped Attacks</h2>
+      <h2 class="title">Manage Equipped Attacks</h2>
   
       <section class="equipped-attacks">
         <h3>Equipped Attacks</h3>
         <ul>
           <li v-for="attack in equippedAttacks" :key="attack.id" class="equipped-attack">
-            <h4 class="attack-name">{{ attack.name }}</h4>
+            <h4>{{ attack.name }}</h4>
             <p class="attack-description">{{ attack.description }}</p>
             <button @click="unequipAttack(attack)">Unequip</button>
           </li>
@@ -17,7 +17,7 @@
         <h3>Available Attacks</h3>
         <ul>
           <li v-for="attack in availableAttacks" :key="attack.id" class="available-attack">
-            <h4 class="attack-name">{{ attack.name }}</h4>
+            <h4>{{ attack.name }}</h4>
             <p class="attack-description">{{ attack.description }}</p>
             <button @click="equipAttack(attack)">Equip</button>
           </li>
@@ -69,15 +69,12 @@ export default {
 }
 
 .equipped-attack {
-  background-color: #e6e6e6;
-  border: 1px solid #ccc;
+  background-color: #DEEBFF;
+  border: none;
+  border-radius: 5px; 
   margin: 10px;
   padding: 10px;
   display: inline-block;
-}
-
-.attack-name {
-  font-weight: bold;
 }
 
 .available-attacks {
@@ -85,16 +82,17 @@ export default {
 }
 
 .available-attack {
-  background-color: #f5f5f5;
-  border: 1px solid #ccc;
+  background-color: #DEEBFF;
+  border: none;
+  border-radius: 5px; 
   margin: 10px;
   padding: 10px;
   display: inline-block;
 }
 
 button {
-  background-color: #007bff;
-  color: #fff;
+  background-color: #3D5CFF;
+  color: #ffffff;
   border: none;
   padding: 5px 10px;
   cursor: pointer;
@@ -103,5 +101,17 @@ button {
 
 button:hover {
   background-color: #0056b3;
+}
+
+.title {
+  color: #3D5CFF;
+}
+
+h3{
+  color: black;
+}
+
+h4{
+  color: black;
 }
 </style>

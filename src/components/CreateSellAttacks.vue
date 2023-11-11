@@ -9,7 +9,7 @@
         <label for="askingPrice">Asking Price:</label>
         <input v-model="newAttack.askingPrice" type="number" required>
   
-        <button type="submit">Create Attack</button>
+        <button class="button" type="submit">Create Attack</button>
       </form>
   
       <!-- Aqui se listean todos nuestros ataques -->
@@ -19,7 +19,7 @@
           <span class="attack-info">
             {{ attack.name }} - Position: {{ attack.position }} - Asking Price: {{ attack.askingPrice }}
           </span>
-          <button @click="sellAttack(index)" class="sell-button">Sell</button>
+          <button @click="sellAttack(index)" class="button">Sell</button>
         </li>
       </ul>
     </div>
@@ -96,18 +96,6 @@
     margin-bottom: 10px;
   }
   
-  button {
-    background-color: #354a5e;
-    color: #fff;
-    padding: 10px 15px;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .button:hover {
-    background-color: #2e3e4f;
-  }
-  
   .attack-list {
     list-style: none;
     padding: 0;
@@ -123,7 +111,7 @@
     color: black;
   }
   
-  .sell-button {
+  .button {
     padding: 10px 15px;
     border: none;
     border-radius: 5px; 

@@ -22,6 +22,16 @@
           <div @click="navigateTo('/create-sell-attacks')">Sell/Create Attacks </div>
           <div @click="navigateTo('/buy-attacks')">Buy Attacks</div>
         </div>
+
+        <div  @click="toggleSubMenu('profile')" class="profile-container">
+          <img src="src/assets/profilePicture.png" alt="profile" class="profile-image" />
+        </div>
+        <div v-if="showSubmenu.profile" class="submenu">
+          <div @click="navigateTo('/player-info')">Your profile</div>
+          <div @click="navigateTo('/attacks')">Manage attacks</div>
+         
+        </div>
+
       </div>
     </header>
 
@@ -100,5 +110,11 @@ header {
   background-color: #ddd;
   margin-top: 5px;
   color: black;
+}
+
+.profile-image {
+  width: 65px;
+  height: 60px;
+  border-radius: 50%;
 }
 </style>

@@ -10,7 +10,7 @@
        <br>
        <input type="password" id="confirmpwd" v-model="confirmPassword"  placeholder="Confirm password" class="input-field" required>
        <br>
-       <button type="Sign Up" class="custom-button1">Sign Up</button>
+       <button class="custom-button1">Sign Up</button>
      </form>
      <button @click="login" class="custom-button2" >Log In</button>
   </div>
@@ -28,6 +28,7 @@
   },
   methods: {
      submitForm() {
+      
        if (this.password === this.confirmPassword) {
          console.log('User Signed Up');
          this.$router.push('/player-info');

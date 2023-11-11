@@ -1,14 +1,14 @@
 <template>
     <div>
-      <h2 id="title"> Attacks for Sale</h2>
+      <h2 id="title"> Attacks on Sale</h2>
   
       <ul class="attack-list">
         <li v-for="(attack, index) in attacksForSale" :key="index" class="attack-item">
           <span class="attack-info">
-            {{ attack.name }} - Position: {{ attack.position }} - Price: {{ attack.askingPrice }} coins
+            {{ attack.name }} (position: {{ attack.position }}) 
           </span>
           <button @click="buyAttack(index)" :disabled="userCoins < attack.askingPrice" class="buy-button">
-            Buy
+            Buy for {{ attack.askingPrice }} $
           </button>
         </li>
       </ul>
@@ -46,8 +46,8 @@
   <style>
 
   #title {
-  color: #3D5CFF;
-}
+    color: #3D5CFF;
+  }
 
   .attack-list {
     list-style: none;
@@ -60,12 +60,11 @@
     align-items: center;
     padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
   }
   
   .buy-button {
-    background-color: #4caf50;
-    color: #fff;
+    background-color: #3D5CFF;
+    color: #ffffff;
     padding: 8px;
     border: none;
     cursor: pointer;

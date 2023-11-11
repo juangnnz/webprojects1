@@ -14,7 +14,7 @@
 
         <div class="menu" @click="toggleSubMenu('players')">Players</div>
         <div v-if="showSubmenu.players" class="submenu">
-          <div @click="navigateTo('/submenu3')">Player's ranking</div>
+          <div @click="navigateTo('/player-lists')">Player's ranking</div>
         </div>
 
         <div class="menu" @click="toggleSubMenu('store')">Store</div>

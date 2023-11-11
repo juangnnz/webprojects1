@@ -7,15 +7,15 @@
           <th class="column">Game ID</th>
           <th class="column">Size</th>
           <th class="column">HP-max</th>
-          <th>Action</th>
+          <th v-if="showActionColumn" class="column">Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="game in availableGames" :key="game.id">
+        <tr v-for="game in availableGames" :key="game.id" @click="toggleActionColumn">
           <td>{{ game.id }}</td>
           <td>{{ game.size }}</td>
           <td>{{ game.hpMax }}</td>
-          <td>
+          <td v-if="showActionColumn">
             <router-link :to="'/arena' + game.id" class="game-link">
               Enter
             </router-link>
@@ -34,7 +34,13 @@ export default {
         { id: 1, name: "Game 1", size: "5x5", hpMax: 100 },
         { id: 2, name: "Game 2", size: "8x8", hpMax: 150 },
       ],
+      showActionColumn: false,
     };
+  },
+  methods: {
+    toggleActionColumn() {
+      this.showActionColumn = !this.showActionColumn;
+    },
   },
 };
 </script>

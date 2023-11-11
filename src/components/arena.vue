@@ -13,6 +13,17 @@
     <img src="../assets/arrow.png" alt="arrow" class="arrow" style="transform: rotate(180deg);" @click="down()"/>
     <img src="../assets/arrow.png" alt="arrow" class="arrow" style="transform: rotate(-90deg);" @click="left()"/>
 
+    <!-- Leave Game Button -->
+    <button @click="leaveGame">Leave Game</button>
+
+    <!-- Attack Options -->
+    <div>
+      <h3>Choose Attack:</h3>
+      <button @click="attack1">Attack 1</button>
+      <button @click="attack2">Attack 2</button>
+      <button @click="attack3">Attack 3</button>
+    </div>
+
   </div>
 </template>
 
@@ -41,27 +52,37 @@ export default {
     left() {
       this.currentColumn--;
     },
+    leaveGame() {
+      this.$router.push('/home');
+    },
+    attack1() {
+    
+      
+    },
+    attack2() {
+    
+    },
+    attack3() {
+      
+    },
   },
   mounted() {
     this.gameId = this.$route.params.gameId;
     this.rows = parseInt(this.$route.params.rows);
-    console.log("this ", this.rows);
     this.hp = this.$route.params.hp;
     this.currentPlayer = this.$route.params.currentPlayer;
-    
   },
 };
-
 </script>
 
-<style>
 
-#title{
-    color: black;
+<style>
+#title {
+  color: black;
 }
 
-h2{
-    color: #3D5CFF;
+h2 {
+  color: #3D5CFF;
 }
 
 #gameTable {
@@ -71,25 +92,39 @@ h2{
 
 #gameTable td {
   border: 1px solid black;
- 
 }
 
 .cell {
-  width: 30px; /* Ajusta el ancho según tus necesidades */
-  height: 30px; /* Ajusta la altura según tus necesidades */
+  width: 30px;
+  height: 30px;
   background-color: white;
 }
 
 #gameTable .cursor-cell {
-    width: 30px; /* Ajusta el ancho según tus necesidades */
-  height: 30px; 
-  background-color: #E5E5FF; /* Cambiar el fondo a negro para la celda del cursor */
-  border: 2px solid #3D5CFF;
+  width: 30px;
+  height: 30px;
+  background-color: #e5e5ff;
+  border: 2px solid #3d5cff;
 }
 
-.arrow{
-    width: 60px;
-    height: 90px;
+.arrow {
+  width: 60px;
+  height: 90px;
+}
+
+/* Added styles for the Leave Game button and Attack buttons */
+button {
+  margin: 10px;
+  padding: 8px;
+  background-color: #3d5cff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #1c2d5a;
 }
 
 </style>

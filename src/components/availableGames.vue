@@ -11,11 +11,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="game in availableGames" :key="game.id" @click="toggleActionColumn">
+        <tr v-for="game in availableGames" :key="game.id" @click="toggleActionColumn(game.id)">
           <td>{{ game.id }}</td>
           <td>{{ game.size }}</td>
           <td>{{ game.hpMax }}</td>
-          <td v-if="showActionColumn">
+          <td v-if="showActionColumn && selectedGame === game.id">
             <router-link :to="'/arena' + game.id" class="game-link">
               Enter
             </router-link>
@@ -34,12 +34,13 @@ export default {
         { id: 1, name: "Game 1", size: "5x5", hpMax: 100 },
         { id: 2, name: "Game 2", size: "8x8", hpMax: 150 },
       ],
-      showActionColumn: false,
+      selectedGame: null,
     };
   },
   methods: {
-    toggleActionColumn() {
-      this.showActionColumn = !this.showActionColumn;
+    toggleActionColumn(gameId) {
+      this.showActionColumn = true; // Set this to true to always show the action column when a row is clicked
+      this.selectedGame = gameId;
     },
   },
 };

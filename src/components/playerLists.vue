@@ -4,14 +4,17 @@
 
     <input v-model="searchQuery" placeholder="Search players" class="search-input" />
 
+    <router-view></router-view>
+
     <table class="player-table">
       <thead>
         <tr>
           <th>Experience</th>
+          <th>Name</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="player in filteredPlayers" :key="player.id">
+        <tr v-for="player in filteredPlayers" :key="player.id" @click="showPlayerHistory(player.id)">
           <td>{{ player.experience }}</td>
           <td>{{ player.name }}</td>
         </tr>
@@ -50,6 +53,9 @@ export default {
   methods: {
     sortPlayersByExperience(players) {
       return players.sort((a, b) => a.experience - b.experience);
+    },
+    showPlayerHistory(playerId) {
+      this.$router.push({ name: 'player-history', params: { id: playerId } });
     },
   },
 };

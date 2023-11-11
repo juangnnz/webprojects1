@@ -150,6 +150,7 @@ export default {
   
   .game-name {
     flex: 1;
+    color: black;
   }
   
   .view-details-button {

@@ -3,17 +3,14 @@
     <h2 id="createArenaTitle">Create an Arena</h2>
     <form @submit.prevent="createGame">
       <div class="form-group">
-        <label for="gameId">Enter Game ID:</label>
         <input type="text" v-model="gameId" placeholder="Enter Game ID" id="gameId" required>
       </div>
 
       <div class="form-group">
-        <label for="matrixSize">Enter size of Arena (2-10):</label>
-        <input type="number" v-model="matrixSize" placeholder="Enter a number (2-10)" id="matrixSize" min="2" max="10" required>
+        <input type="number" v-model="matrixSize" placeholder="Enter size of Arena (2-10)" id="matrixSize" min="2" max="10" required>
       </div>
 
       <div class="form-group">
-        <label for="hp">Enter starting HP for players:</label>
         <input type="number" v-model="hp" placeholder="Enter starting HP for players" id="hp" required>
       </div>
 
@@ -33,17 +30,11 @@ export default {
   },
   methods: {
     createGame() {
-      const gameConfig = {
-        gameId: this.gameId,
-        rows: this.matrixSize,
-        columns: this.matrixSize,
-        hp: this.hp,
-        currentPlayer: "player1",
-      };
+      this.$router.push({ name: 'arena', params: { gameId: this.gameId, rows: this.matrixSize, hp: this.hp, currentPlayer: 'player1' } });
 
-      this.$router.push({ name: '', params: { gameConfig } });
-    },
-  },
+
+    }
+  }
 };
 </script>
 
@@ -69,7 +60,6 @@ label {
 }
 
 input {
- 
   width: 100%;
   padding: 10px;
   margin: 5px 0;

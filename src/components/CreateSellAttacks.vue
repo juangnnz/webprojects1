@@ -1,14 +1,10 @@
 <template>
     <div class="attack-container">
-      <h2>Create/Sell Attacks</h2>
+      <h2 id="titles">Create Attacks</h2>
   
-      <!-- Aqui form para crear el ataque -->
       <form @submit.prevent="createAttack" class="attack-form">
-        <label for="attackName">Attack Name:</label>
-        <input v-model="newAttack.name" type="text" required>
-  
-        <label for="position">Position:</label>
-        <input v-model="newAttack.position" type="text" required>
+        <input v-model="newAttack.name" type="text" placeholder="Enter attack name" class="input-field" required>
+        <input v-model="newAttack.position" type="text" placeholder="Enter positions" class="input-field" required>
   
         <label for="askingPrice">Asking Price:</label>
         <input v-model="newAttack.askingPrice" type="number" required>
@@ -17,7 +13,7 @@
       </form>
   
       <!-- Aqui se listean todos nuestros ataques -->
-      <h3>Your Attacks</h3>
+      <h3 id="titles">Your Attacks</h3>
       <ul class="attack-list">
         <li v-for="(attack, index) in userAttacks" :key="index" class="attack-item">
           <span class="attack-info">
@@ -45,7 +41,6 @@
       createAttack() {
         // aqui añadimos el ataque nuevo creado a la lista de ataques
         this.userAttacks.push({ ...this.newAttack });
-  
         
         this.newAttack = {
           name: '',
@@ -61,7 +56,23 @@
   };
   </script>
   
-  <style>
+<style>
+
+  #titles {
+    color: #3D5CFF;
+  }
+
+  .input-field {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 2px solid #3D5CFF; /* Cambia el color del borde según tus preferencias */
+  border-radius: 5px; /* Ajusta el radio según tus preferencias */
+  background-color: #ffffff; /* Fondo blanco */
+  color: #000000; /* Texto negro */
+  outline: none;
+}
+
   .attack-container {
     max-width: 600px;
     margin: 20px auto;
@@ -109,18 +120,19 @@
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
+    color: black;
   }
   
   .sell-button {
-    background-color: #ff6347;
-    color: #fff;
-    padding: 8px;
+    padding: 10px 15px;
     border: none;
+    border-radius: 5px; 
+    background-color: #3D5CFF; 
+    color: #ffffff;
     cursor: pointer;
+    outline: none; 
   }
   
-  .sell-button:hover {
-    background-color: #d32f2f;
-  }
+ 
   </style>
   

@@ -1,28 +1,24 @@
 <template>
   <div class="create-game">
-    <h2>Create an Arena</h2>
+    <h2 id="createArenaTitle">Create an Arena</h2>
     <form @submit.prevent="createGame">
       <div class="form-group">
-        <label for="gameId">Game ID:</label>
-        <input type="text" v-model="gameId" id="gameId" required>
+        <input type="text" v-model="gameId"  placeholder="Enter Game ID" id="gameId" required>
       </div>
 
       <div class="form-group">
-        <label for="rows">Number of Rows:</label>
-        <input type="number" v-model="rows" id="rows" required>
+        <input type="number" v-model="rows"  placeholder="Enter number of rows" id="rows" required>
       </div>
 
       <div class="form-group">
-        <label for="columns">Number of Columns:</label>
-        <input type="number" v-model="columns" id="columns" required>
+        <input type="number" v-model="columns"  placeholder="Enter number of columns" id="columns" required>
       </div>
 
       <div class="form-group">
-        <label for="hp">Starting HP for Players:</label>
-        <input type="number" v-model="hp" id="hp" required>
+        <input type="number" v-model="hp"  placeholder="Enter starting HP for players" id="hp" required>
       </div>
 
-      <button class="create-button" type="submit">Create Game</button>
+      <button class="create-button" type="submit">Create</button>
     </form>
   </div>
 </template>
@@ -64,11 +60,6 @@ export default {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
 .form-group {
   margin: 10px 0;
   text-align: left;
@@ -80,25 +71,32 @@ label {
 }
 
 input {
+ 
   width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
+  margin: 5px 0;
+  border: 2px solid #3D5CFF; /* Cambia el color del borde según tus preferencias */
+  border-radius: 5px; /* Ajusta el radio según tus preferencias */
+  background-color: #ffffff; /* Fondo blanco */
+  color: #000000; /* Texto negro */
+  outline: none;
 }
 
 .create-button {
-  background-color: #007BFF;
-  color: #fff;
+  padding: 10px 15px;
   border: none;
-  border-radius: 4px;
-  padding: 10px 20px;
-  font-size: 18px;
+  border-radius: 5px; /* Bordes redondos */
+  background-color: #3D5CFF; /* Fondo del color especificado */
+  color: #ffffff; /* Texto blanco */
   cursor: pointer;
-  transition: background-color 0.3s;
+  outline: none; /* Elimina el contorno predeterminado del navegador */
 }
 
 .create-button:hover {
   background-color: #0056b3;
+}
+
+#createArenaTitle {
+  color: #3D5CFF;
 }
 </style>

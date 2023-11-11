@@ -1,12 +1,12 @@
 <template>
   <div class="available-games">
-    <h2>Available Games (Not Started)</h2>
+    <h2 id="availableGamesTitle">Available Games (Not Started)</h2>
     <table>
       <thead>
         <tr>
-          <th>Game ID</th>
-          <th>Size</th>
-          <th>HP-max</th>
+          <th class="column">Game ID</th>
+          <th class="column">Size</th>
+          <th class="column">HP-max</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -46,13 +46,13 @@ export default {
   margin: 0 auto;
   padding: 20px;
   background-color: #f9f9f9;
+  color: black;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
-  font-size: 24px;
-  margin-bottom: 20px;
+#availableGamesTitle {
+  color: #3D5CFF;
 }
 
 table {
@@ -69,6 +69,10 @@ th, td {
 
 th {
   background-color: #f2f2f2;
+}
+
+.column {
+  color: black;
 }
 
 .game-link {

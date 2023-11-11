@@ -1,8 +1,7 @@
 <template>
     <div>
-      <h2> Attacks for Sale</h2>
+      <h2 id="title"> Attacks for Sale</h2>
   
-      <!-- aqui veremos todos los ataques disponibles  -->
       <ul class="attack-list">
         <li v-for="(attack, index) in attacksForSale" :key="index" class="attack-item">
           <span class="attack-info">
@@ -45,6 +44,11 @@
   </script>
   
   <style>
+
+  #title {
+  color: #3D5CFF;
+}
+
   .attack-list {
     list-style: none;
     padding: 0;

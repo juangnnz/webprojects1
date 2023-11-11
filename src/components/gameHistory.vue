@@ -1,13 +1,13 @@
 <template>
     <div class="game-history">
-      <h2>All Players Game History</h2>
+      <h2 id="playersGameTitle">Players Game History</h2>
       <table>
         <thead>
           <tr>
-            <th>Player Name</th>
-            <th>Games Played</th>
-            <th>Games Won</th>
-            <th>Show Games</th>
+            <th class="column">Player Name</th>
+            <th class="column">Games Played</th>
+            <th class="column">Games Won</th>
+            <th class="column">Show Games</th>
           </tr>
         </thead>
         <tbody>
@@ -22,7 +22,7 @@
         </tbody>
       </table>
       <div v-if="selectedPlayerGames">
-        <h3>Games Played by {{ selectedPlayerName }}</h3>
+        <h3 id="playedBy">Games Played by {{ selectedPlayerName }}</h3>
         <ul class="player-games">
           <li v-for="game in selectedPlayerGames" :key="game.id">
             {{ game.date }} - {{ game.outcome }}
@@ -50,7 +50,11 @@
   };
   </script>
   
-  <style scoped>
+<style scoped>
+
+#playersGameTitle {
+  color: #3D5CFF;
+}
   .game-history {
     padding: 20px;
     background-color: #f0f0f0;
@@ -75,6 +79,14 @@
     color: #fff;
   }
   
+.column {
+  color: #3D5CFF;
+  background: #ffffff;
+}
+
+#playedBy{
+  color: black;
+}
   button {
     background-color: #354a5e;
     color: #fff;

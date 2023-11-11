@@ -36,7 +36,7 @@
        }
      },
      login() {
-      //
+      this.$router.push('/player-info');
      }
   }
  }

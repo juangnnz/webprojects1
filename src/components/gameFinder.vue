@@ -1,7 +1,6 @@
 <template>
   <div class="game-finder">
-    <h2>List of All Games</h2>
-
+    <h2 id="searchGamesTitle">Search Games</h2>
     <div class="filters">
       <select v-model="filterStatus">
           <option value="all">All</option>
@@ -13,8 +12,9 @@
         <input type="date" v-model="startDate" />
         <input type="date" v-model="endDate" />
   
-        <label>Search:</label>
-        <input type="text" v-model="searchQuery" @input="searchGames" />
+        <div class="search-container">
+          <input v-model="searchText" type="text" class="search-input" placeholder="Search...">
+        </div>
     </div>
 
     <ul class="game-list">
@@ -88,9 +88,14 @@ export default {
 
 
 <style scoped>
+
+  #searchGamesTitle {
+    color: #3D5CFF;
+  }
   .game-finder {
     font-family: Arial, sans-serif;
     padding: 20px;
+    background-color: #ffffff;
   }
   
   .filters {
@@ -135,6 +140,28 @@ export default {
     padding: 10px;
     border: 1px solid #ccc;
   }
+
+  .search-container {
+  position: relative;
+}
+
+.search-input {
+  padding-right: 40px; /* Espacio para el ícono de búsqueda */
+  width: 200px; /* Ajusta el ancho según sea necesario */
+}
+
+.search-input::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 20px; /* Ajusta el tamaño según sea necesario */
+  height: 20px; /* Ajusta el tamaño según sea necesario */
+  background: url('../assets/profilePicture.png') no-repeat center center; 
+  background-size: cover;
+  cursor: pointer;
+}
   </style>
   
 

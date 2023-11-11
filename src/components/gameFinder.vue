@@ -3,56 +3,6 @@
     <h2 id="searchGamesTitle">Search Games</h2>
     <div class="filters">
       <select v-model="filterStatus">
-          <option value="all">All</option>
-          <option value="finished">Finished</option>
-          <option value="available">Available</option>
-        </select>
-  
-        <label>Between Dates:</label>
-        <input type="date" v-model="startDate" />
-        <input type="date" v-model="endDate" />
-  
-        <div class="search-container">
-          <input v-model="searchText" type="text" class="search-input" placeholder="Search...">
-        </div>
-    </div>
-
-    <ul class="game-list">
-      <li v-for="game in filteredGames" :key="game.id" class="game-item">
-        <span class="game-name">{{ game.name }}</span>
-        <button class="view-details-button" @click="viewGameDetails(game.id)">View Details</button>
-      </li>
-    </ul>
-
-    <div v-if="selectedGame" class="game-details">
-      <h3>Game Details</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Game ID</th>
-            <th>Size</th>
-            <th>HP_max</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{{ selectedGame.id }}</td>
-            <td>{{ selectedGame.size }}</td>
-            <td>{{ selectedGame.HP_max }}</td>
-            <td><button @click="viewRecord(selectedGame.id)">View Record</button></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</template>
-
-<template>
-  <div class="game-finder">
-    <h2 id="searchGamesTitle">Search Games</h2>
-    <div class="filters">
-      <select v-model="filterStatus">
         <option value="all">All</option>
         <option value="finished">Finished</option>
         <option value="available">Available</option>

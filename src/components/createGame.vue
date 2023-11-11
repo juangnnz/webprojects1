@@ -12,6 +12,7 @@
       </div>
 
       <div class="form-group">
+        <label for="hp">Enter starting HP for players:</label>
         <input type="number" v-model="hp" placeholder="Enter starting HP for players" id="hp" required>
       </div>
 

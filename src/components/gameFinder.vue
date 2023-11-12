@@ -2,15 +2,16 @@
   <div class="game-finder">
     <h2 id="searchGamesTitle">Search Games</h2>
     <div class="filters">
-      <select v-model="filterStatus">
+      <select v-model="filterStatus" class="selector">
         <option value="all">All</option>
         <option value="finished">Finished</option>
         <option value="available">Available</option>
       </select>
 
-      <label>Between Dates:</label>
-      <input type="date" v-model="startDate" />
-      <input type="date" v-model="endDate" />
+
+      <label id="datesLabel">Between Dates:</label>
+      <input type="date" v-model="startDate" class="dates" />
+      <input type="date" v-model="endDate" class="dates" />
 
       <div class="search-container">
         <input v-model="searchQuery" type="text" class="search-input" placeholder="Search...">
@@ -19,32 +20,12 @@
 
     <ul class="game-list">
       <li v-for="game in filteredGames" :key="game.id" class="game-item">
-        <span class="game-name">{{ game.name }}</span>
-        <button class="view-details-button" @click="viewGameDetails(game.id)">View Details</button>
+        <span class="game-name">{{ game.name }} - {{ game.size }} with hp {{game.HP_max}},
+        Period: {{game.startDate}} - {{game.endDate}} </span>
+        <button v-if="game.status === 'finished'" @click="viewRecord(game)">View Record</button>
       </li>
     </ul>
 
-    <div v-if="selectedGame" class="game-details">
-      <h3>Game Details</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Game ID</th>
-            <th>Size</th>
-            <th>HP_max</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{{ selectedGame.id }}</td>
-            <td>{{ selectedGame.size }}</td>
-            <td>{{ selectedGame.HP_max }}</td>
-            <td><button @click="viewRecord(selectedGame.id)">View Record</button></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
   </div>
 </template>
 
@@ -59,7 +40,7 @@ export default {
           status: 'finished',
           startDate: '2023-01-01',
           endDate: '2023-01-10',
-          size: 'Large',
+          size: '5',
           HP_max: 100,
         },
         {
@@ -68,7 +49,7 @@ export default {
           status: 'available',
           startDate: '2023-02-15',
           endDate: '2023-02-28',
-          size: 'Medium',
+          size: '3',
           HP_max: 150,
         },
         {
@@ -77,7 +58,7 @@ export default {
           status: 'available',
           startDate: '2023-03-01',
           endDate: '2023-03-15',
-          size: 'Small',
+          size: '2',
           HP_max: 80,
         },
       ],
@@ -102,15 +83,11 @@ export default {
     },
   },
   methods: {
-    viewRecord(gameId) {
-      console.log(`View Record for Game ID: ${gameId}`);
-      //aqui vemos el record del juego
-    },
-    viewGameDetails(gameId) {
-      // aqui se ven los detalles del juego
-      this.selectedGame = this.games.find((game) => game.id === gameId);
+    viewRecord(game) {
+      this.$router.push({name: 'RecordGameById', params: { gameName: game.name, rows: game.size } });
     },
   },
+  
 };
 </script>
 
@@ -129,10 +106,26 @@ export default {
   
   .filters {
     margin-bottom: 20px;
+
   }
   
   .filters label {
     margin-right: 10px;
+  }
+
+  .selector{
+    background: #3D5CFF;
+  }
+
+  .dates{
+      color: white;
+      background-color: black;
+      padding: 10px;
+      border: 1px solid white;
+      border-radius: 5px;
+      filter: invert(1); 
+      width: 100px;
+
   }
   
   .game-list {
@@ -142,6 +135,7 @@ export default {
   
   .game-item {
     display: flex;
+    text-align: left;
     align-items: center;
     border: 1px solid #ccc;
     padding: 10px;
@@ -153,6 +147,11 @@ export default {
     color: black;
   }
   
+  #datesLabel{
+    color: black;
+    margin-top: 15px;
+  }
+
   .view-details-button {
     background-color: #354a5e;
     color: #fff;
@@ -176,8 +175,14 @@ export default {
 }
 
 .search-input {
-  padding-right: 40px; /* Espacio para el ícono de búsqueda */
-  width: 200px; /* Ajusta el ancho según sea necesario */
+   width: 200px;
+  height: 30px;
+  padding: 10px;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  background: white;
+  color: black;
+  margin-top: 15px;
 }
 
 .search-input::after {

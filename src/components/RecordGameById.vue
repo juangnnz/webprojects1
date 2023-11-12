@@ -1,8 +1,7 @@
 <template>
     <div class="block2">
       <div class="block1">
-        <h2>{{ gameId }}</h2>
-        <p class="record-text">Record game ID</p>
+        <p class="record-text">Record {{gameName}}</p>
         <table id="gameTable">
           <tr v-for="row in rows" :key="row">
             <td
@@ -23,13 +22,16 @@
         <p>Example 1: Attack 1 used</p>
         <p>Example 2: Attack 2 used</p>
         <p>Example 3: Attack 3 used</p>
-  
+      </div>
+
+      <div class="block4">
         <h3>Movement History:</h3>
         <p>Example 1: Moved up</p>
         <p>Example 2: Moved down</p>
         <p>Example 3: Moved right</p>
         <p>Example 4: Moved left</p>
       </div>
+      
     </div>
   </template>
   
@@ -37,7 +39,7 @@
   export default {
     data() {
       return {
-        gameId: '',
+        gameName: '',
         rows: 0,
         hp: 0,
         currentPlayer: '',
@@ -46,10 +48,9 @@
       };
     },
     mounted() {
-      this.gameId = this.$route.params.gameId;
+      this.gameName = this.$route.params.gameName;
       this.rows = parseInt(this.$route.params.rows);
-      this.hp = this.$route.params.hp;
-      this.currentPlayer = this.$route.params.currentPlayer;
+  
     },
   };
   </script>
@@ -59,8 +60,9 @@
     color: black;
   }
   
-  h2 {
+  #h2 {
     color: #3D5CFF;
+
   }
   
   h3 {
@@ -68,7 +70,7 @@
   }
   
   .block1 {
-    margin-left: 90px;
+    margin-left: 50px;
     display: flex;
     flex-direction: column;
     width: 300px;
@@ -77,20 +79,33 @@
   
   .record-text {
     color: #3D5CFF;
+    font-weight: bold;
+    margin-top: 35px;
+    margin-bottom: 50px;
   }
   
   .block2 {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    width: 1000px;
   }
   
   .block3 {
     display: flex;
     flex-direction: column;
-    margin-top: 60px;
     margin-left: 50px;
     width: 300px;
     height: 400px;
+    margin-top: 25px;
+  }
+
+  .block4{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 400px;
+    margin-left: 50px;
   }
   
   #gameTable {
@@ -116,5 +131,9 @@
     border: 2px solid #3d5cff;
   }
   
+  p{
+
+    color: black;
+  }
   </style>
   

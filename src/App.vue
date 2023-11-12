@@ -10,7 +10,7 @@
             <li><router-link to="/create-game" class="titles">Game</router-link>
               <ul class="submenu">
                 <li><router-link to="/create-game" class="titles">Create an Arena</router-link></li>
-                <li><router-link to="/available-games" class="titles">Show Available Games (Not Started)</router-link></li>
+                <li><router-link to="/available-games" class="titles">Show Available Games</router-link></li>
                 <li><router-link to="/game-finder" class="titles">Search games</router-link></li>
                 <li><router-link to="/game-history" class="titles">Players Game History</router-link></li>
               </ul>
@@ -36,6 +36,7 @@
           </ul>
         </nav>
       </div>
+
     </header>
     <router-view></router-view>
     
@@ -70,6 +71,7 @@ export default {
 
 <style>
 
+
 body, #app {
   margin: 0;
   padding: 0;
@@ -83,8 +85,8 @@ body, #app {
   align-items: row; /* Centra verticalmente */
   justify-content: flex-start ; /* Alinea a la izquierda */
   padding: 10px;
-  background: #ffffff;
   flex-direction: row; 
+   background: white;
 }
 
 .logo {
@@ -94,7 +96,7 @@ body, #app {
   height: 150px;
 }
 
-.titles {
+.titles{
   color: black;
 }
 
@@ -116,48 +118,33 @@ body, #app {
   background: white;
 }
 
-.submenu {
-  background: #cccccc; 
-}
-
-.submenu li {
-  background: #cccccc;
-}
-
-.submenu li:hover .titles {
-  color: blue; 
-}
-
 .titles:hover {
-  color: blue; 
-  background: #cccccc; 
-}
-
-.subsystem {
+  color: blue; /* Color al pasar el mouse sobre el enlace */
   background: white;
 }
 
-.logoDiv {
+.subsystem{
+  background: white;
+}
+.logoDiv{
   width: 65px;
   height: 60px;
 }
-
 .profile-image {
   width: 65px;
   height: 60px;
   border-radius: 50%;
 }
 
-router-view {
-  margin: 10px;
-  background-color: white;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+ router-view {
+    margin: 20px;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
 
 #router-container:hover {
-  background-color: #ffffff;
+  
+  background-color: #white;
 }
-
 </style>
-

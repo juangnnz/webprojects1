@@ -1,6 +1,6 @@
 <template>
   
-  <div class="block2">
+  <div id="block2">
     <div class="block1">
         <h2>{{gameId}}</h2>
         <table id="gameTable">
@@ -28,7 +28,8 @@
         <img src="../assets/arrow.png" alt="arrow" class="arrow" style="transform: rotate(90deg);" @click="right()"/>
         <img src="../assets/arrow.png" alt="arrow" class="arrow" style="transform: rotate(-90deg);" @click="left()"/>
     </div>
-   </div>
+  </div>
+ 
   
 </template>
 
@@ -94,27 +95,27 @@ h3{
     color: black;
 }
 
+#block2{
+    display: flex;
+    flex-direction: row;
+    max-width: 9000px;
+}
+
 .block1{
-     margin-left: 90px;
-      display: flex;
+    display: flex;
     flex-direction: column;
     width: 300px;
     height: 400px;
+    margin-left: 80px;
 
-}
-
-.block2{
-    display: flex;
-    flex-direction: row;
 }
 
 .block3{
     display: flex;
     flex-direction: column;
-    margin-top: 60px;
-    margin-left: 50px;
     width: 300px;
     height: 400px;
+    margin-left: 100px;
 }
 
 .block4{
@@ -124,10 +125,9 @@ h3{
 .block5{
     display: flex;
     flex-direction: column;
-    margin-top: 60px;
-    margin-left: 150px;
     width: 300px;
     height: 400px;
+    margin-left: 120px;
 }
 
 #gameTable {
@@ -168,10 +168,6 @@ button {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-}
-
-button:hover {
-  background-color: white;
 }
 
 .leave-game-btn{

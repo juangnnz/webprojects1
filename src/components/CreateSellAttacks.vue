@@ -132,7 +132,6 @@
   
   .attack-list {
     list-style: none;
-    padding: 0;
   }
   
   .attack-item {

@@ -1,6 +1,6 @@
 <template>
   <div class="available-games">
-    <h2 id="availableGamesTitle">Available Games (Not Started)</h2>
+    <h2 id="availableGamesTitle">Available Arenas</h2>
     <table>
       <thead>
         <tr>

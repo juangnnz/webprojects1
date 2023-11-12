@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="sale-attacks">
     <h2 id="title">Attacks on Sale</h2>
 
     <ul class="attack-list">
@@ -48,6 +48,12 @@ export default {
   color: #3D5CFF;
 }
 
+#sale-attacks{
+
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
 .attack-list {
   list-style: none;
   padding: 0;

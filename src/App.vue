@@ -36,7 +36,6 @@
           </ul>
         </nav>
       </div>
-
     </header>
     <router-view></router-view>
     
@@ -95,7 +94,7 @@ body, #app {
   height: 150px;
 }
 
-.titles{
+.titles {
   color: black;
 }
 
@@ -117,33 +116,48 @@ body, #app {
   background: white;
 }
 
+.submenu {
+  background: #cccccc; 
+}
+
+.submenu li {
+  background: #cccccc;
+}
+
+.submenu li:hover .titles {
+  color: blue; 
+}
+
 .titles:hover {
-  color: blue; /* Color al pasar el mouse sobre el enlace */
+  color: blue; 
+  background: #cccccc; 
+}
+
+.subsystem {
   background: white;
 }
 
-.subsystem{
-  background: white;
-}
-.logoDiv{
+.logoDiv {
   width: 65px;
   height: 60px;
 }
+
 .profile-image {
   width: 65px;
   height: 60px;
   border-radius: 50%;
 }
 
- router-view {
-    margin: 20px;
-    background-color: white;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
+router-view {
+  margin: 10px;
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
 #router-container:hover {
-  
-  background-color: #white;
+  background-color: #ffffff;
 }
+
 </style>
+

@@ -66,9 +66,30 @@ button:focus-visible {
   text-align: center;
 }
 
+.submenu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid black; /* Add a thin black line between options */
+  background-color: #808080; /* Set background color to grey */
+}
+
 .submenu li {
   display: block;
-  margin: 5px 0;
+  margin: 0;
+  border-bottom: 1px solid black; /* Add a thin black line between options */
+}
+
+.submenu li:hover {
+  background-color: transparent; /* Set background color to transparent */
+  color: #535bf2; /* Change text color to blue on hover */
+  border-bottom: none; /* Remove the border from the hovered option */
+}
+
+.submenu li:last-child {
+  border-bottom: none; /* Remove the border from the last option */
 }
 
 @media (prefers-color-scheme: light) {

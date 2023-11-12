@@ -7,7 +7,7 @@
       <div v-if="!isHomeOrSignupRoute" class="menu">
         <nav >
           <ul class="menu">
-            <li><router-link to="/" class="titles">Game</router-link>
+            <li><router-link to="/create-game" class="titles">Game</router-link>
               <ul class="submenu">
                 <li><router-link to="/create-game" class="titles">Create an Arena</router-link></li>
                 <li><router-link to="/available-games" class="titles">Show Available Games (Not Started)</router-link></li>
@@ -15,12 +15,12 @@
                 <li><router-link to="/game-history" class="titles">Game History</router-link></li>
               </ul>
             </li>
-            <li><router-link to="/" class="titles">Players</router-link>
+            <li><router-link to="/player-lists" class="titles">Players</router-link>
               <ul class="submenu">
                 <li><router-link to="/player-lists" class="titles">Player's Ranking</router-link></li>
               </ul>
             </li>
-            <li ><router-link to="/" class="titles">Store</router-link>
+            <li ><router-link to="/create-sell-attacks" class="titles">Store</router-link>
               <ul class="submenu">
                 <li><router-link to="/create-sell-attacks" class="titles">Sell/Create Attacks</router-link></li>
                 <li><router-link to="/buy-attacks" class="titles">Buy Attacks</router-link></li>

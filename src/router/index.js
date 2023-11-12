@@ -17,7 +17,8 @@ import home from '../components/home.vue';
 
 const routes = [
 
-
+  
+  { path: '/', redirect: '/home' },
   {
     path: '/main-menu',
     name: 'MainMenu',

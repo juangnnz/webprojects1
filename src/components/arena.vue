@@ -1,30 +1,35 @@
 <template>
-  <div>
-    <h2>{{gameId}}</h2>
-    <table id="gameTable">
-      <tr v-for="row in rows" :key="row">
-        <!-- Crear celdas en cada fila según la longitud de la tabla -->
-        <td v-for="col in rows" :key="col" :class="{ 'cell': true, 'cursor-cell': row === currentRow && col === currentColumn }"></td>
-      </tr>
-    </table>
-
-    <img src="../assets/arrow.png" alt="arrow" class="arrow" @click="up()"/>
-    <img src="../assets/arrow.png" alt="arrow" class="arrow" style="transform: rotate(90deg);" @click="right()"/>
-    <img src="../assets/arrow.png" alt="arrow" class="arrow" style="transform: rotate(180deg);" @click="down()"/>
-    <img src="../assets/arrow.png" alt="arrow" class="arrow" style="transform: rotate(-90deg);" @click="left()"/>
-
-    <!-- Leave Game Button -->
-    <button @click="leaveGame">Leave Game</button>
+  
+  <div class="block2">
+    <div class="block1">
+        <h2>{{gameId}}</h2>
+        <table id="gameTable">
+            <tr v-for="row in rows" :key="row">
+                <!-- Crear celdas en cada fila según la longitud de la tabla -->
+                <td v-for="col in rows" :key="col" :class="{ 'cell': true, 'cursor-cell': row === currentRow && col === currentColumn }"></td>
+            </tr>
+        </table>
+        <!-- Leave Game Button -->
+        <div class="block4">
+            <button @click="leaveGame" class="leave-game-btn">Leave Game</button>
+        </div>
+    </div>
 
     <!-- Attack Options -->
-    <div>
-      <h3>Choose Attack:</h3>
+    <div class="block3">
+      <h3>Attack with:</h3>
       <button @click="attack1">Attack 1</button>
       <button @click="attack2">Attack 2</button>
       <button @click="attack3">Attack 3</button>
     </div>
-
-  </div>
+    <div class="block5">  
+        <img src="../assets/arrow.png" alt="arrow" class="arrow" @click="up()"/>
+        <img src="../assets/arrow.png" alt="arrow" class="arrow" style="transform: rotate(180deg);" @click="down()"/>
+        <img src="../assets/arrow.png" alt="arrow" class="arrow" style="transform: rotate(90deg);" @click="right()"/>
+        <img src="../assets/arrow.png" alt="arrow" class="arrow" style="transform: rotate(-90deg);" @click="left()"/>
+    </div>
+   </div>
+  
 </template>
 
 <script>
@@ -53,7 +58,7 @@ export default {
       this.currentColumn--;
     },
     leaveGame() {
-      this.$router.push('/main-menu');
+      this.$router.push('/available-games');
     },
     attack1() {
     
@@ -85,9 +90,50 @@ h2 {
   color: #3D5CFF;
 }
 
+h3{
+    color: black;
+}
+
+.block1{
+     margin-left: 90px;
+      display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 400px;
+
+}
+
+.block2{
+    display: flex;
+    flex-direction: row;
+}
+
+.block3{
+    display: flex;
+    flex-direction: column;
+    margin-top: 60px;
+    margin-left: 50px;
+    width: 300px;
+    height: 400px;
+}
+
+.block4{
+    margin-top: 20px;
+}
+
+.block5{
+    display: flex;
+    flex-direction: column;
+    margin-top: 60px;
+    margin-left: 150px;
+    width: 300px;
+    height: 400px;
+}
+
 #gameTable {
   border-collapse: collapse;
-  width: 100%;
+  width: 300px;
+  height: 300px;
 }
 
 #gameTable td {
@@ -105,6 +151,7 @@ h2 {
   height: 30px;
   background-color: #e5e5ff;
   border: 2px solid #3d5cff;
+  
 }
 
 .arrow {
@@ -112,7 +159,7 @@ h2 {
   height: 90px;
 }
 
-/* Added styles for the Leave Game button and Attack buttons */
+/* Added styles for the Attack buttons */
 button {
   margin: 10px;
   padding: 8px;
@@ -124,7 +171,17 @@ button {
 }
 
 button:hover {
-  background-color: #1c2d5a;
+  background-color: #white;
 }
+
+.leave-game-btn{
+    width: 200px;
+    height: 35px;
+    border: 2px solid #3D5CFF; 
+    border-radius: 4px;
+    background-color: white;
+    color: black;
+}
+
 
 </style>

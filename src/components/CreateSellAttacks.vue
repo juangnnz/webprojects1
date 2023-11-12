@@ -5,10 +5,6 @@
       <form @submit.prevent="createAttack" class="attack-form">
         <input v-model="newAttack.name" type="text" placeholder="Enter attack name" class="input-field" required>
         <input v-model="newAttack.position" type="text" placeholder="Enter positions" class="input-field" required>
-  
-        <label for="askingPrice">Asking Price:</label>
-        <input v-model="newAttack.askingPrice" type="number" required>
-  
         <button class="button" type="submit">Create Attack</button>
       </form>
   
@@ -17,9 +13,11 @@
       <ul class="attack-list">
         <li v-for="(attack, index) in userAttacks" :key="index" class="attack-item">
           <span class="attack-info">
-            {{ attack.name }} - Position: {{ attack.position }} - Asking Price: {{ attack.askingPrice }}
+            {{ attack.name }} - Position: {{ attack.position }} 
           </span>
-          <button @click="sellAttack(index)" class="button">Sell</button>
+          <label for="askingPrice">Asking Price:</label>
+          <input v-model="attack.askingPrice" type="number" required>
+          <button @click="sellAttack(index)" class="button">{{ textButton }}</button>
         </li>
       </ul>
     </div>
@@ -35,6 +33,7 @@
           askingPrice: 0,
         },
         userAttacks: [],
+        textButton: 'Sell',
       };
     },
     methods: {
@@ -49,8 +48,11 @@
         };
       },
       sellAttack(index) {
-        // aqui vendemos el ataque y ya usamos API para actualizar la info
-        alert(`Selling attack: ${this.userAttacks[index].name}`);
+        if (this.textButton=='Sell'){
+          // aqui vendemos el ataque y ya usamos API para actualizar la info
+          alert(`Selling attack: ${this.userAttacks[index].name}`);
+          this.textButton = 'In store';
+        }
       },
     },
   };
@@ -77,8 +79,8 @@
     max-width: 600px;
     margin: 20px auto;
     padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    
   }
   
   .attack-form {

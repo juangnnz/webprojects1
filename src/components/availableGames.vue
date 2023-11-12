@@ -20,7 +20,7 @@
           <td>{{ game.size }}</td>
           <td>{{ game.hpMax }}</td>
           <td v-if="selectedGame === game.id" class="action-column">
-            <router-link :to="'/arena' + game.id" class="game-link">
+            <router-link :to="'/arena/' + game.id + '/' + game.size+ '/' + game.hpMax + '/player1'" class="game-link">
               Enter
             </router-link>
           </td>
@@ -56,10 +56,8 @@ export default {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #f9f9f9;
   color: black;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+ 
 }
 
 #availableGamesTitle {

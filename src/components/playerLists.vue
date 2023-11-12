@@ -1,31 +1,35 @@
 <template>
-  <div class="list-players">
-    <h2>Player's Ranking</h2>
+    <div class="list-players">
+      <div class="block1">
+        <h2>Player's Ranking</h2>
+        <input v-model="searchQuery" placeholder="Search players" class="search-input" />
+      </div>
 
-    <input v-model="searchQuery" placeholder="Search players" class="search-input" />
+      <div>
+        <router-view></router-view>
 
-    <router-view></router-view>
+        <table class="player-table">
+          <thead>
+            <tr>
+              <th>Ranking according to Experience</th>
+              <th>Player Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="player in filteredPlayers" :key="player.id" @click="showPlayerHistory(player.id)">
+              <td>{{ player.experience }}</td>
+              <td>{{ player.name }}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="2">Total Players: {{ filteredPlayers.length }}</td>
+            </tr>
+          </tfoot>
+        </table>
+        </div>
 
-    <table class="player-table">
-      <thead>
-        <tr>
-          <th>Experience</th>
-          <th>Name</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="player in filteredPlayers" :key="player.id" @click="showPlayerHistory(player.id)">
-          <td>{{ player.experience }}</td>
-          <td>{{ player.name }}</td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td colspan="2">Total Players: {{ filteredPlayers.length }}</td>
-        </tr>
-      </tfoot>
-    </table>
-  </div>
+   </div>
 </template>
 
 <script>
@@ -66,37 +70,42 @@ export default {
 
 <style scoped>
 .list-players {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f5f5f5;
-  border-radius: 10px;
+  width: 800px;
+  display: flex;
+  flex-direction: column;
+  margin-left:195px;
 }
 
 .search-input {
-  width: 100%;
+  width: 200px;
+  height: 30px;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #000000;
   border-radius: 5px;
-  margin-bottom: 20px;
+  background: white;
+  color: black;
+  margin-top: 5px;
+  margin-left: 325px;
 }
 
 .player-table {
-  width: 100%;
+  width: 750px;
   border-collapse: collapse;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-color: #fff;
+  margin-top: 10px;
 }
 
 .player-table th {
-  background-color: #354a5e;
-  color: #fff;
-  padding: 10px;
-  text-align: left;
+  background-color: white;
+  color: #3D5CFF;
+  padding: 20px;
+  text-align: center;
 }
 
 .player-table td {
   padding: 10px;
+  color: black;
 }
 
 .player-table tr:nth-child(even) {
@@ -105,5 +114,13 @@ export default {
 
 .player-table tr:hover {
   background-color: #e0e0e0;
+}
+
+.block1{
+  display:flex;
+  flex-direction:row;
+  width:100%;
+  height:100%;
+  margin-left:0px;
 }
 </style>

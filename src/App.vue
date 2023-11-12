@@ -1,46 +1,47 @@
 <template>
   <div id="app">
-    <header>
-      <img src="src/assets/logo.png" alt="logo" />
-      <div v-if="!isHomeOrSignupRoute">
-        <label class="menu" @click="toggleSubMenu('game')">Game</label>
-          <div v-if="showSubmenu.game" class="submenu">
-          <div @click="navigateTo('/create-game')">Create an Arena</div>
-          <div @click="navigateTo('/available-games')">Enter Available Arena</div>
-          <div @click="navigateTo('/game-finder')">Search Games</div>
-          <div @click="navigateTo('/game-history')">Game history</div>
-         
-        </div>
+    <header id ="logoMenu">
 
-        <div class="menu" @click="toggleSubMenu('players')">Players</div>
-        <div v-if="showSubmenu.players" class="submenu">
-          <div @click="navigateTo('/player-lists')">Player's ranking</div>
-        </div>
-
-        <div class="menu" @click="toggleSubMenu('store')">Store</div>
-        <div v-if="showSubmenu.store" class="submenu">
-          <div @click="navigateTo('/create-sell-attacks')">Sell/Create Attacks </div>
-          <div @click="navigateTo('/buy-attacks')">Buy Attacks</div>
-        </div>
-
-        <div  @click="toggleSubMenu('profile')" class="profile-container">
-          <img src="src/assets/profilePicture.png" alt="profile" class="profile-image" />
-        </div>
-        <div v-if="showSubmenu.profile" class="submenu">
-          <div @click="navigateTo('/player-info')">Your profile</div>
-          <div @click="navigateTo('/attacks')">Manage attacks</div>
-         
-        </div>
-
+      <img src="src/assets/logo.png" alt="logo" class="logo"/>
+     
+      <div v-if="!isHomeOrSignupRoute" class="menu">
+        <nav >
+          <ul class="menu">
+            <li><router-link to="/" class="titles">Game</router-link>
+              <ul class="submenu">
+                <li><router-link to="/create-game" class="titles">Create an Arena</router-link></li>
+                <li><router-link to="/available-games" class="titles">Show Available Games (Not Started)</router-link></li>
+                <li><router-link to="/game-finder" class="titles">Search games</router-link></li>
+                <li><router-link to="/game-history" class="titles">Game History</router-link></li>
+              </ul>
+            </li>
+            <li><router-link to="/" class="titles">Players</router-link>
+              <ul class="submenu">
+                <li><router-link to="/player-lists" class="titles">Player's Ranking</router-link></li>
+              </ul>
+            </li>
+            <li ><router-link to="/" class="titles">Store</router-link>
+              <ul class="submenu">
+                <li><router-link to="/create-sell-attacks" class="titles">Sell/Create Attacks</router-link></li>
+                <li><router-link to="/buy-attacks" class="titles">Buy Attacks</router-link></li>
+              </ul>
+            </li>
+            <li >
+              <img src="src/assets/profilePicture.png" alt="Profile" class="profile-image" />
+              <ul class="submenu">
+                <li><router-link to="/player-info" class="titles">Your Profile</router-link></li>
+                <li><router-link to="/attacks" class="titles">Manage Attacks</router-link></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
       </div>
+
     </header>
-
     <router-view></router-view>
-
-    <footer>
-      <!-- Pie de página común -->
-    </footer>
+    
   </div>
+  
 </template>
 
 <script>
@@ -55,20 +56,9 @@ export default {
     };
   },
   methods: {
-    navigateTo(route) {
-      this.$router.push(route);
-    },
     toggleSubMenu(menu) {
-      // Alternar el estado del submenú al hacer clic en el menú correspondiente
       this.showSubmenu[menu] = !this.showSubmenu[menu];
-
-      // Ocultar otros submenús cuando se abre uno
-      for (const key in this.showSubmenu) {
-        if (key !== menu) {
-          this.showSubmenu[key] = false;
-        }
-      }
-    }
+    },
   },
   computed: {
     isHomeOrSignupRoute() {
@@ -80,41 +70,80 @@ export default {
 
 
 <style>
+
 body, #app {
   margin: 0;
   padding: 0;
   height: 100vh;
   weight: 100vh;
+  background: white;
 }
 
-header {
+#logoMenu {
   display: flex;
-  align-items: center; /* Centra verticalmente */
+  align-items: row; /* Centra verticalmente */
   justify-content: flex-start ; /* Alinea a la izquierda */
-  background-color: #ffffff !important; /* Fondo blanco */
   padding: 10px;
+  background: #ffffff;
+  flex-direction: row; 
 }
 
-#logo {
-  margin-right: auto; /* Mueve el logo hacia la izquierda lo máximo posible */
-  width: 100px; /* Ajusta el tamaño según sea necesario */
+.logo {
+  margin-left: 60px; 
+  margin-top: 30px;
+  width: 300px; 
+  height: 150px;
 }
 
-.menu {
-  color: black; 
-}
-
-.submenu {
-  display: inline-block;
-  padding: 10px;
-  background-color: #ddd;
-  margin-top: 5px;
+.titles{
   color: black;
 }
 
+.menu {
+  margin-left: 390px; 
+  background: white;
+}
+
+.menu ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background: white;
+}
+
+.menu li {
+  display: inline-block;
+  margin-right: 10px;
+  background: white;
+}
+
+.titles:hover {
+  color: blue; /* Color al pasar el mouse sobre el enlace */
+  background: white;
+}
+
+.subsystem{
+  background: white;
+}
+.logoDiv{
+  width: 65px;
+  height: 60px;
+}
 .profile-image {
   width: 65px;
   height: 60px;
   border-radius: 50%;
+}
+
+ router-view {
+    margin: 20px;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+#router-container:hover {
+  
+  background-color: #white;
 }
 </style>

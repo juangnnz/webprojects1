@@ -55,13 +55,6 @@ export default {
   background-color: #ffffff;
 }
 
-/* esto es como si fuera un if para cierrtas pantallas */
-@media (max-width: 768px) {
-  .login-form {
-    padding: 0;
-  }
-}
-
 .input-field {
   width: 100%;
   padding: 10px;

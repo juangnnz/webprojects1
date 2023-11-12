@@ -1,32 +1,36 @@
 <template>
-  <section class="player-info">
-    <header class="player-info-header">
-      <h1 class="info-title">Welcome {{ playerName }} !</h1>
-    </header>
-    <main class="player-info-main">
-      <div class="info-details">
 
-          <dt class="info-value">Experience: {{ playerExperience }}</dt>
-          <dt class="info-value">Level: {{ playerLevel }}</dt>
-          <dt class="info-value">Coins: {{ playerCoins }}</dt>
-          <dt class="info-value">Backpacked Attacks: {{ backpackedAttacks }}</dt>
-        <div class="info-attacks">
-          <dt class="info-value">Equipped Attacks:</dt>
-          <ul class="game-list">
-            <li v-for="game in equippedAttacksGames" :key="game.id" class="game-item">
-              <span class="game-name">{{ game.name }}:</span>
-              <span class="game-attacks">{{ game.equippedAttacks }}</span>
-            </li>
-          </ul>
-        </div>
-        
-      </div>
+  <div class="player-info">
+      <section >
+        <header class="player-info-header">
+          <h1 class="info-title">Welcome {{ playerName }} !</h1>
+        </header>
+        <main class="player-info-main">
+          <div class="info-details">
+
+              <dt class="info-value">Experience: {{ playerExperience }}</dt>
+              <dt class="info-value">Level: {{ playerLevel }}</dt>
+              <dt class="info-value">Coins: {{ playerCoins }}</dt>
+              <dt class="info-value">Backpacked Attacks: {{ backpackedAttacks }}</dt>
+            <div class="info-attacks">
+              <dt class="info-value">Equipped Attacks:</dt>
+              <ul class="game-list">
+                <li v-for="game in equippedAttacksGames" :key="game.id" class="game-item">
+                  <span class="game-name">{{ game.name }}:</span>
+                  <span class="game-attacks">{{ game.equippedAttacks }}</span>
+                </li>
+              </ul>
+            </div>
+            
+          </div>
+        </main>
+      </section>
+
       <div class="display-btn">
-        <button @click="logOut" class="btn">Log Out</button>
-        <button @click="deleteAccount" class="btn">Delete Account</button>
+            <button @click="logOut" class="btn" style="margin-top: 40px;">Log Out</button>
+            <button @click="deleteAccount" class="btn">Delete Account</button>
       </div>
-    </main>
-  </section>
+  </div>
 </template>
 
 
@@ -34,7 +38,7 @@
 export default {
   data() {
     return {
-      playerName: "Edou is beautiful",
+      playerName: "Edou",
       playerExperience: 5000,
       playerLevel: 10,
       playerCoins: 1000,
@@ -72,18 +76,19 @@ export default {
     background-color: #ffffff;
     color: #fff;
     padding: 20px;
-    border: 2px solid #354a5e;
-    border-radius: 10px;
     display: flex;
-    flex-direction: column; /* Cambio de dirección a columna */
-    align-items: flex-start; /* Alinea a la izquierda */
+    flex-direction: row; 
+    margin-left: 60px;
+   
   }
 
   .player-info-header {
     width: 100%; /* Ancho completo */
-    margin-bottom: 20px; /* Espaciado entre el título y la información */
+    margin-bottom: 5px; /* Espaciado entre el título y la información */
     display: flex;
     align-items: flex-start;
+    background: #ffffff;
+   
   }
 
   .info-title {
@@ -110,6 +115,7 @@ export default {
     flex-direction: column;
     align-items: center; /* Centra verticalmente */
     justify-content: center; 
+    margin-left: 200px;
   }
 
   .info-attacks {
@@ -151,8 +157,9 @@ export default {
     background-color: #ffffff;
     color: #000000;
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: 25px;
     margin-top: 10px;
+    width: 300px;
   }
 
 </style>

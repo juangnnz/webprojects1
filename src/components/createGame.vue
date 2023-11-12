@@ -3,15 +3,18 @@
     <h2 id="createArenaTitle">Create an Arena</h2>
     <form @submit.prevent="createGame">
       <div class="form-group">
-        <input type="text" v-model="gameId" placeholder="Enter Game ID" id="gameId" required>
+        <label id="createArenaTitle">Enter Game ID</label>
+        <input type="text" v-model="gameId" id="gameId" required>
       </div>
 
       <div class="form-group">
-        <input type="number" v-model="matrixSize" placeholder="Enter size of Arena (2-10)" id="matrixSize" min="2" max="10" required>
+        <label id="createArenaTitle">Enter size of Arena (2-10)</label>
+        <input type="number" v-model="matrixSize" id="matrixSize" min="2" max="10" required>
       </div>
 
       <div class="form-group">
-        <input type="number" v-model="hp" placeholder="Enter starting HP for players" id="hp" required>
+        <label id="createArenaTitle">Enter starting HP for players</label>
+        <input type="number" v-model="hp" id="hp" required>
       </div>
 
       <button class="create-button" type="submit">Create</button>
@@ -44,9 +47,7 @@ export default {
   max-width: 400px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: white;
 }
 
 .form-group {

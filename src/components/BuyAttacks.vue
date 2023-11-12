@@ -24,7 +24,7 @@
           { name: 'Thunder ', position: 'Melee', askingPrice: 25 },
           { name: 'Tornadooo', position: 'Short Range', askingPrice: 40 },
         ],
-        userCoins: 50,
+        userCoins: 100,
       };
     },
     methods: {

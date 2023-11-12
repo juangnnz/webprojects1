@@ -6,15 +6,16 @@
 
     <!-- Filters section containing dropdown, date inputs, and search bar -->
     <div class="filters">
-      <select v-model="filterStatus">
+      <select v-model="filterStatus" class="selector">
         <option value="all">All</option>
         <option value="finished">Finished</option>
         <option value="available">Available</option>
       </select>
 
-      <label>Between Dates:</label>
-      <input type="date" v-model="startDate" />
-      <input type="date" v-model="endDate" />
+
+      <label id="datesLabel">Between Dates:</label>
+      <input type="date" v-model="startDate" class="dates" />
+      <input type="date" v-model="endDate" class="dates" />
 
       <!-- Search bar with a search icon -->
       <div class="search-container">
@@ -25,36 +26,12 @@
     <!-- List of games displayed based on applied filters -->
     <ul class="game-list">
       <li v-for="game in filteredGames" :key="game.id" class="game-item">
-        <!-- Displaying game name and a button to view details -->
-        <span class="game-name">{{ game.name }}</span>
-        <button class="view-details-button" @click="viewGameDetails(game.id)">View Details</button>
+        <span class="game-name">{{ game.name }} - {{ game.size }} with hp {{game.HP_max}},
+        Period: {{game.startDate}} - {{game.endDate}} </span>
+        <button v-if="game.status === 'finished'" @click="viewRecord(game)">View Record</button>
       </li>
     </ul>
 
-    <!-- Display game details when a game is selected -->
-    <div v-if="selectedGame" class="game-details">
-      <h3>Game Details</h3>
-      <!-- Table showing specific details of the selected game -->
-      <table>
-        <thead>
-          <tr>
-            <th>Game ID</th>
-            <th>Size</th>
-            <th>HP_max</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{{ selectedGame.id }}</td>
-            <td>{{ selectedGame.size }}</td>
-            <td>{{ selectedGame.HP_max }}</td>
-            <!-- Button to view records for the selected game -->
-            <td><button @click="viewRecord(selectedGame.id)">View Record</button></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
   </div>
 </template>
 
@@ -69,7 +46,7 @@ export default {
           status: 'finished',
           startDate: '2023-01-01',
           endDate: '2023-01-10',
-          size: 'Large',
+          size: '5',
           HP_max: 100,
         },
         {
@@ -78,7 +55,7 @@ export default {
           status: 'available',
           startDate: '2023-02-15',
           endDate: '2023-02-28',
-          size: 'Medium',
+          size: '3',
           HP_max: 150,
         },
         {
@@ -87,7 +64,7 @@ export default {
           status: 'available',
           startDate: '2023-03-01',
           endDate: '2023-03-15',
-          size: 'Small',
+          size: '2',
           HP_max: 80,
         },
       ],  // An array of game objects
@@ -111,16 +88,16 @@ export default {
     },
   },
   methods: {
-    // Method to view records for a specific game
     viewRecord(gameId) {
       console.log(`View Record for Game ID: ${gameId}`);
-      // Perform actions to view the record for the specified game
+      //aqui vemos el record del juego
     },
-    // Method to view details of a specific game
     viewGameDetails(gameId) {
+      // aqui se ven los detalles del juego
       this.selectedGame = this.games.find((game) => game.id === gameId);
     },
   },
+  
 };
 </script>
 
@@ -138,10 +115,26 @@ export default {
   /* Styles for the filters section */
   .filters {
     margin-bottom: 20px;
+
   }
   
   .filters label {
     margin-right: 10px;
+  }
+
+  .selector{
+    background: #3D5CFF;
+  }
+
+  .dates{
+      color: white;
+      background-color: black;
+      padding: 10px;
+      border: 1px solid white;
+      border-radius: 5px;
+      filter: invert(1); 
+      width: 100px;
+
   }
   
   /* Styles for the game list */
@@ -153,6 +146,7 @@ export default {
   /* Styles for each game item in the list */
   .game-item {
     display: flex;
+    text-align: left;
     align-items: center;
     border: 1px solid #ccc;
     padding: 10px;
@@ -164,7 +158,6 @@ export default {
     color: black;
   }
   
-  /* Styles for the button to view game details */
   .view-details-button {
     background-color: #354a5e;
     color: #fff;
@@ -189,10 +182,10 @@ export default {
     position: relative;
   }
 
-  .search-input {
-    padding-right: 40px; /* Space for the search icon */
-    width: 200px; /* Adjust the width as needed */
-  }
+.search-input {
+  padding-right: 40px; /* Espacio para el ícono de búsqueda */
+  width: 200px; /* Ajusta el ancho según sea necesario */
+}
 
   .search-input::after {
     content: '';

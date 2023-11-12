@@ -1,7 +1,5 @@
 <template>
-  <!-- Container for the Attacks on Sale component -->
-  <div>
-    <!-- Title for the Attacks on Sale section -->
+  <div id="sale-attacks">
     <h2 id="title">Attacks on Sale</h2>
 
     <!-- List displaying attacks available for sale -->
@@ -59,7 +57,12 @@ export default {
   color: #3D5CFF;
 }
 
-/* Styles for the attack list */
+#sale-attacks{
+
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
 .attack-list {
   list-style: none;
   padding: 0;

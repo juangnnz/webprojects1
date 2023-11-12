@@ -1,10 +1,7 @@
 <template>
   <!-- Container for available games component -->
   <div class="available-games">
-    <!-- Title for the available games section -->
-    <h2 id="availableGamesTitle">Available Games (Not Started)</h2>
-
-    <!-- Table displaying information about available games -->
+    <h2 id="availableGamesTitle">Available Arenas</h2>
     <table>
       <!-- Table header -->
       <thead>

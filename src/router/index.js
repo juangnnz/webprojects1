@@ -12,7 +12,7 @@ import PlayerHistory from '../components/PlayerHistory.vue';
 import arena from '../components/arena.vue';
 import BuyAttacks from '../components/BuyAttacks.vue';
 import CreateSellAttacks from '../components/CreateSellAttacks.vue';
-//import RecordGameById from '../components/RecordGameById.vue';
+import RecordGameById from '../components/RecordGameById.vue';
 import home from '../components/home.vue';
 
 const routes = [
@@ -40,12 +40,12 @@ const routes = [
     name: 'PlayerHistory',
     component: PlayerHistory,
   },
-  /*
   {
-    path: '/record-game-by-id',
+    path: '/record-game-by-id/:gameName/:rows',
     name: 'RecordGameById',
     component: RecordGameById,
-  },*/
+    props: true,
+  },
   {
     path: '/buy-attacks',
     name: 'BuyAttacks',

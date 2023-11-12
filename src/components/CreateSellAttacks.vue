@@ -11,9 +11,12 @@
         </form>
       </div>
 
+     
       <div class = "block2">
           <!-- Aqui se listean todos nuestros ataques -->
-          <h2 id="titles" >Your Attacks</h2>
+
+          <h2 id="titleAttack">Your Attacks:</h2>
+          
           <ul class="attack-list">
             <li v-for="(attack, index) in userAttacks" :key="index" class="attack-item">
               <span class="attack-info">
@@ -73,6 +76,10 @@
     color: #3D5CFF;
   }
 
+  #title-attack{
+    color: black;
+  }
+
   .input-field {
   width: 100%;
   padding: 10px;
@@ -97,7 +104,6 @@
 
   .attack-container {
     margin: 20px auto;
-    padding: 20px;
     background-color: white;
     display: flex;
     flex-direction: row;
@@ -108,12 +114,11 @@
     margin-left: 150px;
     display: flex;
     flex-direction: column;
-    width: 500px;
+    width: 900px;
+    align-items: center;
     
   }
-  .attack-info{
-    margin-left: 20px;
-  }
+  
   
   .attack-form {
     margin-bottom: 20px;
@@ -132,7 +137,6 @@
   
   .attack-list {
     list-style: none;
-    padding: 0;
   }
   
   .attack-item {
@@ -140,7 +144,7 @@
     justify-content: space-between;
     align-items: center;
     color: black;
-    max-width: 900px;
+    max-width: 1000px;
   }
   
   .button {

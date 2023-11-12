@@ -77,7 +77,7 @@ export default {
     },
     // Method to navigate to player history view
     showPlayerHistory(playerId) {
-      this.$router.push({ name: 'player-history', params: { id: playerId } });
+      this.$router.push({ name: 'PlayerHistory', params: { id: playerId } });
     },
   },
 };

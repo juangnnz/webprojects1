@@ -63,6 +63,7 @@ export default {
     // Método para eliminar la cuenta del usuario
     deleteAccount() {
       alert("Account deleted successfully!");
+      this.$router.push('/home');
     },
     logOut(){
       this.$router.push('/home');

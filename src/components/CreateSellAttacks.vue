@@ -1,25 +1,31 @@
 <template>
     <div class="attack-container">
-      <h2 id="titles">Create Attacks</h2>
-  
-      <form @submit.prevent="createAttack" class="attack-form">
-        <input v-model="newAttack.name" type="text" placeholder="Enter attack name" class="input-field" required>
-        <input v-model="newAttack.position" type="text" placeholder="Enter positions" class="input-field" required>
-        <button class="button" type="submit">Create Attack</button>
-      </form>
-  
-      <!-- Aqui se listean todos nuestros ataques -->
-      <h3 id="titles">Your Attacks</h3>
-      <ul class="attack-list">
-        <li v-for="(attack, index) in userAttacks" :key="index" class="attack-item">
-          <span class="attack-info">
-            {{ attack.name }} - Position: {{ attack.position }} 
-          </span>
-          <label for="askingPrice">Asking Price:</label>
-          <input v-model="attack.askingPrice" type="number" required>
-          <button @click="sellAttack(index)" class="button">{{ textButton }}</button>
-        </li>
-      </ul>
+
+      <div class = "block1">
+        <h2 id="titles">Create Attacks</h2>
+    
+        <form @submit.prevent="createAttack" class="attack-form">
+          <input v-model="newAttack.name" type="text" placeholder="Enter attack name" class="input-field" required>
+          <input v-model="newAttack.position" type="text" placeholder="Enter positions" class="input-field" required>
+          <button class="button" type="submit">Create Attack</button>
+        </form>
+      </div>
+
+      <div class = "block2">
+          <!-- Aqui se listean todos nuestros ataques -->
+          <h2 id="titles" >Your Attacks</h2>
+          <ul class="attack-list">
+            <li v-for="(attack, index) in userAttacks" :key="index" class="attack-item">
+              <span class="attack-info">
+                {{ attack.name }} - Position: {{ attack.position }} 
+              </span>
+              <form @submit.prevent="sellAttack(index)" class="sell-attack">
+                <input v-if="attack.textButton !== 'In store'" v-model="attack.askingPrice" type="number" id = "input-price" placeholder = "Enter price" required>
+                <button class="button">{{ attack.textButton }}</button>
+              </form>
+            </li>
+          </ul>
+      </div>
     </div>
   </template>
   
@@ -30,28 +36,31 @@
         newAttack: {
           name: '',
           position: '',
-          askingPrice: 0,
+          textButton: 'Sell',
         },
-        userAttacks: [],
-        textButton: 'Sell',
+        userAttacks: []
       };
     },
     methods: {
       createAttack() {
         // aqui añadimos el ataque nuevo creado a la lista de ataques
-        this.userAttacks.push({ ...this.newAttack });
+        this.userAttacks.push({ ...this.newAttack});
         
         this.newAttack = {
           name: '',
           position: '',
-          askingPrice: 0,
+          textButton: 'Sell',
         };
       },
       sellAttack(index) {
-        if (this.textButton=='Sell'){
+        if (this.userAttacks[index].textButton=='Sell'){
           // aqui vendemos el ataque y ya usamos API para actualizar la info
-          alert(`Selling attack: ${this.userAttacks[index].name}`);
-          this.textButton = 'In store';
+           const askingPrice = this.userAttacks[index].askingPrice;
+
+            // Realiza alguna acción para actualizar la información utilizando la API
+            // En este ejemplo, solo se muestra una alerta
+            alert(`Selling Attack ${this.userAttacks[index].name} for $${askingPrice}`);
+            this.userAttacks[index].textButton = 'In store';
         }
       },
     },
@@ -73,14 +82,37 @@
   background-color: #ffffff; /* Fondo blanco */
   color: #000000; /* Texto negro */
   outline: none;
-}
+  }
+
+  #input-price{
+  width: 80px;
+  margin: 5px 0;
+  border: 2px solid #3D5CFF; /* Cambia el color del borde según tus preferencias */
+  border-radius: 5px; /* Ajusta el radio según tus preferencias */
+  background-color: #ffffff; /* Fondo blanco */
+  color: #000000; /* Texto negro */
+  outline: none;
+
+  }
 
   .attack-container {
-    max-width: 600px;
     margin: 20px auto;
     padding: 20px;
     background-color: white;
+    display: flex;
+    flex-direction: row;
     
+  }
+
+  .block2{
+    margin-left: 150px;
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    
+  }
+  .attack-info{
+    margin-left: 20px;
   }
   
   .attack-form {
@@ -107,10 +139,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
     color: black;
+    max-width: 900px;
   }
   
   .button {
@@ -121,6 +151,7 @@
     color: #ffffff;
     cursor: pointer;
     outline: none; 
+    margin-top: 20px;
   }
   
  

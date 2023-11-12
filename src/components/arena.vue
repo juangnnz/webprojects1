@@ -171,7 +171,7 @@ button {
 }
 
 button:hover {
-  background-color: #white;
+  background-color: white;
 }
 
 .leave-game-btn{

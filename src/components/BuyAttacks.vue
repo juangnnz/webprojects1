@@ -1,78 +1,79 @@
 <template>
-    <div>
-      <h2 id="title"> Attacks on Sale</h2>
-  
-      <ul class="attack-list">
-        <li v-for="(attack, index) in attacksForSale" :key="index" class="attack-item">
-          <span class="attack-info">
-            {{ attack.name }} (position: {{ attack.position }}) 
-          </span>
-          <button @click="buyAttack(index)" :disabled="userCoins < attack.askingPrice" class="buy-button">
-            Buy for {{ attack.askingPrice }} $
-          </button>
-        </li>
-      </ul>
-    </div>
-  </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        attacksForSale: [
-          { name: 'Bola de fuego', position: 'Long Range', askingPrice: 30 },
-          { name: 'Thunder ', position: 'Melee', askingPrice: 25 },
-          { name: 'Tornadooo', position: 'Short Range', askingPrice: 40 },
-        ],
-        userCoins: 100,
-      };
-    },
-    methods: {
-      buyAttack(index) {
-        const attack = this.attacksForSale[index];
-  
-        if (this.userCoins >= attack.askingPrice) {
-          this.userCoins -= attack.askingPrice;
-          // aqui API para gestionar la compra y actualizar el usuario
-          alert(`You have successfully purchased ${attack.name} for ${attack.askingPrice} coins.`);
-        } else {
-          alert('Insufficient coins to buy this attack.');
-        }
-      },
-    },
-  };
-  </script>
-  
-  <style>
+  <div>
+    <h2 id="title">Attacks on Sale</h2>
 
-  #title {
-    color: #3D5CFF;
-  }
+    <ul class="attack-list">
+      <li v-for="(attack, index) in attacksForSale" :key="index" class="attack-item">
+        <span class="attack-info">
+          {{ attack.name }} (position: {{ attack.position }})
+        </span>
+        <button @click="buyAttack(index)" class="buy-button">
+          Buy for {{ attack.askingPrice }} $
+        </button>
+      </li>
+    </ul>
+  </div>
+</template>
 
-  .attack-list {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .attack-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    margin-bottom: 10px;
-  }
-  
-  .buy-button {
-    background-color: #3D5CFF;
-    color: #ffffff;
-    padding: 8px;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .buy-button[disabled] {
-    background-color: #a5d6a7;
-    cursor: not-allowed;
-  }
-  </style>
-  
+<script>
+export default {
+  data() {
+    return {
+      attacksForSale: [
+        { name: 'Bola de fuego', position: 'Long Range', askingPrice: 30 },
+        { name: 'Thunder ', position: 'Melee', askingPrice: 25 },
+        { name: 'Tornadooo', position: 'Short Range', askingPrice: 40 },
+      ],
+      userCoins: 100,
+    };
+  },
+  methods: {
+    buyAttack(index) {
+      const attack = this.attacksForSale[index];
+
+      if (this.userCoins >= attack.askingPrice) {
+        this.userCoins -= attack.askingPrice;
+        // aqui API para gestionar la compra y actualizar el usuario
+        alert(`You have successfully purchased ${attack.name} for ${attack.askingPrice} coins.`);
+      } else {
+        alert('Insufficient coins to buy this attack. You need more coins.');
+      }
+    },
+  },
+};
+</script>
+
+<style>
+#title {
+  color: #3D5CFF;
+}
+
+.attack-list {
+  list-style: none;
+  padding: 0;
+}
+
+.attack-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.buy-button {
+  background-color: #3D5CFF;
+  color: #ffffff;
+  padding: 8px;
+  border: none;
+  cursor: pointer;
+}
+.buy-button:hover {
+  background-color: #3D5CFF; 
+}
+
+.buy-button[disabled] {
+  background-color: #a5d6a7;
+  cursor: not-allowed;
+}
+</style>

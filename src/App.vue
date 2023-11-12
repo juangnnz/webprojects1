@@ -10,7 +10,7 @@
             <li><router-link to="/create-game" class="titles">Game</router-link>
               <ul class="submenu">
                 <li><router-link to="/create-game" class="titles">Create an Arena</router-link></li>
-                <li><router-link to="/available-games" class="titles">Show Available Games (Not Started)</router-link></li>
+                <li><router-link to="/available-games" class="titles">Enter Available Arena</router-link></li>
                 <li><router-link to="/game-finder" class="titles">Search games</router-link></li>
                 <li><router-link to="/game-history" class="titles">Players Game History</router-link></li>
               </ul>

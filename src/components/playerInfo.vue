@@ -1,35 +1,41 @@
 <template>
-
+  <!-- Main container for player information -->
   <div class="player-info">
-      <section >
-        <header class="player-info-header">
-          <h1 class="info-title">Welcome {{ playerName }} !</h1>
-        </header>
-        <main class="player-info-main">
-          <div class="info-details">
-
-              <dt class="info-value">Experience: {{ playerExperience }}</dt>
-              <dt class="info-value">Level: {{ playerLevel }}</dt>
-              <dt class="info-value">Coins: {{ playerCoins }}</dt>
-              <dt class="info-value">Backpacked Attacks: {{ backpackedAttacks }}</dt>
-            <div class="info-attacks">
-              <dt class="info-value">Equipped Attacks:</dt>
-              <ul class="game-list">
-                <li v-for="game in equippedAttacksGames" :key="game.id" class="game-item">
-                  <span class="game-name">{{ game.name }}:</span>
-                  <span class="game-attacks">{{ game.equippedAttacks }}</span>
-                </li>
-              </ul>
-            </div>
-            
+    <!-- Section containing player details -->
+    <section>
+      <!-- Header with player's name -->
+      <header class="player-info-header">
+        <h1 class="info-title">Welcome {{ playerName }}!</h1>
+      </header>
+      <!-- Main section with player's statistics -->
+      <main class="player-info-main">
+        <!-- Container for player details -->
+        <div class="info-details">
+          <!-- Display player information -->
+          <div class="info-value">Experience: {{ playerExperience }}</div>
+          <div class="info-value">Level: {{ playerLevel }}</div>
+          <div class="info-value">Coins: {{ playerCoins }}</div>
+          <div class="info-value">Backpacked Attacks: {{ backpackedAttacks }}</div>
+          <!-- Display equipped attacks for each game -->
+          <div class="info-attacks">
+            <div class="info-value">Equipped Attacks:</div>
+            <ul class="game-list">
+              <!-- Using <li> to represent each game -->
+              <li v-for="game in equippedAttacksGames" :key="game.id" class="game-item">
+                <span class="game-name">{{ game.name }}:</span>
+                <span class="game-attacks">{{ game.equippedAttacks }}</span>
+              </li>
+            </ul>
           </div>
-        </main>
-      </section>
+        </div>
+      </main>
+    </section>
 
-      <div class="display-btn">
-            <button @click="logOut" class="btn" style="margin-top: 40px;">Log Out</button>
-            <button @click="deleteAccount" class="btn">Delete Account</button>
-      </div>
+    <!-- Buttons for log out and delete account -->
+    <div class="display-btn">
+      <button @click="logOut" class="btn" style="margin-top: 40px;">Log Out</button>
+      <button @click="deleteAccount" class="btn">Delete Account</button>
+    </div>
   </div>
 </template>
 
@@ -38,6 +44,7 @@
 export default {
   data() {
     return {
+      // Sample player data
       playerName: "Edou",
       playerExperience: 5000,
       playerLevel: 10,
@@ -47,25 +54,27 @@ export default {
         { id: 1, name: "Game 1", equippedAttacks: "Attack X, Attack Y" },
         { id: 2, name: "Game 2", equippedAttacks: "Attack Z" },
       ],
+      // Toggle flags for displaying back packed and equipped attacks
       showBackpackedAttacks: false,
       showEquippedAttacks: false,
     };
   },
   methods: {
-    // Muestra los ataques en la mochila
+    // Toggle method for displaying/hiding backpacked attacks
     toggleBackpackedAttacks() {
       this.showBackpackedAttacks = !this.showBackpackedAttacks;
     },
-    // Mostar los ataques equipados
+    // Toggle method for displaying/hiding equipped attacks
     toggleEquippedAttacks() {
       this.showEquippedAttacks = !this.showEquippedAttacks;
     },
-    // Método para eliminar la cuenta del usuario
+    // Method to delete the user's account
     deleteAccount() {
       alert("Account deleted successfully!");
       this.$router.push('/home');
     },
-    logOut(){
+    // Method to log out the user
+    logOut() {
       this.$router.push('/home');
     }
   },
@@ -73,96 +82,104 @@ export default {
 </script>
 
 <style scoped>
-  .player-info {
-    background-color: #ffffff;
-    color: #fff;
-    padding: 20px;
-    display: flex;
-    flex-direction: row; 
-    margin-left: 60px;
-   
-  }
+/* Styling for the main player information container */
+.player-info {
+  background-color: #ffffff;
+  color: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  margin-left: 60px;
+}
 
-  .player-info-header {
-    width: 100%; /* Ancho completo */
-    margin-bottom: 5px; /* Espaciado entre el título y la información */
-    display: flex;
-    align-items: flex-start;
-    background: #ffffff;
-   
-  }
+/* Styling for the header section containing player's name */
+.player-info-header {
+  width: 100%;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: flex-start;
+  background: #ffffff;
+}
 
-  .info-title {
-    font-size: 28px;
-    text-align: left; /* Alinea el texto a la izquierda */
-    color: #3D5CFF;
-  }
+/* Styling for the title displaying player's name */
+.info-title {
+  font-size: 28px;
+  text-align: left;
+  color: #3D5CFF;
+}
 
-  .player-info-main {
-    background-color: #ffffff;
-    color: #fff;
-    display: flex;
-    flex-direction: column; /* Cambio de dirección a columna */
-  }
+/* Styling for the main section containing player's statistics */
+.player-info-main {
+  background-color: #ffffff;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+}
 
-  .info-details {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
+/* Styling for the container of player details */
+.info-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
 
-  .display-btn {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centra verticalmente */
-    justify-content: center; 
-    margin-left: 200px;
-  }
+/* Styling for the buttons section */
+.display-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: 200px;
+}
 
-  .info-attacks {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 10px;
-    color: black;
-  }
+/* Styling for the section displaying equipped attacks */
+.info-attacks {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+  color: black;
+}
 
-  .info-value {
-    font-weight: bold;
-    margin-bottom: 5px; /* Añadido para separar cada pareja de dt y dd */
-    color: black;
-  }
+/* Styling for the individual statistics values */
+.info-value {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: black;
+}
 
-  .game-list {
-    list-style: none;
-    padding: 0;
-  }
+/* Styling for the list of equipped attacks */
+.game-list {
+  list-style: none;
+  padding: 0;
+}
 
-  .game-item {
-    display: flex;
-    align-items: center;
-    margin: 5px;
-  }
+/* Styling for each game item in the list */
+.game-item {
+  display: flex;
+  align-items: center;
+  margin: 5px;
+}
 
-  .game-name {
-    font-weight: bold;
-    margin-right: 5px;
-  }
+/* Styling for the name of the game in the equipped attacks list */
+.game-name {
+  font-weight: bold;
+  margin-right: 5px;
+}
 
-  .game-attacks {
-    font-style: italic;
-  }
+/* Styling for the equipped attacks in the list */
+.game-attacks {
+  font-style: italic;
+}
 
-  .btn {
-    border: 2px solid #3D5CFF;
-    border-radius: 10px;
-    background-color: #ffffff;
-    color: #000000;
-    padding: 10px 20px;
-    font-size: 25px;
-    margin-top: 10px;
-    width: 300px;
-  }
-
+/* Styling for the log out and delete account buttons */
+.btn {
+  border: 2px solid #3D5CFF;
+  border-radius: 10px;
+  background-color: #ffffff;
+  color: #000000;
+  padding: 10px 20px;
+  font-size: 25px;
+  margin-top: 10px;
+  width: 300px;
+}
 </style>
-
-

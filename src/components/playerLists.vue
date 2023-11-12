@@ -62,7 +62,7 @@ export default {
       return players.sort((a, b) => b.experience - a.experience);
     },
     showPlayerHistory(playerId) {
-      this.$router.push({ name: 'player-history', params: { id: playerId } });
+      this.$router.push({ name: 'PlayerHistory', params: { id: playerId } });
     },
   },
 };

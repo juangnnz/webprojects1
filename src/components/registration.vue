@@ -31,6 +31,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     // Data properties for form input binding
@@ -38,17 +39,43 @@ export default {
       url: '',
       id: '',
       password: '',
-      confirmPassword: ''
+      confirmPassword: '',
+      responseData: null
     };
   },
   methods: {
     // Method to handle form submission
-    submitForm() {
+    async submitForm() {
       // Check if the entered passwords match
       if (this.password === this.confirmPassword) {
         console.log('User Signed Up');
         // Redirect to the player-info page if passwords match
         this.$router.push('/player-info');
+        try {
+            const dataToSend = {
+              player_ID: this.playerID,
+              password: this.password,
+              img: this.img || 'string' // Si no se proporciona una imagen, se enviará 'string'
+            };
+
+            const response = await fetch('http://balandrau.salle.url.edu/players', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(dataToSend)
+            });
+
+            if (response.ok) {
+              const responseData = await response.json();
+              // Guardar la respuesta del servidor
+              this.responseData = responseData;
+            } else {
+              throw new Error('Error en la solicitud');
+            }
+        } catch (error) {
+            console.error('Ha ocurrido un error al enviar los datos:', error);
+        }
       } else {
         console.log('Passwords do not match');
       }

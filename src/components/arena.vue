@@ -63,7 +63,6 @@ export default {
     },
     attack1() {
     
-      
     },
     attack2() {
     

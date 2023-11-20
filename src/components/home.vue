@@ -1,21 +1,14 @@
 <template>
-  <!-- The main container for the login form -->
   <div class="login-form">
     <h2 id="logInTitle">Log In</h2>
-    <!-- Form for user login -->
     <form @submit.prevent="submitForm">
-      <!-- Input field for user ID -->
-      <input type="text" id="id" v-model="userId" placeholder="Enter ID" class="input-field" required>
+      <input type="text" v-model="userId" placeholder="Enter ID" class="input-field" required>
       <br>
-      <!-- Input field for user password -->
-      <input type="password" id="pwd" v-model="password" placeholder="Enter password" class="input-field" required>
+      <input type="password" v-model="password" placeholder="Enter password" class="input-field" required>
       <br>
       <br>
-      <!-- Submit button for the login form -->
       <button class="custom-button1">Enter</button>
     </form>
-
-    <!-- Button to navigate to the signup page -->
     <button @click="signup" class="custom-button2">Sign Up</button>
   </div>
 </template>
@@ -23,32 +16,44 @@
 <script>
 export default {
   data() {
-    // Data properties for user ID, password, and mobile device detection
     return {
       userId: '',
       password: '',
       isMobile: window.innerWidth <= 768,
     };
   },
-  mounted() {
-    // Event listener for window resize to update isMobile property
-    window.addEventListener('resize', this.handleResize);
-  },
   methods: {
-    // Method to handle form submission
-    submitForm() {
-      console.log('User Logged In');
-      // Redirect to the player information page after successful login
-      this.$router.push('/player-info');
+    async submitForm() {
+      try {
+        const response = await fetch('http://balandrau.salle.url.edu/players/join', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            player_ID: this.userId,
+            password: this.password,
+          }),
+        });
+
+        if (response.ok) {
+          const responseData = await response.json();
+          console.log('User Logged In', responseData);
+
+          // Assuming the response contains some user information, you can redirect to the player information page
+          this.$router.push('/player-info');
+        } else {
+          console.error('Login failed', response.statusText);
+          // Handle login error, show a message to the user, etc.
+        }
+      } catch (error) {
+        console.error('Login failed', error);
+        // Handle login error, show a message to the user, etc.
+      }
     },
-    // Method to handle navigation to the signup page
     signup() {
       console.log('User Signed Up');
       this.$router.push('/register');
-    },
-    // Method to handle window resize and update isMobile property
-    handleResize() {
-      this.isMobile = window.innerWidth <= 768;
     },
   },
 };

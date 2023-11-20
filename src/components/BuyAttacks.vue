@@ -88,7 +88,7 @@ export default {
 
 /* Styles for the buy button on hover */
 .buy-button:hover {
-  background-color: #3D5CFF; /
+  background-color: #3D5CFF; /*Button background color*/
 }
 
 /* Styles for the disabled buy button */

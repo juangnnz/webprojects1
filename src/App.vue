@@ -145,6 +145,6 @@ body, #app {
 
 #router-container:hover {
   
-  background-color: #white;
+  background-color: white;
 }
 </style>

@@ -109,7 +109,7 @@ export default {
   .game-finder {
     font-family: Arial, sans-serif;
     padding: 20px;
-    background-color: #ffffff;  //*Styling for the background color */
+    background-color: #ffffff;  /*Styling for the background color */
   }
   
   /* Styles for the filters section */

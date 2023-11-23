@@ -26,7 +26,7 @@
     </form>
 
     <!-- Button to navigate to the login page -->
-    <button @click="login" class="custom-button2">Log In</button>
+    <button @clic.prevent="login" class="custom-button2">Log In</button>
   </div>
 </template>
 
@@ -50,15 +50,17 @@ export default {
       if (this.password === this.confirmPassword) {
         console.log('User Signed Up');
         // Redirect to the player-info page if passwords match
-        this.$router.push('/player-info');
+
         try {
             const dataToSend = {
-              player_ID: this.playerID,
+              player_ID: this.id,
               password: this.password,
-              img: this.img || 'string' // Si no se proporciona una imagen, se enviará 'string'
+              img: this.url || 'string' // Si no se proporciona una imagen, se enviará 'string'
             };
 
-            const response = await fetch('http://balandrau.salle.url.edu/players', {
+            console.log('Data to send:', JSON.stringify(dataToSend));
+
+            let response = await fetch('https://balandrau.salle.url.edu/i3/players', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
@@ -67,9 +69,11 @@ export default {
             });
 
             if (response.ok) {
-              const responseData = await response.json();
+              console.log('Response:', response.ok);
+              //let responseData = await response.json();
               // Guardar la respuesta del servidor
-              this.responseData = responseData;
+              //this.responseData = responseData;
+              this.$router.push('/player-info');
             } else {
               throw new Error('Error en la solicitud');
             }

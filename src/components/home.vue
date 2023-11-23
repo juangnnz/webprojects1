@@ -25,7 +25,7 @@ export default {
   methods: {
     async submitForm() {
       try {
-        const response = await fetch('http://balandrau.salle.url.edu/players/join', {
+        const response = await fetch('https://balandrau.salle.url.edu/i3/players/join', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

@@ -45,19 +45,55 @@ export default {
   data() {
     return {
       // Sample player data
-      playerName: "Edou",
-      playerExperience: 5000,
-      playerLevel: 10,
-      playerCoins: 1000,
-      backpackedAttacks: "Attack A, Attack B, Attack C",
-      equippedAttacksGames: [
-        { id: 1, name: "Game 1", equippedAttacks: "Attack X, Attack Y" },
-        { id: 2, name: "Game 2", equippedAttacks: "Attack Z" },
-      ],
-      // Toggle flags for displaying back packed and equipped attacks
-      showBackpackedAttacks: false,
-      showEquippedAttacks: false,
+      playerName: '', // Nombre del jugador
+      playerExperience: 0, // Experiencia del jugador
+      playerLevel: 0, // Nivel del jugador
+      playerCoins: 0, // Monedas del jugador
+      
     };
+  },
+  async mounted() {
+    try {
+      // Obtener el token y el ID del jugador de los parámetros de la URL
+      const token = this.$route.query.token;
+      const playerId = this.$route.query.player_ID;
+      console.log(token);
+
+      // Realizar una solicitud GET a la API con el token y el ID del jugador
+      const response = await fetch(`https://balandrau.salle.url.edu/i3/players/${playerId}`, {
+        method: 'GET',
+        headers: {
+          'accept': 'application/json',
+          'Bearer': `${token}`, // Incluir el token en los encabezados de autorización
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+
+        console.log(data);
+
+        // Actualizar los datos del jugador con la información obtenida de la API
+        this.playerName = data.player_ID;
+
+        this.playerExperience = data.xp;
+        this.playerLevel = data.level;
+        this.playerCoins = data.coins;
+        this.backpackedAttacks = "Attack A, Attack B, Attack C";
+        this.equippedAttacksGames =[
+          { id: 1, name: "Game 1", equippedAttacks: "Attack X, Attack Y" },
+          { id: 2, name: "Game 2", equippedAttacks: "Attack Z" },
+        ];
+        // Toggle flags for displaying back packed and equipped attacks
+        this.showBackpackedAttacks = false;
+        this.showEquippedAttacks = false;
+      } else {
+        throw new Error('Failed to fetch player data');
+      }
+    } catch (error) {
+      console.error('Error fetching player data:', error);
+      // Manejar el error, mostrar un mensaje al usuario, etc.
+    }
   },
   methods: {
     // Toggle method for displaying/hiding backpacked attacks

@@ -11,7 +11,7 @@
 
       <!-- Input field for user ID -->
       <input type="text" id="id" v-model="id" placeholder="Enter ID" class="input-field" required>
-      <br>
+      <br> <!-- quitar br--> 
 
       <!-- Input field for user password -->
       <input type="password" id="pwd" v-model="password" placeholder="Enter password" class="input-field" required>

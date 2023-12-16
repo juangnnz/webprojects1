@@ -1,37 +1,35 @@
 <template>
   <!-- The main container for the game finder component -->
   <div class="game-finder">
-    <!-- Title for the game search section -->
-    <h2 id="searchGamesTitle">Search Games</h2>
-
-    <!-- Filters section containing dropdown, date inputs, and search bar -->
-    <div class="filters">
-      <select v-model="filterStatus" class="selector">
+    <!-- Form for filters containing dropdown, date inputs, and search bar -->
+    <form @submit.prevent="applyFilters" class="filter-form">
+      <!-- Filter by Status -->
+      <label for="filterStatus">Status:</label>
+      <select v-model="filterStatus" id="filterStatus" class="selector">
         <option value="all">All</option>
         <option value="finished">Finished</option>
         <option value="available">Available</option>
       </select>
 
+      <!-- Between Dates -->
+      <label for="startDate">Start Date:</label>
+      <input type="date" v-model="startDate" id="startDate" class="dates" />
+      <label for="endDate">End Date:</label>
+      <input type="date" v-model="endDate" id="endDate" class="dates" />
 
-      <label id="datesLabel">Between Dates:</label>
-      <input type="date" v-model="startDate" class="dates" />
-      <input type="date" v-model="endDate" class="dates" />
+      <!-- Search by Name -->
+      <label for="searchQuery">Search by Name:</label>
+      <input v-model="searchQuery" type="text" id="searchQuery" class="search-input" placeholder="Search...">
 
-      <!-- Search bar with a search icon -->
-      <div class="search-container">
-        <input v-model="searchQuery" type="text" class="search-input" placeholder="Search...">
-      </div>
-    </div>
-
-    <!-- List of games displayed based on applied filters -->
-    <ul class="game-list">
-      <li v-for="game in filteredGames" :key="game.id" class="game-item">
-        <span class="game-name">{{ game.name }} - {{ game.size }} with hp {{game.HP_max}},
-        Period: {{game.startDate}} - {{game.endDate}} </span>
-        <button v-if="game.status === 'finished'" @click="viewRecord(game)">View Record</button>
-      </li>
-    </ul>
-
+      <!-- List of games displayed based on applied filters -->
+      <ul class="game-list">
+        <li v-for="game in filteredGames" :key="game.id" class="game-item">
+          <span class="game-name">{{ game.name }} - {{ game.size }} with hp {{game.HP_max}},
+            Period: {{game.startDate}} - {{game.endDate}} </span>
+          <button v-if="game.status === 'finished'" @click="viewRecord(game)">View Record</button>
+        </li>
+      </ul>
+    </form>
   </div>
 </template>
 
@@ -97,7 +95,6 @@ export default {
       this.selectedGame = this.games.find((game) => game.id === gameId);
     },
   },
-  
 };
 </script>
 

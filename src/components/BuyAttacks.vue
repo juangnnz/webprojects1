@@ -29,7 +29,7 @@ export default {
   methods: {
     async fetchAttacksAndCoins() {
       try {
-        const response = await fetch('https://balandrau.salle.url.edu/i3/players/shop/attacks', {
+        const response = await fetch('https://balandrau.salle.url.edu/i3/shop/attacks', {
           headers: {
             Authorization: `Bearer ${this.token}`,
           },
@@ -44,7 +44,7 @@ export default {
       try {
         // Check if the user has enough coins
         if (this.userCoins >= attack.askingPrice) {
-          const response = await fetch('https://balandrau.salle.url.edu/i3/players/shop/attacks/${attack.id}/buy', {
+          const response = await fetch('https://balandrau.salle.url.edu/i3/shop/attacks/${attack.id}/buy', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

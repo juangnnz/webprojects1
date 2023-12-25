@@ -17,15 +17,13 @@
 
 <script>
 export default {
+  props: ['token', 'playerId', 'userCoins'],
   data() {
     return {
       attacksForSale: [],
-      userCoins: null,
-      authToken: null,
     };
   },
   mounted() {
-    this.authToken = this.$route.query.token;
     this.fetchAttacksAndCoins();
   },
   methods: {
@@ -33,33 +31,31 @@ export default {
       try {
         const response = await fetch('https://balandrau.salle.url.edu/i3/players/shop/attacks', {
           headers: {
-            Authorization: `Bearer ${this.authToken}`,
+            Authorization: `Bearer ${this.token}`,
           },
         });
         const data = await response.json();
-
-        this.attacksForSale = data.attacksForSale;
-        this.userCoins = data.userCoins;
+        this.attacksForSale = data;
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching attacks:', error);
       }
     },
     async buyAttack(attack) {
       try {
         // Check if the user has enough coins
         if (this.userCoins >= attack.askingPrice) {
-          // este link esta mal supongo, como no funciona la vpn no puedo comprobarlo
-          const response = await fetch('https://balandrau.salle.url.edu/i3/players/shop/buy-attack', {
+          const response = await fetch('https://balandrau.salle.url.edu/i3/players/shop/attacks/${attack.id}/buy', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              Authorization: `Bearer ${this.authToken}`,
+              Authorization: `Bearer ${this.token}`,
             },
             body: JSON.stringify({ attackId: attack.id }),
           });
           const data = await response.json();
 
-          this.userCoins = data.userCoins;
+          // Update userCoins in the component
+          this.userCoins -= attack.askingPrice;
 
           alert(`You have successfully purchased ${attack.name} for ${attack.askingPrice} coins.`);
         } else {
@@ -73,3 +69,50 @@ export default {
   },
 };
 </script>
+
+<style>
+/* Styles for the Attacks on Sale component */
+#title {
+  color: #3D5CFF;
+}
+
+#sale-attacks{
+
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+.attack-list {
+  list-style: none;
+  padding: 0;
+}
+
+/* Styles for each attack item in the list */
+.attack-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+/* Styles for the buy button */
+.buy-button {
+  background-color: #3D5CFF; /*Button background color*/
+  color: #ffffff; /* Button text color*/
+  padding: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Styles for the buy button on hover */
+.buy-button:hover {
+  background-color: #3D5CFF; /*Button background color*/
+}
+
+/* Styles for the disabled buy button */
+.buy-button[disabled] {
+  background-color: #a5d6a7; /*Disabled button background color*/
+  cursor: not-allowed; /*Disabled cursor style*/
+}
+</style>

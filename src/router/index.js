@@ -60,6 +60,9 @@ const routes = [
     path: '/create-sell-attacks',
     name: 'CreateSellAttacks',
     component: CreateSellAttacks,
+    props: route => ({
+      token: route.query.token,
+    })
   },
   {
     path: '/player-info',

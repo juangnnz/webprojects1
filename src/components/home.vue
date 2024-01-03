@@ -1,6 +1,8 @@
 <template>
-  <div class="login-form">
-    <h2 id="logInTitle">Log In</h2>
+  <section class="login-form">
+    <header>
+      <h2 id="logInTitle">Log In</h2>
+    </header>
     <form @submit.prevent="submitForm">
       <input type="text" v-model="userId" placeholder="Enter ID" class="input-field" required>
       <br>
@@ -9,8 +11,10 @@
       <br>
       <button class="custom-button1">Enter</button>
     </form>
-    <button @click="signup" class="custom-button2">Sign Up</button>
-  </div>
+    <footer>
+      <button @click="signup" class="custom-button2">Sign Up</button>
+    </footer>
+  </section>
 </template>
 
 <script>
@@ -61,6 +65,7 @@ export default {
 
 
 <style scoped>
+
 /* Scoped styles for the login form */
 .login-form {
   display: flex;
@@ -68,6 +73,28 @@ export default {
   align-items: center;
   padding: 20px; /* Extra padding for spacing between objects */
   background-color: #ffffff;
+  max-width: 400px;
+  margin: auto;
+}
+
+/* Specific styles for the header */
+.login-form header {
+  width: 100%;
+  background-color: #ffffff; /* Setting background color of header to white */
+  padding: 10px 0;
+  text-align: center;
+}
+
+/* Media query for mobile devices */
+@media screen and (max-width: 768px) {
+  .login-form {
+    width: 95%;
+    max-width: none;
+  }
+
+  .input-field {
+    width: calc(100% - 20px); /* Adjust width for smaller screens */
+  }
 }
 
 /* Styles for input fields */
@@ -114,4 +141,5 @@ export default {
 #logInTitle {
   color: #3D5CFF; /* Title color */
 }
+
 </style>

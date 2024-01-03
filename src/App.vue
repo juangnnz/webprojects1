@@ -128,10 +128,6 @@ body, #app {
   color: black; /* Sets the default text color to black */
 }
 
-.submenu {
-  background: white; /* Set background to white */
-}
-
 .submenu li {
   background: white; /* Set background to white */
   display: block; /* Ensure the li elements take up the full width */

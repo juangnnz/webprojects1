@@ -1,33 +1,34 @@
 <template>
-  <div class="registration">
+  <section class="registration">
    
     <h1 id="signUpTitle">Sign Up</h1>
 
     <!-- Form for user registration -->
     <form @submit.prevent="submitForm">
-      <!-- Input field for URL profile picture -->
-      <input type="url" id="url" v-model="url" placeholder="Enter URL profile pic" class="input-field" required>
-      <br>
+      <fieldset>
+        <!-- Input field for URL profile picture -->
+        <input type="url" id="url" v-model="url" placeholder="Enter URL profile pic" class="input-field" required>
+        <br>
 
-      <!-- Input field for user ID -->
-      <input type="text" id="id" v-model="id" placeholder="Enter ID" class="input-field" required>
-      <br> <!-- quitar br--> 
+        <!-- Input field for user ID -->
+        <input type="text" id="id" v-model="id" placeholder="Enter ID" class="input-field" required>
+        <br> <!-- quitar br--> 
 
-      <!-- Input field for user password -->
-      <input type="password" id="pwd" v-model="password" placeholder="Enter password" class="input-field" required>
-      <br>
+        <!-- Input field for user password -->
+        <input type="password" id="pwd" v-model="password" placeholder="Enter password" class="input-field" required>
+        <br>
 
-      <!-- Input field to confirm user password -->
-      <input type="password" id="confirmpwd" v-model="confirmPassword" placeholder="Confirm password" class="input-field" required>
-      <br>
+        <!-- Input field to confirm user password -->
+        <input type="password" id="confirmpwd" v-model="confirmPassword" placeholder="Confirm password" class="input-field" required>
+        <br>
 
-      <!-- Button to submit the form -->
-      <button class="custom-button1">Sign Up</button>
+        <!-- Button to submit the form -->
+        <button class="custom-button1">Sign Up</button>
+      </fieldset>
     </form>
-
     <!-- Button to navigate to the login page -->
     <button @clic.prevent="login" class="custom-button2">Log In</button>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -102,6 +103,8 @@ export default {
     align-items: center;
     padding: 20px; /* extra padding para dar espacio entre objetos */
     background-color: #ffffff;
+    max-width: 500px; /* Set a max-width for large screens */
+    margin: auto; /* Center the form */
   }
   
    .input-field {
@@ -115,27 +118,46 @@ export default {
     outline: none;
   }
   
+  .custom-button1, .custom-button2 {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px; /* Bordes redondos */
+    cursor: pointer;
+    outline: none; /* Elimina el contorno predeterminado del navegador */
+  }
+
   .custom-button1 {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px; /* Bordes redondos */
-    background-color: #3D5CFF; /* Fondo del color especificado */
-    color: #ffffff; /* Texto blanco */
-    cursor: pointer;
-    outline: none; /* Elimina el contorno predeterminado del navegador */
+    margin-top: 30px;
+    background-color: #3D5CFF;
+    color: #ffffff;
   }
-  
+
   .custom-button2 {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px; /* Bordes redondos */
-    background-color: #ffffff; /* Fondo del color especificado */
-    color: #3D5CFF; /* Texto blanco */
-    cursor: pointer;
-    outline: none; /* Elimina el contorno predeterminado del navegador */
+    background-color: #ffffff;
+    color: #3D5CFF;
   }
-  
+
    #signUpTitle {
     color: #3D5CFF;
   }
-  </style>
+
+  fieldset {
+    border: none; /* Remove the default border */
+    padding: 10px; /* Add some padding inside the fieldset if needed */
+    margin: 0; /* Adjust margin as needed */
+  }
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .registration {
+    width: 95%; /* Use more of the screen on smaller devices */
+  }
+
+  .input-field, .custom-button1, .custom-button2 {
+    padding: 8px; /* Slightly smaller padding on smaller screens */
+  }
+
+}
+
+</style>

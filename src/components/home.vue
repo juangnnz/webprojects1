@@ -42,21 +42,28 @@ export default {
 
         if (response.ok) {
           const responseData = await response.json();
+          //responseData is the token
           console.log('User Logged In', responseData);
+          const token = responseData.token;
+          console.log('User Logged token', token);
 
           // Assuming the response contains some user information, you can redirect to the player information page
-          this.$router.push('/player-info');
+          //this.$router.push('/player-info');
+          this.$router.push({
+            path: '/player-info',
+            query: { token, player_ID: this.userId }
+          });
         } else {
-          console.error('Login failed', response.statusText);
+          //console.error('Login failed', response.statusText);
           // Handle login error, show a message to the user, etc.
         }
       } catch (error) {
-        console.error('Login failed', error);
+        //console.error('Login failed', error);
         // Handle login error, show a message to the user, etc.
       }
     },
     signup() {
-      console.log('User Signed Up');
+      
       this.$router.push('/register');
     },
   },

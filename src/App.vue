@@ -71,7 +71,6 @@ export default {
 
 <style>
 
-
 body, #app {
   margin: 0;
   padding: 0;

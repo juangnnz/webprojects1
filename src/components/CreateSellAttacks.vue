@@ -1,74 +1,104 @@
 <template>
-    <div class="attack-container">
-
-      <div class = "block1">
-        <h2 id="titles">Create Attacks</h2>
-    
-        <form @submit.prevent="createAttack" class="attack-form">
-          <input v-model="newAttack.name" type="text" placeholder="Enter attack name" class="input-field" required>
-          <input v-model="newAttack.position" type="text" placeholder="Enter positions" class="input-field" required>
-          <button class="button" type="submit">Create Attack</button>
-        </form>
-      </div>
-
-     
-      <div class = "block2">
-          <!-- Aqui se listean todos nuestros ataques -->
-
-          <h2 id="titleAttack">Your Attacks:</h2>
-          
-          <ul class="attack-list">
-            <li v-for="(attack, index) in userAttacks" :key="index" class="attack-item">
-              <span class="attack-info">
-                {{ attack.name }} - Position: {{ attack.position }} 
-              </span>
-              <form @submit.prevent="sellAttack(index)" class="sell-attack">
-                <input v-if="attack.textButton !== 'In store'" v-model="attack.askingPrice" type="number" id = "input-price" placeholder = "Enter price" required>
-                <button class="button">{{ attack.textButton }}</button>
-              </form>
-            </li>
-          </ul>
-      </div>
+  <div class="attack-container">
+    <div class="block1">
+      <h2 id="titles">Create Attacks</h2>
+      <form @submit.prevent="createAttack" class="attack-form">
+        <input v-model="newAttack.name" type="text" placeholder="Enter attack name" class="input-field" required>
+        <input v-model="newAttack.position" type="text" placeholder="Enter positions" class="input-field" required>
+        <button class="button" type="submit">Create Attack</button>
+      </form>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        newAttack: {
-          name: '',
-          position: '',
-          textButton: 'Sell',
-        },
-        userAttacks: []
-      };
+    <div class="block2">
+      <h2 id="titleAttack">Your Attacks:</h2>
+      <ul class="attack-list">
+        <li v-for="(attack, index) in userAttacks" :key="index" class="attack-item">
+          <span class="attack-info">
+            {{ attack.name }} - Position: {{ attack.position }}
+          </span>
+          <form @submit.prevent="sellAttack(index)" class="sell-attack">
+            <input v-if="attack.textButton !== 'In store'" v-model="attack.askingPrice" type="number" id="input-price" placeholder="Enter price" required>
+            <button class="button">{{ attack.textButton }}</button>
+          </form>
+        </li>
+      </ul>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: ['token'],
+  data() {
+    return {
+      newAttack: {
+        name: '',
+        position: '',
+        textButton: 'Sell',
+      },
+      userAttacks: [],
+    };
+  },
+  mounted() {
+    this.fetchAttacks();
+  },
+  methods: {
+    async fetchAttacks() {
+      try {
+        const response = await fetch(`https://balandrau.salle.url.edu/i3/players/attacks?token=${this.token}`);
+        const data = await response.json();
+        this.userAttacks = data.attacks;
+      } catch (error) {
+        console.error('Error fetching user attacks:', error);
+      }
     },
-    methods: {
-      createAttack() {
-        // aqui añadimos el ataque nuevo creado a la lista de ataques
-        this.userAttacks.push({ ...this.newAttack});
-        
+    async createAttack() {
+      try {
+        const response = await fetch('https://balandrau.salle.url.edu/i3/shop/attacks', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${this.token}`,
+          },
+          body: JSON.stringify(this.newAttack),
+        });
+        const data = await response.json();
+
+        // Update userAttacks with the new list of attacks after creation
+        await this.fetchAttacks();
+
+        // Reset the newAttack object
         this.newAttack = {
           name: '',
           position: '',
           textButton: 'Sell',
         };
-      },
-      sellAttack(index) {
-        if (this.userAttacks[index].textButton=='Sell'){
-          // aqui vendemos el ataque y ya usamos API para actualizar la info
-           const askingPrice = this.userAttacks[index].askingPrice;
-
-            // Realiza alguna acción para actualizar la información utilizando la API
-            // En este ejemplo, solo se muestra una alerta
-            alert(`Selling Attack ${this.userAttacks[index].name} for $${askingPrice}`);
-            this.userAttacks[index].textButton = 'In store';
-        }
-      },
+      } catch (error) {
+        console.error('Error creating attack:', error);
+      }
     },
-  };
-  </script>
+    async sellAttack(index) {
+      try {
+        if (this.userAttacks[index].textButton === 'Sell') {
+          const response = await fetch(`https://balandrau.salle.url.edu/i3/shop/attacks/${this.userAttacks[index].id}/sell`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${this.token}`,
+            },
+          });
+
+          // Update userAttacks with the new list of attacks after selling
+          await this.fetchAttacks();
+
+          this.userAttacks[index].textButton = 'In store';
+        }
+      } catch (error) {
+        console.error('Error selling attack:', error);
+      }
+    },
+  },
+};
+</script>
   
 <style>
 

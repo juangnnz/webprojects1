@@ -50,11 +50,19 @@ const routes = [
     path: '/buy-attacks',
     name: 'BuyAttacks',
     component: BuyAttacks,
+    props: route => ({
+      token: route.query.token,
+      playerId: route.query.playerId,
+      userCoins: route.query.userCoins,
+    })
   },
   {
     path: '/create-sell-attacks',
     name: 'CreateSellAttacks',
     component: CreateSellAttacks,
+    props: route => ({
+      token: route.query.token,
+    })
   },
   {
     path: '/player-info',

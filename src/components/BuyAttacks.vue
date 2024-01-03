@@ -2,15 +2,12 @@
   <div id="sale-attacks">
     <h2 id="title">Attacks on Sale</h2>
 
-    <!-- List displaying attacks available for sale -->
     <ul class="attack-list">
-      <!-- Loop through attacksForSale array and create a list item for each attack -->
       <li v-for="(attack, index) in attacksForSale" :key="index" class="attack-item">
-        <!-- Display attack information and a button to buy the attack -->
         <span class="attack-info">
           {{ attack.name }} (position: {{ attack.position }})
         </span>
-        <button @click="buyAttack(index)" class="buy-button">
+        <button @click="buyAttack(attack)" class="buy-button">
           Buy for {{ attack.askingPrice }} $
         </button>
       </li>
@@ -20,31 +17,53 @@
 
 <script>
 export default {
+  props: ['token', 'playerId', 'userCoins'],
   data() {
-    // Data properties for attacks available for sale and user's coins
     return {
-      attacksForSale: [
-        { name: 'Bola de fuego', position: 'Long Range', askingPrice: 30 },
-        { name: 'Thunder ', position: 'Melee', askingPrice: 25 },
-        { name: 'Tornadooo', position: 'Short Range', askingPrice: 40 },
-      ],
-      userCoins: 100, // Initial user coins
+      attacksForSale: [],
     };
   },
+  mounted() {
+    this.fetchAttacksAndCoins();
+  },
   methods: {
-    // Method to handle buying an attack
-    buyAttack(index) {
-      const attack = this.attacksForSale[index];
+    async fetchAttacksAndCoins() {
+      try {
+        const response = await fetch('https://balandrau.salle.url.edu/i3/shop/attacks', {
+          headers: {
+            Authorization: `Bearer ${this.token}`,
+          },
+        });
+        const data = await response.json();
+        this.attacksForSale = data;
+      } catch (error) {
+        console.error('Error fetching attacks:', error);
+      }
+    },
+    async buyAttack(attack) {
+      try {
+        // Check if the user has enough coins
+        if (this.userCoins >= attack.askingPrice) {
+          const response = await fetch('https://balandrau.salle.url.edu/i3/shop/attacks/${attack.id}/buy', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${this.token}`,
+            },
+            body: JSON.stringify({ attackId: attack.id }),
+          });
+          const data = await response.json();
 
-      // Check if the user has enough coins to buy the attack
-      if (this.userCoins >= attack.askingPrice) {
-        // Deduct the asking price from the user's coins
-        this.userCoins -= attack.askingPrice;
-        // Perform API call to manage the purchase and update the user
-        alert(`You have successfully purchased ${attack.name} for ${attack.askingPrice} coins.`);
-      } else {
-        // Alert the user if they have insufficient coins
-        alert('Insufficient coins to buy this attack. You need more coins.');
+          // Update userCoins in the component
+          this.userCoins -= attack.askingPrice;
+
+          alert(`You have successfully purchased ${attack.name} for ${attack.askingPrice} coins.`);
+        } else {
+          // Alert the user if they have insufficient coins
+          alert('Insufficient coins to buy this attack. You need more coins.');
+        }
+      } catch (error) {
+        alert(`Error: ${error.message}`);
       }
     },
   },

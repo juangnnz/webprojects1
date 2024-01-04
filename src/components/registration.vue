@@ -12,7 +12,7 @@
 
         <!-- Input field for user ID -->
         <input type="text" id="id" v-model="id" placeholder="Enter ID" class="input-field" required>
-        <br> <!-- quitar br--> 
+        <br>
 
         <!-- Input field for user password -->
         <input type="password" id="pwd" v-model="password" placeholder="Enter password" class="input-field" required>
@@ -27,12 +27,11 @@
       </fieldset>
     </form>
     <!-- Button to navigate to the login page -->
-    <button @clic.prevent="login" class="custom-button2">Log In</button>
+    <button @click.prevent="login" class="custom-button2">Log In</button>
   </section>
 </template>
 
 <script>
-
 export default {
   data() {
     // Data properties for form input binding
@@ -49,14 +48,15 @@ export default {
     async submitForm() {
       // Check if the entered passwords match
       if (this.password === this.confirmPassword) {
-        console.log('User Signed Up');
-        // Redirect to the player-info page if passwords match
-
-        try {
+        // Check if the password length is between 1 and 20 characters
+        if (this.password.length >= 1 && this.password.length <= 20) {
+          console.log('User Signed Up');
+          // Redirect to the player-info page if passwords match
+          try {
             const dataToSend = {
               player_ID: this.id,
               password: this.password,
-              img: this.url || 'string' // Si no se proporciona una imagen, se enviará 'string'
+              img: this.url || 'string'
             };
 
             console.log('Data to send:', JSON.stringify(dataToSend));
@@ -71,15 +71,15 @@ export default {
 
             if (response.ok) {
               console.log('Response:', response.ok);
-              //let responseData = await response.json();
-              // Guardar la respuesta del servidor
-              //this.responseData = responseData;
               this.$router.push('/player-info');
             } else {
               throw new Error('Error en la solicitud');
             }
-        } catch (error) {
+          } catch (error) {
             console.error('Ha ocurrido un error al enviar los datos:', error);
+          }
+        } else {
+          console.log('Password must be between 1 and 20 characters');
         }
       } else {
         console.log('Passwords do not match');

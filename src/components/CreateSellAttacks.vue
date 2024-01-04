@@ -43,14 +43,31 @@ export default {
   },
   methods: {
     async fetchAttacks() {
-      try {
-        const response = await fetch(`https://balandrau.salle.url.edu/i3/players/attacks?token=${this.token}`);
-        const data = await response.json();
-        this.userAttacks = data.attacks;
-      } catch (error) {
-        console.error('Error fetching user attacks:', error);
-      }
-    },
+  try {
+    const token = this.$route.query.token;
+
+    // Ensure token is available before making the request
+    if (!token) {
+      console.error('Token is missing.');
+      return;
+    }
+
+    const response = await fetch('https://balandrau.salle.url.edu/i3/players/attacks', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const data = await response.json();
+
+    this.equippedAttacks = data.equippedAttacks;
+    this.availableAttacks = data.availableAttacks;
+  } catch (error) {
+    console.error('Error fetching attacks:', error);
+  }
+},
     async createAttack() {
       try {
         const response = await fetch('https://balandrau.salle.url.edu/i3/shop/attacks', {

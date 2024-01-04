@@ -39,77 +39,80 @@
   </div>
 </template>
 
-
 <script>
 export default {
   data() {
     return {
-      // Sample player data
-      playerName: '', // Nombre del jugador
-      playerExperience: 0, // Experiencia del jugador
-      playerLevel: 0, // Nivel del jugador
-      playerCoins: 0, // Monedas del jugador
-      
+      playerName: '',
+      playerExperience: 0,
+      playerLevel: 0,
+      playerCoins: 200,
+      backpackedAttacks: '',
+      equippedAttacksGames: [],
+      showBackpackedAttacks: false,
+      showEquippedAttacks: false,
     };
   },
   async mounted() {
     try {
-      // Obtener el token y el ID del jugador de los parámetros de la URL
       const token = this.$route.query.token;
       const playerId = this.$route.query.player_ID;
-      console.log(token);
 
-      // Realizar una solicitud GET a la API con el token y el ID del jugador
-      const response = await fetch(`https://balandrau.salle.url.edu/i3/players/${playerId}`, {
+      // Fetch player data
+      const playerResponse = await fetch(`https://balandrau.salle.url.edu/i3/players/${playerId}`, {
         method: 'GET',
         headers: {
           'accept': 'application/json',
-          'Bearer': `${token}`, // Incluir el token en los encabezados de autorización
+          'Bearer': `${token}`,
         },
       });
 
-      if (response.ok) {
-        const data = await response.json();
+      if (playerResponse.ok) {
+        const playerData = await playerResponse.json();
 
-        console.log(data);
-
-        // Actualizar los datos del jugador con la información obtenida de la API
-        this.playerName = data.player_ID;
-
-        this.playerExperience = data.xp;
-        this.playerLevel = data.level;
-        this.playerCoins = data.coins;
-        this.backpackedAttacks = "Attack A, Attack B, Attack C";
-        this.equippedAttacksGames =[
-          { id: 1, name: "Game 1", equippedAttacks: "Attack X, Attack Y" },
-          { id: 2, name: "Game 2", equippedAttacks: "Attack Z" },
-        ];
-        // Toggle flags for displaying back packed and equipped attacks
-        this.showBackpackedAttacks = false;
-        this.showEquippedAttacks = false;
+        // Update player data
+        this.playerName = playerData.player_ID;
+        this.playerExperience = playerData.xp;
+        this.playerLevel = playerData.level;
+        this.playerCoins = playerData.coins;
       } else {
         throw new Error('Failed to fetch player data');
       }
+
+      // Fetch attacks information
+      const attacksResponse = await fetch(`https://balandrau.salle.url.edu/i3/players/attacks`, {
+        method: 'GET',
+        headers: {
+          'accept': 'application/json',
+          'Bearer': `${token}`,
+        },
+      });
+
+      if (attacksResponse.ok) {
+        const attacksData = await attacksResponse.json();
+
+        // Update attacks information
+        this.backpackedAttacks = attacksData.backpackedAttacks;
+        this.equippedAttacksGames = attacksData.equippedAttacksGames;
+      } else {
+        throw new Error('Failed to fetch attacks data');
+      }
     } catch (error) {
-      console.error('Error fetching player data:', error);
-      // Manejar el error, mostrar un mensaje al usuario, etc.
+      console.error('Error fetching data:', error);
+      // Handle the error, show a message to the user, etc.
     }
   },
   methods: {
-    // Toggle method for displaying/hiding backpacked attacks
     toggleBackpackedAttacks() {
       this.showBackpackedAttacks = !this.showBackpackedAttacks;
     },
-    // Toggle method for displaying/hiding equipped attacks
     toggleEquippedAttacks() {
       this.showEquippedAttacks = !this.showEquippedAttacks;
     },
-    // Method to delete the user's account
     deleteAccount() {
       alert("Account deleted successfully!");
       this.$router.push('/home');
     },
-    // Method to log out the user
     logOut() {
       this.$router.push('/home');
     }

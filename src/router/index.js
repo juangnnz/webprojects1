@@ -62,6 +62,8 @@ const routes = [
     component: CreateSellAttacks,
     props: route => ({
       token: route.query.token,
+      playerId: route.query.playerId,
+      userCoins: route.query.userCoins,
     })
   },
   {

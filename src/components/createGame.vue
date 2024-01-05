@@ -36,6 +36,7 @@ export default {
     async createGame() {
       
       try {
+        
         const token = localStorage.getItem('token');
        
         const response = await fetch('https://balandrau.salle.url.edu/i3/arenas', {

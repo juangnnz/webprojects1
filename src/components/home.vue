@@ -45,11 +45,12 @@ export default {
           const responseData = await response.json();
           //responseData is the token
           const token = responseData.token;
+          localStorage.setItem('token', token);
 
           // Assuming the response contains some user information, you can redirect to the player information page
           this.$router.push({
             path: '/player-info',
-            query: { token, player_ID: this.userId }
+            query: { player_ID: this.userId }
           });
         } else {
           const errorData = await response.json(); 

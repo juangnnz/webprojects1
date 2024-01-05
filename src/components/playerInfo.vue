@@ -56,7 +56,7 @@ export default {
   },
   async mounted() {
     try {
-      const token = this.$route.query.token;
+      const token = localStorage.getItem('token');
       const playerId = this.$route.query.player_ID;
 
       // Fetch player data
@@ -112,7 +112,8 @@ export default {
     },
     deleteAccount() {
       try {
-        const token = this.$route.query.token;
+        
+        const token = localStorage.getItem('token');
 
         // Realizar la solicitud DELETE para eliminar la cuenta
         fetch(`https://balandrau.salle.url.edu/i3/players/`, {

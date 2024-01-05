@@ -18,6 +18,7 @@
       </div>
 
       <button class="create-button" type="submit">Create</button>
+      <div id="error-message"></div>
     </form>
   </div>
 </template>
@@ -32,9 +33,43 @@ export default {
     };
   },
   methods: {
-    createGame() {
-      this.$router.push({ name: 'arena', params: { gameId: this.gameId, rows: this.matrixSize, hp: this.hp, currentPlayer: 'player1' } });
+    async createGame() {
+      
+      try {
+        const token = localStorage.getItem('token');
+       
+        const response = await fetch('https://balandrau.salle.url.edu/i3/arenas', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Bearer': `${token}`,
+          },
+          body: JSON.stringify({
+            game_ID: this.gameId,
+            size: this.matrixSize,
+            HP_max: this.hp,
+          }),
+        });
 
+        if (response.ok) {
+          const responseData = await response.json();
+          this.$router.push({ name: 'arena', params: { gameId: this.gameId, rows: this.matrixSize, hp: this.hp, currentPlayer: 'player1' } });
+
+        } else {
+          const errorData = await response.json(); 
+              
+          if (errorData.error && errorData.error.message) {
+            const errorMessage = errorData.error.message;
+            const errorMessageDiv = document.getElementById('error-message');
+            errorMessageDiv.textContent = errorMessage;
+            errorMessageDiv.style.color = 'red'; 
+          }  
+        }
+      } catch (error) {
+        const errorMessageDiv = document.getElementById('error-message');
+        errorMessageDiv.textContent = 'Error with the server';
+        errorMessageDiv.style.color = 'red'; 
+      }
 
     }
   }

@@ -27,6 +27,7 @@
               </li>
             </ul>
           </div>
+          <div id="error-message"></div>
         </div>
       </main>
     </section>
@@ -110,9 +111,45 @@ export default {
       this.showEquippedAttacks = !this.showEquippedAttacks;
     },
     deleteAccount() {
-      alert("Account deleted successfully!");
-      this.$router.push('/home');
+      try {
+        const token = this.$route.query.token;
+
+        // Realizar la solicitud DELETE para eliminar la cuenta
+        fetch(`https://balandrau.salle.url.edu/i3/players/`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'Bearer': `${token}`,
+          },
+        }).then(async deleteResponse => {
+          if (deleteResponse.ok) {
+            alert("Account successfully deleted!");
+            this.$router.push('/home');
+          } else {
+            const errorData = await deleteResponse.json();
+              
+            if (errorData.error && errorData.error.message) {
+              const errorMessage = errorData.error.message;
+              const errorMessageDiv = document.getElementById('error-message');
+              errorMessageDiv.textContent = errorMessage;
+              errorMessageDiv.style.color = 'red'; 
+            }  
+            
+          }
+        }).catch(error => {
+          const errorMessageDiv = document.getElementById('error-message');
+          errorMessageDiv.textContent = 'Error with the server';
+          errorMessageDiv.style.color = 'red'; 
+          
+        });
+      } catch (error) {
+        const errorMessageDiv = document.getElementById('error-message');
+        errorMessageDiv.textContent = 'Error with the server';
+        errorMessageDiv.style.color = 'red'; 
+        
+      }
     },
+
     logOut() {
       this.$router.push('/home');
     }

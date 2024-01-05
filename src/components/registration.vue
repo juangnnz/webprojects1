@@ -26,6 +26,7 @@
         <button class="custom-button1">Sign Up</button>
       </fieldset>
     </form>
+    <div id="error-message"></div>
     <!-- Button to navigate to the login page -->
     <button @click.prevent="login" class="custom-button2">Log In</button>
   </section>
@@ -50,7 +51,7 @@ export default {
       if (this.password === this.confirmPassword) {
         // Check if the password length is between 1 and 20 characters
         if (this.password.length >= 1 && this.password.length <= 20) {
-          console.log('User Signed Up');
+          
           // Redirect to the player-info page if passwords match
           try {
             const dataToSend = {
@@ -58,8 +59,6 @@ export default {
               password: this.password,
               img: this.url || 'string'
             };
-
-            console.log('Data to send:', JSON.stringify(dataToSend));
 
             let response = await fetch('https://balandrau.salle.url.edu/i3/players', {
               method: 'POST',
@@ -70,13 +69,32 @@ export default {
             });
 
             if (response.ok) {
-              console.log('Response:', response.ok);
-              this.$router.push('/player-info');
+              
+              const errorMessageDiv = document.getElementById('error-message');
+              errorMessageDiv.textContent = 'Registered';
+              errorMessageDiv.style.color = 'black'; 
+              setTimeout(() => {
+                this.$router.push({
+                  path: '/home',
+                });
+              }, 500);
+              
+              
             } else {
-              throw new Error('Error en la solicitud');
+              const errorData = await response.json(); 
+              
+              if (errorData.error && errorData.error.message) {
+                const errorMessage = errorData.error.message;
+                const errorMessageDiv = document.getElementById('error-message');
+                errorMessageDiv.textContent = errorMessage;
+                errorMessageDiv.style.color = 'red'; 
+              } 
+              
             }
           } catch (error) {
-            console.error('Ha ocurrido un error al enviar los datos:', error);
+            const errorMessageDiv = document.getElementById('error-message');
+            errorMessageDiv.textContent = 'Error with the server';
+            errorMessageDiv.style.color = 'red'; 
           }
         } else {
           console.log('Password must be between 1 and 20 characters');

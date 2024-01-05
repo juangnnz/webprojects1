@@ -12,6 +12,7 @@
       <button class="custom-button1">Enter</button>
     </form>
     <footer>
+      <div id="error-message"></div>
       <button @click="signup" class="custom-button2">Sign Up</button>
     </footer>
   </section>
@@ -43,27 +44,30 @@ export default {
         if (response.ok) {
           const responseData = await response.json();
           //responseData is the token
-          console.log('User Logged In', responseData);
           const token = responseData.token;
-          console.log('User Logged token', token);
 
           // Assuming the response contains some user information, you can redirect to the player information page
-          //this.$router.push('/player-info');
           this.$router.push({
             path: '/player-info',
             query: { token, player_ID: this.userId }
           });
         } else {
-          //console.error('Login failed', response.statusText);
-          // Handle login error, show a message to the user, etc.
+          const errorData = await response.json(); 
+              
+          if (errorData.error && errorData.error.message) {
+            const errorMessage = errorData.error.message;
+            const errorMessageDiv = document.getElementById('error-message');
+            errorMessageDiv.textContent = errorMessage;
+            errorMessageDiv.style.color = 'red'; 
+          }  
         }
       } catch (error) {
-        //console.error('Login failed', error);
-        // Handle login error, show a message to the user, etc.
+        const errorMessageDiv = document.getElementById('error-message');
+        errorMessageDiv.textContent = 'Error with the server';
+        errorMessageDiv.style.color = 'red'; 
       }
     },
     signup() {
-      
       this.$router.push('/register');
     },
   },

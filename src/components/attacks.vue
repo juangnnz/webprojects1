@@ -118,7 +118,6 @@ export default {
 }
 
 #sale-attacks{
-
   display:flex;
   flex-direction: column;
   align-items: center;
@@ -155,5 +154,44 @@ export default {
 .buy-button[disabled] {
   background-color: #a5d6a7; /*Disabled button background color*/
   cursor: not-allowed; /*Disabled cursor style*/
+}
+
+.attacks-management {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.equipped-attacks, .available-attacks {
+  width: 100%; 
+}
+
+.equipped-attack, .available-attack {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+/* Responsive Styles for Mobile */
+@media only screen and (max-width: 600px) {
+  .attacks-management {
+    flex-direction: column;
+  }
+
+  .equipped-attacks, .available-attacks {
+    width: 90%; 
+  }
+
+  .equipped-attack, .available-attack {
+    flex-direction: column; 
+    align-items: flex-start;
+  }
+
+  button {
+    width: 100%; 
+    margin-top: 10px; 
+  }
 }
 </style>

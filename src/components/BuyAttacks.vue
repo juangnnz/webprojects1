@@ -1,5 +1,5 @@
 <template>
-  <div id="sale-attacks">
+  <main id="sale-attacks">
     <h2 id="title">Attacks on Sale</h2>
 
     <ul class="attack-list">
@@ -12,7 +12,7 @@
         </button>
       </li>
     </ul>
-  </div>
+  </main>
 </template>
 
 <script>
@@ -77,14 +77,15 @@ export default {
 }
 
 #sale-attacks{
-
   display:flex;
   flex-direction: column;
   align-items: center;
 }
+
 .attack-list {
   list-style: none;
   padding: 0;
+  width: 100%;
 }
 
 /* Styles for each attack item in the list */
@@ -115,4 +116,18 @@ export default {
   background-color: #a5d6a7; /*Disabled button background color*/
   cursor: not-allowed; /*Disabled cursor style*/
 }
+
+/* Responsive Styles for Mobile */
+@media only screen and (max-width: 600px) {
+  .attack-item {
+    flex-direction: column; /* Stack elements vertically */
+    align-items: flex-start;
+  }
+
+  .buy-button {
+    width: 100%; /* Full width button for easier interaction */
+    margin-top: 10px; /* Extra margin for stacked layout */
+  }
+}
+
 </style>

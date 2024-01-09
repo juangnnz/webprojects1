@@ -1,7 +1,7 @@
 <template>
   
-  <div id="block2">
-    <div class="block1">
+  <section id="block2">
+    <article class="block1">
         <h2>{{gameId}}</h2>
         <table id="gameTable">
             <tr v-for="row in rows" :key="row">
@@ -10,25 +10,25 @@
             </tr>
         </table>
         <!-- Leave Game Button -->
-        <div class="block4">
+        <footer class="block4">
             <button @click="leaveGame" class="leave-game-btn">Leave Game</button>
-        </div>
-    </div>
+        </footer>
+    </article>
 
     <!-- Attack Options -->
-    <div class="block3">
+    <aside class="block3">
       <h3>Attack with:</h3>
       <button @click="attack1">Attack 1</button>
       <button @click="attack2">Attack 2</button>
       <button @click="attack3">Attack 3</button>
-    </div>
-    <div class="block5">  
+    </aside>
+    <nav class="block5">  
         <img src="../assets/arrow.png" alt="arrow" class="arrow" @click="up()"/>
         <img src="../assets/arrow.png" alt="arrow" class="arrow" style="transform: rotate(180deg);" @click="down()"/>
         <img src="../assets/arrow.png" alt="arrow" class="arrow" style="transform: rotate(90deg);" @click="right()"/>
         <img src="../assets/arrow.png" alt="arrow" class="arrow" style="transform: rotate(-90deg);" @click="left()"/>
-    </div>
-  </div>
+    </nav>
+  </section>
  
   
 </template>
@@ -97,57 +97,39 @@ h3{
 #block2{
     display: flex;
     flex-direction: row;
-    max-width: 9000px;
+    max-width: 900px;
 }
 
-.block1{
+.block1, .block3, .block5 {
     display: flex;
     flex-direction: column;
     width: 300px;
     height: 400px;
-    margin-left: 80px;
+    margin-left: 20px;
 
-}
-
-.block3{
-    display: flex;
-    flex-direction: column;
-    width: 300px;
-    height: 400px;
-    margin-left: 100px;
 }
 
 .block4{
     margin-top: 20px;
 }
 
-.block5{
-    display: flex;
-    flex-direction: column;
-    width: 300px;
-    height: 400px;
-    margin-left: 120px;
-}
-
 #gameTable {
   border-collapse: collapse;
-  width: 300px;
+  width: 100%;
   height: 300px;
 }
 
 #gameTable td {
   border: 1px solid black;
+  width: 30px;
+  height: 30px;
 }
 
 .cell {
-  width: 30px;
-  height: 30px;
   background-color: white;
 }
 
 #gameTable .cursor-cell {
-  width: 30px;
-  height: 30px;
   background-color: #e5e5ff;
   border: 2px solid #3d5cff;
   
@@ -158,7 +140,6 @@ h3{
   height: 90px;
 }
 
-/* Added styles for the Attack buttons */
 button {
   margin: 10px;
   padding: 8px;
@@ -170,7 +151,7 @@ button {
 }
 
 .leave-game-btn{
-    width: 200px;
+    width: 100px;
     height: 35px;
     border: 2px solid #3D5CFF; 
     border-radius: 4px;
@@ -178,5 +159,33 @@ button {
     color: black;
 }
 
+/* Responsive Styles for Mobile */
+@media only screen and (max-width: 600px) {
+    #block2 {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .block1, .block3, .block5 {
+        width: 90%; 
+        margin-left: 0;
+        margin-bottom: 20px;
+    }
+
+    #gameTable {
+        width: 90%; 
+        height: auto; 
+    }
+
+    #gameTable td {
+        width: auto; 
+        height: auto;
+    }
+
+    .arrow {
+        width: 40px; 
+        height: 60px; 
+    }
+}
 
 </style>

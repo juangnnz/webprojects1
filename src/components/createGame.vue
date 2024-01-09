@@ -1,5 +1,5 @@
 <template>
-  <div class="create-game">
+  <main class="create-game">
     <h2 id="createArenaTitle">Create an Arena</h2>
     <form @submit.prevent="createGame">
       <div class="form-group">
@@ -20,7 +20,7 @@
       <button class="create-button" type="submit">Create</button>
       <div id="error-message"></div>
     </form>
-  </div>
+  </main>
 </template>
 
 <script>
@@ -115,6 +115,8 @@ input {
   color: #ffffff; /* Texto blanco */
   cursor: pointer;
   outline: none; /* Elimina el contorno predeterminado del navegador */
+  width: 150px;
+  margin: 0 auto;
 }
 
 .create-button:hover {
@@ -123,5 +125,18 @@ input {
 
 #createArenaTitle {
   color: #3D5CFF;
+}
+
+/* Responsive Styles for Mobile */
+@media only screen and (max-width: 600px) {
+  .create-game {
+    max-width: 90%;
+    padding: 10px;
+  }
+
+  input, .create-button {
+    padding: 8px; /* Slightly reduced padding for mobile */
+  }
+
 }
 </style>

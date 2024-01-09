@@ -1,6 +1,6 @@
 <template>
   <!-- Container for available games component -->
-  <div class="available-games">
+  <main class="available-games">
     <h2 id="availableGamesTitle">Available Arenas</h2>
     <table>
       <!-- Table header -->
@@ -34,7 +34,7 @@
         </tr>
       </tbody>
     </table>
-  </div>
+  </main>
 </template>
 
 <script>
@@ -129,5 +129,26 @@ th {
 .game-link:hover {
   background-color: #007BFF;
   color: #fff;
+}
+
+/* Responsive Styles for Mobile */
+@media only screen and (max-width: 600px) {
+  .available-games {
+    padding: 10px;
+    max-width: 100%;
+  }
+
+  table {
+    font-size: 14px; /* Smaller font size for better readability on mobile */
+  }
+
+  th, td {
+    padding: 6px; /* Reduced padding for compact display */
+  }
+
+  .game-link {
+    padding: 8px 16px; /* Slightly smaller padding for the button */
+    font-size: 16px; /* Adjusted font size for mobile */
+  }
 }
 </style>

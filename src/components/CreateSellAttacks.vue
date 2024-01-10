@@ -7,6 +7,7 @@
         <input v-model="newAttack.position" type="text" placeholder="Enter positions" class="input-field" required>
         <button class="button" type="submit">Create Attack</button>
       </form>
+      <div id="error-message"></div>
     </div>
     <div class="block2">
       <h2 id="titleAttack">Your Attacks:</h2>
@@ -27,7 +28,6 @@
 
 <script>
 export default {
-  props: ['token'],
   data() {
     return {
       newAttack: {
@@ -43,42 +43,67 @@ export default {
   },
   methods: {
     async fetchAttacks() {
-  try {
-    const token = this.$route.query.token;
+          
+      try {
+        const token = localStorage.getItem('token');
 
-    // Ensure token is available before making the request
-    if (!token) {
-      console.error('Token is missing.');
-      return;
-    }
+        const response = await fetch('https://balandrau.salle.url.edu/i3/players/attacks', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Bearer': `${token}`,
+          },
+        });
 
-    const response = await fetch('https://balandrau.salle.url.edu/i3/players/attacks', {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    });
+        const data = await response.json();
+        console.log(data);
+        this.userAttacks = data.map(attack => ({
+            name: attack.attack_ID, // O ajusta el nombre según corresponda
+            position: attack.positions, // Ajusta el nombre según corresponda
+            textButton: attack.on_sale ? 'In Store' : 'Sell', // Lógica para el botón de venta
+        }));
 
-    const data = await response.json();
-
-    this.equippedAttacks = data.equippedAttacks;
-    this.availableAttacks = data.availableAttacks;
-  } catch (error) {
-    console.error('Error fetching attacks:', error);
-  }
-},
+        /*
+        this.equippedAttacks = data.equippedAttacks;
+        this.availableAttacks = data.availableAttacks;*/
+      } catch (error) {
+        console.error('Error fetching attacks:', error);
+      }
+    },
     async createAttack() {
       try {
+        const token = localStorage.getItem('token');
+        console.log("token is "+token);
+
         const response = await fetch('https://balandrau.salle.url.edu/i3/shop/attacks', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${this.token}`,
+            'Bearer': `${token}`,
           },
-          body: JSON.stringify(this.newAttack),
+          body: JSON.stringify({
+            attack_ID: this.newAttack.name,
+            positions: this.newAttack.position,
+            img: 'https://www.shutterstock.com/image-vector/battle-game-cross-swords-concept-260nw-1888899151.jpg',
+          }),
         });
-        const data = await response.json();
+
+        if (response.ok) {
+          const errorMessageDiv = document.getElementById('error-message');
+          errorMessageDiv.textContent = '';
+
+        } else {
+         
+          const errorData = await response.json(); 
+              
+          if (errorData.error && errorData.error.message) {
+              const errorMessage = errorData.error.message;
+              const errorMessageDiv = document.getElementById('error-message');
+              errorMessageDiv.textContent = errorMessage;
+              errorMessageDiv.style.color = 'red'; 
+          }
+        }
+        //const data = await response.json();
 
         // Update userAttacks with the new list of attacks after creation
         await this.fetchAttacks();
@@ -90,7 +115,9 @@ export default {
           textButton: 'Sell',
         };
       } catch (error) {
-        console.error('Error creating attack:', error);
+        const errorMessageDiv = document.getElementById('error-message');
+        errorMessageDiv.textContent = 'Error with the server';
+        errorMessageDiv.style.color = 'red'; 
       }
     },
     async sellAttack(index) {

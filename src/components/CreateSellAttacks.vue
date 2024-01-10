@@ -34,6 +34,7 @@ export default {
         name: '',
         position: '',
         textButton: 'Sell',
+        askingPrice: 0,
       },
       userAttacks: [],
     };
@@ -60,7 +61,7 @@ export default {
         this.userAttacks = data.map(attack => ({
             name: attack.attack_ID, 
             position: attack.positions, 
-            textButton: attack.on_sale ? 'In Store' : 'Sell', 
+            textButton: attack.on_sale ? 'In store' : 'Sell', 
         }));
 
       } catch (error) {
@@ -119,22 +120,40 @@ export default {
     },
     async sellAttack(index) {
       try {
+        const token = localStorage.getItem('token');
         if (this.userAttacks[index].textButton === 'Sell') {
-          const response = await fetch(`https://balandrau.salle.url.edu/i3/shop/attacks/${this.userAttacks[index].id}/sell`, {
+          
+          const response = await fetch(`https://balandrau.salle.url.edu/i3/shop/attacks/${this.userAttacks[index].name}/sell`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              Authorization: `Bearer ${this.token}`,
+              'Bearer': `${token}`,
             },
+            body: JSON.stringify({
+              price: this.userAttacks[index].askingPrice
+            }),
           });
-
-          // Update userAttacks with the new list of attacks after selling
-          await this.fetchAttacks();
-
-          this.userAttacks[index].textButton = 'In store';
+          
+          if (response.ok){
+            // Update userAttacks with the new list of attacks after selling
+            await this.fetchAttacks();
+            this.userAttacks[index].textButton = 'In store';
+          }
+          else{
+            const errorData = await response.json(); 
+              
+            if (errorData.error && errorData.error.message) {
+                const errorMessage = errorData.error.message;
+                const errorMessageDiv = document.getElementById('error-message');
+                errorMessageDiv.textContent = errorMessage;
+                errorMessageDiv.style.color = 'red'; 
+            }
+          }
         }
       } catch (error) {
-        console.error('Error selling attack:', error);
+          const errorMessageDiv = document.getElementById('error-message');
+          errorMessageDiv.textContent = 'Error with the server';
+          errorMessageDiv.style.color = 'red'; 
       }
     },
   },

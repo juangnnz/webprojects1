@@ -56,24 +56,22 @@ export default {
         });
 
         const data = await response.json();
-        console.log(data);
+       
         this.userAttacks = data.map(attack => ({
-            name: attack.attack_ID, // O ajusta el nombre según corresponda
-            position: attack.positions, // Ajusta el nombre según corresponda
-            textButton: attack.on_sale ? 'In Store' : 'Sell', // Lógica para el botón de venta
+            name: attack.attack_ID, 
+            position: attack.positions, 
+            textButton: attack.on_sale ? 'In Store' : 'Sell', 
         }));
 
-        /*
-        this.equippedAttacks = data.equippedAttacks;
-        this.availableAttacks = data.availableAttacks;*/
       } catch (error) {
-        console.error('Error fetching attacks:', error);
+        const errorMessageDiv = document.getElementById('error-message');
+        errorMessageDiv.textContent = 'Error with the server';
+        errorMessageDiv.style.color = 'red'; 
       }
     },
     async createAttack() {
       try {
         const token = localStorage.getItem('token');
-        console.log("token is "+token);
 
         const response = await fetch('https://balandrau.salle.url.edu/i3/shop/attacks', {
           method: 'POST',
@@ -103,7 +101,6 @@ export default {
               errorMessageDiv.style.color = 'red'; 
           }
         }
-        //const data = await response.json();
 
         // Update userAttacks with the new list of attacks after creation
         await this.fetchAttacks();

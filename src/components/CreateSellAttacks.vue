@@ -1,5 +1,5 @@
 <template>
-  <div class="attack-container">
+  <section class="attack-container">
     <div class="block1">
       <h2 id="titles">Create Attacks</h2>
       <form @submit.prevent="createAttack" class="attack-form">
@@ -22,7 +22,7 @@
         </li>
       </ul>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -128,25 +128,24 @@ export default {
   }
 
   .input-field {
-  width: 100%;
-  padding: 10px;
-  margin: 5px 0;
-  border: 2px solid #3D5CFF; /* Cambia el color del borde según tus preferencias */
-  border-radius: 5px; /* Ajusta el radio según tus preferencias */
-  background-color: #ffffff; /* Fondo blanco */
-  color: #000000; /* Texto negro */
-  outline: none;
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 2px solid #3D5CFF; /* Cambia el color del borde según tus preferencias */
+    border-radius: 5px; /* Ajusta el radio según tus preferencias */
+    background-color: #ffffff; /* Fondo blanco */
+    color: #000000; /* Texto negro */
+    outline: none;
   }
 
   #input-price{
-  width: 80px;
-  margin: 5px 0;
-  border: 2px solid #3D5CFF; /* Cambia el color del borde según tus preferencias */
-  border-radius: 5px; /* Ajusta el radio según tus preferencias */
-  background-color: #ffffff; /* Fondo blanco */
-  color: #000000; /* Texto negro */
-  outline: none;
-
+    width: 80px;
+    margin: 5px 0;
+    border: 2px solid #3D5CFF; /* Cambia el color del borde según tus preferencias */
+    border-radius: 5px; /* Ajusta el radio según tus preferencias */
+    background-color: #ffffff; /* Fondo blanco */
+    color: #000000; /* Texto negro */
+    outline: none;
   }
 
   .attack-container {
@@ -154,7 +153,6 @@ export default {
     background-color: white;
     display: flex;
     flex-direction: row;
-    
   }
 
   .block2{
@@ -163,9 +161,7 @@ export default {
     flex-direction: column;
     width: 900px;
     align-items: center;
-    
   }
-  
   
   .attack-form {
     margin-bottom: 20px;
@@ -204,7 +200,29 @@ export default {
     outline: none; 
     margin-top: 20px;
   }
-  
- 
-  </style>
+
+/* Responsive Styles for Mobile */
+@media only screen and (max-width: 600px) {
+  .attack-container {
+    flex-direction: column; /* Stack blocks vertically on small screens */
+  }
+
+  .block1, .block2 {
+    margin-left: 0;
+    width: 100%; /* Full width for each block */
+    height: 100px;
+  }
+
+  #titleAttack {
+    margin-left: 30px;
+    margin-top: 0%;
+  }
+
+  .button {
+    width: 150px; /* Fixed width for buttons */
+    margin: 10px 0; /* Center the button */
+  }
+}
+
+</style>
   

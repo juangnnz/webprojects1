@@ -34,6 +34,7 @@
         </tr>
       </tbody>
     </table>
+    <div id="error-message"></div>
   </main>
 </template>
 
@@ -48,6 +49,44 @@ export default {
       ],
       selectedGame: null, // Track the selected game
     };
+  },
+  async mounted() {
+    try {
+      const token = localStorage.getItem('token');
+
+      // Fetch player data
+      const playerResponse = await fetch(`https://balandrau.salle.url.edu/i3/arenas`, {
+        method: 'GET',
+        headers: {
+          'accept': 'application/json',
+          'Bearer': `${token}`,
+        },
+      });
+
+      if (playerResponse.ok) {
+        const playerData = await playerResponse.json();
+        const games = playerData.filter(game => !game.finished);
+
+        const transformedData = games.map(game => ({
+          id: game.game_ID,
+          size: game.size,
+          hpMax: game.HP_max,
+          
+        }));
+
+        // Actualizar availableGames con los datos transformados
+        this.availableGames = transformedData;
+      } else {
+        const errorMessageDiv = document.getElementById('error-message');
+        errorMessageDiv.textContent = 'Error fetching data';
+        errorMessageDiv.style.color = 'red'; 
+      }
+
+    } catch (error) {
+      const errorMessageDiv = document.getElementById('error-message');
+      errorMessageDiv.textContent = 'Error fetching data';
+      errorMessageDiv.style.color = 'red'; 
+    }
   },
   methods: {
     // Method to toggle the visibility of the action column for a specific game

@@ -7,6 +7,7 @@
         <input v-model="newAttack.position" type="text" placeholder="Enter positions" class="input-field" required>
         <button class="button" type="submit">Create Attack</button>
       </form>
+      <div id="error-message"></div>
     </div>
     <div class="block2">
       <h2 id="titleAttack">Your Attacks:</h2>
@@ -27,13 +28,13 @@
 
 <script>
 export default {
-  props: ['token'],
   data() {
     return {
       newAttack: {
         name: '',
         position: '',
         textButton: 'Sell',
+        askingPrice: 0,
       },
       userAttacks: [],
     };
@@ -43,42 +44,64 @@ export default {
   },
   methods: {
     async fetchAttacks() {
-  try {
-    const token = this.$route.query.token;
+          
+      try {
+        const token = localStorage.getItem('token');
 
-    // Ensure token is available before making the request
-    if (!token) {
-      console.error('Token is missing.');
-      return;
-    }
+        const response = await fetch('https://balandrau.salle.url.edu/i3/players/attacks', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Bearer': `${token}`,
+          },
+        });
 
-    const response = await fetch('https://balandrau.salle.url.edu/i3/players/attacks', {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    });
+        const data = await response.json();
+       
+        this.userAttacks = data.map(attack => ({
+            name: attack.attack_ID, 
+            position: attack.positions, 
+            textButton: attack.on_sale ? 'In store' : 'Sell', 
+        }));
 
-    const data = await response.json();
-
-    this.equippedAttacks = data.equippedAttacks;
-    this.availableAttacks = data.availableAttacks;
-  } catch (error) {
-    console.error('Error fetching attacks:', error);
-  }
-},
+      } catch (error) {
+        const errorMessageDiv = document.getElementById('error-message');
+        errorMessageDiv.textContent = 'Error with the server';
+        errorMessageDiv.style.color = 'red'; 
+      }
+    },
     async createAttack() {
       try {
+        const token = localStorage.getItem('token');
+
         const response = await fetch('https://balandrau.salle.url.edu/i3/shop/attacks', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${this.token}`,
+            'Bearer': `${token}`,
           },
-          body: JSON.stringify(this.newAttack),
+          body: JSON.stringify({
+            attack_ID: this.newAttack.name,
+            positions: this.newAttack.position,
+            img: 'https://www.shutterstock.com/image-vector/battle-game-cross-swords-concept-260nw-1888899151.jpg',
+          }),
         });
-        const data = await response.json();
+
+        if (response.ok) {
+          const errorMessageDiv = document.getElementById('error-message');
+          errorMessageDiv.textContent = '';
+
+        } else {
+         
+          const errorData = await response.json(); 
+              
+          if (errorData.error && errorData.error.message) {
+              const errorMessage = errorData.error.message;
+              const errorMessageDiv = document.getElementById('error-message');
+              errorMessageDiv.textContent = errorMessage;
+              errorMessageDiv.style.color = 'red'; 
+          }
+        }
 
         // Update userAttacks with the new list of attacks after creation
         await this.fetchAttacks();
@@ -90,27 +113,47 @@ export default {
           textButton: 'Sell',
         };
       } catch (error) {
-        console.error('Error creating attack:', error);
+        const errorMessageDiv = document.getElementById('error-message');
+        errorMessageDiv.textContent = 'Error with the server';
+        errorMessageDiv.style.color = 'red'; 
       }
     },
     async sellAttack(index) {
       try {
+        const token = localStorage.getItem('token');
         if (this.userAttacks[index].textButton === 'Sell') {
-          const response = await fetch(`https://balandrau.salle.url.edu/i3/shop/attacks/${this.userAttacks[index].id}/sell`, {
+          
+          const response = await fetch(`https://balandrau.salle.url.edu/i3/shop/attacks/${this.userAttacks[index].name}/sell`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              Authorization: `Bearer ${this.token}`,
+              'Bearer': `${token}`,
             },
+            body: JSON.stringify({
+              price: this.userAttacks[index].askingPrice
+            }),
           });
-
-          // Update userAttacks with the new list of attacks after selling
-          await this.fetchAttacks();
-
-          this.userAttacks[index].textButton = 'In store';
+          
+          if (response.ok){
+            // Update userAttacks with the new list of attacks after selling
+            await this.fetchAttacks();
+            this.userAttacks[index].textButton = 'In store';
+          }
+          else{
+            const errorData = await response.json(); 
+              
+            if (errorData.error && errorData.error.message) {
+                const errorMessage = errorData.error.message;
+                const errorMessageDiv = document.getElementById('error-message');
+                errorMessageDiv.textContent = errorMessage;
+                errorMessageDiv.style.color = 'red'; 
+            }
+          }
         }
       } catch (error) {
-        console.error('Error selling attack:', error);
+          const errorMessageDiv = document.getElementById('error-message');
+          errorMessageDiv.textContent = 'Error with the server';
+          errorMessageDiv.style.color = 'red'; 
       }
     },
   },

@@ -48,67 +48,56 @@
 <script>
 export default {
   data() {
-    // Data properties for storing games, filters, and selected game details
     return {
-      games: [ {
-          id: 1,
-          name: 'Game 1',
-          status: 'finished',
-          startDate: '2023-01-01',
-          endDate: '2023-01-10',
-          size: '5',
-          HP_max: 100,
-        },
-        {
-          id: 2,
-          name: 'Game 2',
-          status: 'available',
-          startDate: '2023-02-15',
-          endDate: '2023-02-28',
-          size: '3',
-          HP_max: 150,
-        },
-        {
-          id: 3,
-          name: 'Game 3',
-          status: 'available',
-          startDate: '2023-03-01',
-          endDate: '2023-03-15',
-          size: '2',
-          HP_max: 80,
-        },
-      ],  // An array of game objects
-      filterStatus: 'all',  // Filter status (all, finished, available)
-      startDate: '',  // Start date for filtering games
-      endDate: '',  // End date for filtering games
-      searchQuery: '',  // Search query for filtering games by name
-      selectedGame: null,  // Details of the currently selected game
+      games: [],
+      filterStatus: 'all',
+      startDate: '',
+      endDate: '',
+      searchQuery: '',
+      selectedGame: null,
     };
   },
+  mounted() {
+    // Fetch the list of games when the component is mounted
+    this.fetchGames();
+  },
   computed: {
-    // Computed property to filter games based on status, dates, and search query
     filteredGames() {
       return this.games.filter((game) => {
-        const statusMatch = this.filterStatus === 'all' || game.status === this.filterStatus;
-        const dateMatch = (!this.startDate || game.startDate >= this.startDate) &&
-                         (!this.endDate || game.endDate <= this.endDate);
-        const searchMatch = game.name.toLowerCase().includes(this.searchQuery.toLowerCase());
+        const statusMatch = this.filterStatus === 'all' || game.finished === (this.filterStatus === 'finished');
+        const dateMatch =
+          (!this.startDate || new Date(game.creation_date) >= new Date(this.startDate)) &&
+          (!this.endDate || new Date(game.creation_date) <= new Date(this.endDate));
+        const searchMatch = game.game_ID.toLowerCase().includes(this.searchQuery.toLowerCase());
         return statusMatch && dateMatch && searchMatch;
       });
     },
   },
   methods: {
+    async fetchGames() {
+      try {
+        const response = await fetch('https://balandrau.salle.url.edu/i3/arenas');
+        if (response.ok) {
+          const data = await response.json();
+          this.games = data;
+        } else {
+          console.error('Error fetching games:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error fetching games:', error.message);
+      }
+    },
     viewRecord(gameId) {
       console.log(`View Record for Game ID: ${gameId}`);
       //aqui vemos el record del juego
     },
     viewGameDetails(gameId) {
-      // aqui se ven los detalles del juego
-      this.selectedGame = this.games.find((game) => game.id === gameId);
+      this.selectedGame = this.games.find((game) => game.game_ID === gameId);
     },
   },
 };
 </script>
+
 
 <style scoped>
   /* Styles for the game finder component */

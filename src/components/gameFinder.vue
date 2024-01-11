@@ -1,26 +1,38 @@
 <template>
   <!-- The main container for the game finder component -->
-  <div class="game-finder">
+  <section class="game-finder">
     <!-- Form for filters containing dropdown, date inputs, and search bar -->
     <form @submit.prevent="applyFilters" class="filter-form">
       <!-- Filter by Status -->
-      <label for="filterStatus">Status:</label>
-      <select v-model="filterStatus" id="filterStatus" class="selector">
-        <option value="all">All</option>
-        <option value="finished">Finished</option>
-        <option value="available">Available</option>
-      </select>
+      <section class="filters">
+        <div class="filter-group">
+          <label for="filterStatus">Status:</label>
+          <select v-model="filterStatus" id="filterStatus" class="selector">
+            <option value="all">All</option>
+            <option value="finished">Finished</option>
+            <option value="available">Available</option>
+          </select>
+        </div>
 
       <!-- Between Dates -->
-      <label for="startDate">Start Date:</label>
-      <input type="date" v-model="startDate" id="startDate" class="dates" />
-      <label for="endDate">End Date:</label>
-      <input type="date" v-model="endDate" id="endDate" class="dates" />
-
-      <!-- Search by Name -->
-      <label for="searchQuery">Search by Name:</label>
-      <input v-model="searchQuery" type="text" id="searchQuery" class="search-input" placeholder="Search...">
-
+      <div class="date-group">
+          <div class="date-filter">
+            <label for="startDate">Start Date:</label>
+            <input type="date" v-model="startDate" id="startDate" class="dates" />
+          </div>
+          <div class="date-filter">
+            <label for="endDate">End Date:</label>
+            <input type="date" v-model="endDate" id="endDate" class="dates" />
+          </div>
+        </div> 
+      
+      
+        <!-- Search by Name --> 
+        <div class="search-group">
+          <label for="searchQuery">Search by Name:</label>
+          <input v-model="searchQuery" type="text" id="searchQuery" class="search-input" placeholder="Search...">
+        </div>
+      </section>
       <!-- List of games displayed based on applied filters -->
       <ul class="game-list">
         <li v-for="game in filteredGames" :key="game.id" class="game-item">
@@ -30,7 +42,7 @@
         </li>
       </ul>
     </form>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -109,19 +121,30 @@ export default {
     background-color: #ffffff;  /*Styling for the background color */
   }
   
+  .filter-group, .date-group, .search-group {
+    margin-bottom: 10px;
+  }
+
   /* Styles for the filters section */
   .filters {
     margin-bottom: 20px;
-
+    display: flex;
+    flex-direction: column;
+    border-color: white;
   }
   
   .filters label {
     margin-right: 10px;
+    color: #3D5CFF;
   }
 
-  .selector{
-    background: #3D5CFF;
+  .selector, .search-input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid black;
+    background-color: white;
   }
+
 
   .dates{
       color: white;
@@ -130,8 +153,7 @@ export default {
       border: 1px solid white;
       border-radius: 5px;
       filter: invert(1); 
-      width: 100px;
-
+      width: 100px
   }
   
   /* Styles for the game list */
@@ -142,17 +164,19 @@ export default {
   
   /* Styles for each game item in the list */
   .game-item {
-    display: flex;
-    text-align: left;
-    align-items: center;
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-bottom: 10px;
-  }
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  border: 1px solid black;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
   
   .game-name {
     flex: 1;
     color: black;
+    margin-bottom: 10px;
   }
   
   .view-details-button {
@@ -196,6 +220,13 @@ export default {
     background-size: cover;
     cursor: pointer;
   }
+
+  @media only screen and (max-width: 600px) {
+  .game-item {
+    align-items: center;
+  }
+}
+
 </style>
 
   

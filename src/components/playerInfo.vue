@@ -15,15 +15,24 @@
           <div class="info-value">Experience: {{ playerExperience }}</div>
           <div class="info-value">Level: {{ playerLevel }}</div>
           <div class="info-value">Coins: {{ playerCoins }}</div>
-          <div class="info-value">Backpacked Attacks: {{ backpackedAttacks }}</div>
+          <div class="info-attacks" v-if="backpackedAttacks.length > 0">
+            <div class="info-value">Backpacked Attacks:</div>
+            <ul class="game-list">
+              <!-- Using <li> to represent each game -->
+              <li v-for="game in backpackedAttacks" :key="game.id" class="game-item">
+                <span class="game-name">{{ game.attack_ID }}:</span>
+                <span class="game-attacks">{{ game.power }}</span>
+              </li>
+            </ul>
+          </div>
           <!-- Display equipped attacks for each game -->
-          <div class="info-attacks">
+          <div class="info-attacks" v-if="equippedAttacksGames.length > 0">
             <div class="info-value">Equipped Attacks:</div>
             <ul class="game-list">
               <!-- Using <li> to represent each game -->
               <li v-for="game in equippedAttacksGames" :key="game.id" class="game-item">
-                <span class="game-name">{{ game.name }}:</span>
-                <span class="game-attacks">{{ game.equippedAttacks }}</span>
+                <span class="game-name">{{ game.attack_ID }}:</span>
+                <span class="game-attacks">{{ game.power }}</span>
               </li>
             </ul>
           </div>
@@ -48,7 +57,7 @@ export default {
       playerExperience: 0,
       playerLevel: 0,
       playerCoins: 200,
-      backpackedAttacks: '',
+      backpackedAttacks: [],
       equippedAttacksGames: [],
       showBackpackedAttacks: false,
       showEquippedAttacks: false,
@@ -57,7 +66,7 @@ export default {
   async mounted() {
     try {
       const token = localStorage.getItem('token');
-      const playerId = this.$route.query.player_ID;
+      const playerId = localStorage.getItem('playerID');
 
       // Fetch player data
       const playerResponse = await fetch(`https://balandrau.salle.url.edu/i3/players/${playerId}`, {
@@ -91,10 +100,11 @@ export default {
 
       if (attacksResponse.ok) {
         const attacksData = await attacksResponse.json();
-
+        console.log(attacksData);
+        
         // Update attacks information
-        this.backpackedAttacks = attacksData.backpackedAttacks;
-        this.equippedAttacksGames = attacksData.equippedAttacksGames;
+        this.backpackedAttacks = attacksData;
+        this.equippedAttacksGames = attacksData.filter(attack => attack.equipped);
       } else {
         throw new Error('Failed to fetch attacks data');
       }

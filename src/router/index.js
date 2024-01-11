@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import registration from '../components/registration.vue';
-import playerInfo from '../components/playerInfo.vue';
+import playerInfo from '../components/PlayerInfo.vue';
 import MainMenu from '../components/MainMenu.vue';
 import attacks from '../components/attacks.vue';
 import playerLists from '../components/playerLists.vue';
@@ -13,7 +13,7 @@ import arena from '../components/Arena.vue';
 import BuyAttacks from '../components/BuyAttacks.vue';
 import CreateSellAttacks from '../components/CreateSellAttacks.vue';
 import RecordGameById from '../components/RecordGameById.vue';
-import home from '../components/home.vue';
+import home from '../components/Home.vue';
 
 const routes = [
 

@@ -5,7 +5,7 @@ import MainMenu from '../components/MainMenu.vue';
 import attacks from '../components/attacks.vue';
 import playerLists from '../components/playerLists.vue';
 import gameHistory from '../components/gameHistory.vue';
-import createGame from '../components/createGame.vue';
+import createGame from '../components/CreateGame.vue';
 import availableGames from '../components/AvailableGames.vue';
 import gameFinder from '../components/gameFinder.vue';
 import PlayerHistory from '../components/PlayerHistory.vue';

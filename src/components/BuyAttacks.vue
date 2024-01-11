@@ -1,14 +1,13 @@
 <template>
   <main id="sale-attacks">
     <h2 id="title">Attacks on Sale</h2>
-
     <ul class="attack-list">
       <li v-for="(attack, index) in attacksForSale" :key="index" class="attack-item">
         <span class="attack-info">
-          {{ attack.name }} (position: {{ attack.position }})
+          {{ attack.attack_ID }} (position: {{ attack.positions }}), power: {{ attack.power }}
         </span>
         <button @click="buyAttack(attack)" class="buy-button">
-          Buy for {{ attack.askingPrice }} $
+          Buy for {{ attack.price }} $
         </button>
       </li>
     </ul>
@@ -17,7 +16,6 @@
 
 <script>
 export default {
-  props: ['token', 'playerId', 'userCoins'],
   data() {
     return {
       attacksForSale: [],
@@ -28,42 +26,57 @@ export default {
   },
   methods: {
     async fetchAttacksAndCoins() {
+
       try {
-        const response = await fetch('https://balandrau.salle.url.edu/i3/shop/attacks', {
-          headers: {
-            Authorization: `Bearer ${this.token}`,
-          },
-        });
-        const data = await response.json();
-        this.attacksForSale = data;
+        const token = localStorage.getItem('token');
+
+          // Fetch player data
+          const playerResponse = await fetch(`https://balandrau.salle.url.edu/i3/shop/attacks`, {
+            method: 'GET',
+            headers: {
+              'accept': 'application/json',
+              'Bearer': `${token}`,
+            },
+          });
+
+          if (playerResponse.ok) {
+            const playerData = await playerResponse.json();
+            console.log(playerData);
+            this.attacksForSale = playerData;
+          
+          } else {
+            throw new Error('Failed to fetch player data');
+          }
+
       } catch (error) {
-        console.error('Error fetching attacks:', error);
+        console.error('Error fetching data:', error);
+        
       }
     },
     async buyAttack(attack) {
       try {
-        // Check if the user has enough coins
-        if (this.userCoins >= attack.askingPrice) {
-          const response = await fetch('https://balandrau.salle.url.edu/i3/shop/attacks/${attack.id}/buy', {
+        
+          const token = localStorage.getItem('token');
+          const response = await fetch(`https://balandrau.salle.url.edu/i3/shop/attacks/${attack.attack_ID}/buy`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              Authorization: `Bearer ${this.token}`,
+              'Bearer': `${token}`,
             },
-            body: JSON.stringify({ attackId: attack.id }),
           });
-          const data = await response.json();
 
-          // Update userCoins in the component
-          this.userCoins -= attack.askingPrice;
-
-          alert(`You have successfully purchased ${attack.name} for ${attack.askingPrice} coins.`);
-        } else {
-          // Alert the user if they have insufficient coins
-          alert('Insufficient coins to buy this attack. You need more coins.');
-        }
+          if (response.ok){
+            const data = await response.json();
+            console.log(data);
+            alert(`You have successfully purchased ${attack.attack_ID} for ${attack.price} coins.`);
+          }
+          else{
+            const errorData = await response.json(); 
+            alert(errorData.error.message);
+          }
+          
       } catch (error) {
-        alert(`Error: ${error.message}`);
+        alert(`Error with the server`);
       }
     },
   },

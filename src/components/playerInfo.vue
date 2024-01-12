@@ -1,8 +1,6 @@
 <template>
   <!-- Main container for player information -->
-  <div class="player-info">
-    <!-- Section containing player details -->
-    <section>
+  <section class="player-info">
       <!-- Header with player's name -->
       <header class="player-info-header">
         <h1 class="info-title">Welcome {{ playerName }}!</h1>
@@ -10,23 +8,25 @@
       <!-- Main section with player's statistics -->
       <main class="player-info-main">
         <!-- Container for player details -->
-        <div class="info-details">
+        <section class="info-details">
           <!-- Display player information -->
-          <div class="info-value">Experience: {{ playerExperience }}</div>
-          <div class="info-value">Level: {{ playerLevel }}</div>
-          <div class="info-value">Coins: {{ playerCoins }}</div>
-          <div class="info-attacks" v-if="backpackedAttacks.length > 0">
-            <div class="info-value">Backpacked Attacks:</div>
-            <ul class="game-list">
-              <!-- Using <li> to represent each game -->
-              <li v-for="game in backpackedAttacks" :key="game.id" class="game-item">
-                <span class="game-name">{{ game.attack_ID }}:</span>
-                <span class="game-attacks">{{ game.power }}</span>
-              </li>
-            </ul>
-          </div>
+          <p class="info-value">Experience: {{ playerExperience }}</p>
+          <p class="info-value">Level: {{ playerLevel }}</p>
+          <p class="info-value">Coins: {{ playerCoins }}</p>
+        </section>
+
+        <section class="info-attacks" v-if="backpackedAttacks.length > 0">
+          <h2 class="info-value">Backpacked Attacks:</h2>
+          <ul class="game-list">
+            <!-- Using <li> to represent each game -->
+            <li v-for="game in backpackedAttacks" :key="game.id" class="game-item">
+              <span class="game-name">{{ game.attack_ID }}:</span>
+              <span class="game-attacks">{{ game.power }}</span>
+            </li>
+          </ul>
+        </section>
           <!-- Display equipped attacks for each game -->
-          <div class="info-attacks" v-if="equippedAttacksGames.length > 0">
+          <section class="info-attacks" v-if="equippedAttacksGames.length > 0">
             <div class="info-value">Equipped Attacks:</div>
             <ul class="game-list">
               <!-- Using <li> to represent each game -->
@@ -35,18 +35,16 @@
                 <span class="game-attacks">{{ game.power }}</span>
               </li>
             </ul>
-          </div>
+          </section>
           <div id="error-message"></div>
-        </div>
-      </main>
-    </section>
+        </main>
 
     <!-- Buttons for log out and delete account -->
-    <div class="display-btn">
+    <footer class="display-btn">
       <button @click="logOut" class="btn" style="margin-top: 40px;">Log Out</button>
       <button @click="deleteAccount" class="btn">Delete Account</button>
-    </div>
-  </div>
+    </footer>
+  </section>
 </template>
 
 <script>
@@ -175,7 +173,7 @@ export default {
   color: #fff;
   padding: 20px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   margin-left: 60px;
 }
 
@@ -216,7 +214,6 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-left: 200px;
 }
 
 /* Styling for the section displaying equipped attacks */
@@ -265,8 +262,8 @@ export default {
   background-color: #ffffff;
   color: #000000;
   padding: 10px 20px;
-  font-size: 25px;
+  font-size: 20px;
   margin-top: 10px;
-  width: 300px;
+  width: 200px;
 }
 </style>

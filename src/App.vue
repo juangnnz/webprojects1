@@ -86,7 +86,13 @@ body, #app {
   background: white;
 }
 
-#logoMenu, .nav-menu, .menu-list, .menu-list li, .submenu {
+#logoMenu {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.nav-menu, .menu-list, .menu-list li, .submenu {
   background: white; /* Set background to white */
 }
 
@@ -157,27 +163,37 @@ body, #app {
 }
 
 /* Responsive adjustments */
+/* Responsive adjustments */
 @media (max-width: 768px) {
-  .logo {
-    width: 100px; /* Smaller logo for mobile */
+  #appHeader {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #logoMenu {
+    flex-direction: column;
+    align-items: center;
   }
 
   .nav-menu, .menu-list {
     flex-direction: column;
     align-items: center;
+    width: 100%;
   }
 
   .menu-list li {
     padding: 5px 0;
+    display: block;
+    text-align: center;
+  }
+
+  .logo {
+    width: 100px; /* Adjust as needed */
   }
 
   .profile-image {
-    width: 35px; /* Even smaller width for mobile */
-    height: 35px; /* Even smaller height for mobile */
-  }
-
-  #logoMenu {
-    flex-direction: column;
+    width: 35px; /* Adjust as needed */
+    height: 35px; /* Adjust as needed */
   }
 }
 

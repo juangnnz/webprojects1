@@ -1,27 +1,16 @@
 <template>
-    <div class="Player-History">
-      <div class="info">
+    <section class="Player-History">
+      <article class="info">
         <h2>Information on {{ player.name }}</h2>
     
-        <div style="color: black;" >
-          <strong >Experience:</strong> {{ player.experience }}
-        </div>
-        <div style="color: black;">
-          <strong>Level:</strong> {{ calculateLevel(player.experience) }}
-        </div>
-        <div style="color: black;">
-          <strong style="color: black;">Coins:</strong> {{ player.coins }}
-        </div>
-        <div style="color: black;">
-          <strong style="color: black;">Games Played:</strong> {{ player.gamesPlayed }}
-        </div>
-        <div style="color: black;">
-          <strong style="color: black;">Games Won:</strong> {{ player.gamesWon }}
-        </div>
-      </div>
+        <p><strong>Experience:</strong> {{ player.experience }}</p>
+        <p><strong>Level:</strong> {{ calculateLevel(player.experience) }}</p>
+        <p><strong>Coins:</strong> {{ player.coins }}</p>
+        <p><strong>Games Played:</strong> {{ player.gamesPlayed }}</p>
+        <p><strong>Games Won:</strong> {{ player.gamesWon }}</p>
+      </article>
   
-      <div class="attacks">
-
+      <article class="attacks">
           <div >
             <button @click="toggleBackpackAttacks">Show Backpacked Attacks</button>
             <div v-if="showBackpackAttacks">
@@ -46,8 +35,8 @@
             </div>
           </div>
 
-      </div>
-    </div>
+        </article>
+      </section>
   </template>
   
   <script>
@@ -90,38 +79,49 @@
   
   <style scoped>
 
-  .Player-History{
-
+  .Player-History {
     display: flex;
-    flex-direction: row;
-  }
-
-  .info{
-
-    margin-left: 200px;
-  }
-
-  .attacks{
-     margin-left: 90px;
-     display: flex;
-     flex-direction: row;
-  }
-  .player-details {
-    max-width: 600px;
-    margin: 20px auto;
+    flex-direction: column;
+    align-items: center;
     padding: 20px;
+  }
+
+  .info, .attacks {
+    max-width: 90%;
+    margin: 10px;
     background-color: #f5f5f5;
     border-radius: 10px;
+    padding: 20px;
   }
-  
+
+  .attacks {
+    display: flex;
+    flex-direction: column;
+  }
+
   button {
     margin-top: 10px;
     padding: 5px 10px;
     cursor: pointer;
   }
 
-  li{
+  li {
     color: black;
-}
-  </style>
+  }
+
+  @media (max-width: 768px) {
+    .Player-History {
+      flex-direction: column;
+    }
+
+    .info, .attacks {
+      width: 100%;
+      margin: 5px 0;
+    }
+
+    .attacks {
+      flex-direction: column;
+    }
+  }
+</style>
   

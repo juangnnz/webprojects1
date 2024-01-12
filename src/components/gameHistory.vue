@@ -1,6 +1,6 @@
 <template>
   <!-- The main container for displaying player game history -->
-  <div class="game-history">
+  <section class="game-history">
     <h2 id="playersGameTitle">Players Game History</h2>
     <!-- Table for displaying player information -->
     <table>
@@ -27,7 +27,7 @@
       </tbody>
     </table>
     <!-- Display selected player's games if available -->
-    <div v-if="selectedPlayerGames">
+    <div v-if="selectedPlayerGames" class="moreinfo">
       <h3 id="playedBy">Games Played by {{ selectedPlayerName }}</h3>
       <!-- List to display games played by the selected player -->
       <ul class="player-games">
@@ -36,7 +36,7 @@
         </li>
       </ul>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -81,6 +81,7 @@ export default {
 /* Scoped styles for the player game history component */
 #playersGameTitle {
   color: #3D5CFF;
+  margin-bottom: 50px;
 }
 
 .game-history {
@@ -145,4 +146,20 @@ button:hover {
   margin-bottom: 5px;
   color: black;
 }
+
+.moreinfo {
+  margin-top: 60px;
+}
+
+@media only screen and (max-width: 600px) {
+  .game-history {
+    padding: 10px;
+  }
+
+  table, .player-games-section {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+}
+
 </style>

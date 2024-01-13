@@ -174,20 +174,20 @@ export default {
     width: 100%;
     padding: 10px;
     margin: 5px 0;
-    border: 2px solid #3D5CFF; /* Cambia el color del borde según tus preferencias */
-    border-radius: 5px; /* Ajusta el radio según tus preferencias */
-    background-color: #ffffff; /* Fondo blanco */
-    color: #000000; /* Texto negro */
+    border: 2px solid #3D5CFF; 
+    border-radius: 5px; 
+    background-color: #ffffff; 
+    color: #000000; 
     outline: none;
   }
 
   #input-price{
     width: 80px;
     margin: 5px 0;
-    border: 2px solid #3D5CFF; /* Cambia el color del borde según tus preferencias */
-    border-radius: 5px; /* Ajusta el radio según tus preferencias */
-    background-color: #ffffff; /* Fondo blanco */
-    color: #000000; /* Texto negro */
+    border: 2px solid #3D5CFF; 
+    border-radius: 5px; 
+    background-color: #ffffff; 
+    color: #000000; 
     outline: none;
   }
 
@@ -247,12 +247,12 @@ export default {
 /* Responsive Styles for Mobile */
 @media only screen and (max-width: 600px) {
   .attack-container {
-    flex-direction: column; /* Stack blocks vertically on small screens */
+    flex-direction: column; 
   }
 
   .block1, .block2 {
     margin-left: 0;
-    width: 100%; /* Full width for each block */
+    width: 100%; 
     height: 100px;
   }
 
@@ -262,8 +262,8 @@ export default {
   }
 
   .button {
-    width: 150px; /* Fixed width for buttons */
-    margin: 10px 0; /* Center the button */
+    width: 150px; 
+    margin: 10px 0; 
   }
 }
 

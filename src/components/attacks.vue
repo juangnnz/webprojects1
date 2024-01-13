@@ -4,25 +4,25 @@
 
     <section class="equipped-attacks" v-if="equippedAttacks.length > 0">
       <h3>Equipped Attacks</h3>
-      <ul>
-        <li v-for="attack in equippedAttacks" :key="attack.id" class="equipped-attack">
-          <h4>{{ attack.attack_ID }}</h4>
-          <p class="attack-description">{{ attack.power }}</p>
-          <button @click="unequipAttack(attack)">Unequip</button>
-        </li>
-      </ul>
+      <div class="packs">
+            <div v-for="attack in equippedAttacks" :key="attack.id" class="equipped-attack2">
+              <h4>{{ attack.attack_ID }}</h4>
+              <p class="attack-description">{{ attack.power }}</p>
+              <button @click="unequipAttack(attack)">Unequip</button>
+            </div>
+      </div>
     </section>
 
     <section class="available-attacks" v-if="availableAttacks.length > 0">
       <h3>Available Attacks</h3>
-      <ul>
-        <li v-for="attack in availableAttacks" :key="attack.id" class="available-attack">
-          <h4>{{ attack.attack_ID }}</h4>
-          <p class="attack-description">{{ attack.power }}</p>
-          <button @click="equipAttack(attack)">Equip</button>
-        </li>
-      </ul>
-    </section>
+      <div class="packs">
+            <div v-for="attack in availableAttacks" :key="attack.id" class="available-attack2">
+              <h4>{{ attack.attack_ID }}</h4>
+              <p class="attack-description">{{ attack.power }}</p>
+              <button @click="equipAttack(attack)">Equip</button>
+            </div>
+          </div>
+      </section>
     <div id="error-message"></div>
   </main>
 </template>
@@ -141,98 +141,85 @@ export default {
 
 
 <style>
-/* Styles for the Attacks on Sale component */
-#title {
-  color: #3D5CFF;
-}
-
-#sale-attacks{
-  display:flex;
-  flex-direction: column;
-  align-items: center;
-}
-.attack-list {
-  list-style: none;
-  padding: 0;
-}
-
-/* Styles for each attack item in the list */
-.attack-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  margin-bottom: 10px;
-}
-
-/* Styles for the buy button */
-.buy-button {
-  background-color: #3D5CFF; /*Button background color*/
-  color: #ffffff; /* Button text color*/
-  padding: 8px;
-  border: none;
-  cursor: pointer;
-}
-
-/* Styles for the buy button on hover */
-.buy-button:hover {
-  background-color: #3D5CFF; /*Button background color*/
-}
-
-/* Styles for the disabled buy button */
-.buy-button[disabled] {
-  background-color: #a5d6a7; /*Disabled button background color*/
-  cursor: not-allowed; /*Disabled cursor style*/
-}
-
-h4,
-.attack-description,
-button {
-  color: #000000; /* Cambiado a negro */
-}
-
 .attacks-management {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #ffffff;
+  padding: 20px;
 }
 
-.equipped-attacks, .available-attacks {
-  width: 100%; 
+.title {
+  color: #3D5CFF;
+  margin-bottom: 40px;
 }
 
-.equipped-attack, .available-attack {
+.packs {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  flex-wrap: wrap; 
+  gap: 10px; 
+}
+
+.pack {
+  display: flex;
+  flex-direction: column; 
   align-items: center;
   padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  width: 150px; 
   margin-bottom: 10px;
+  background-color: #eceff1; 
+}
+
+button {
+  background-color: #3D5CFF; 
+  color: #ffffff; 
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+  outline: none; 
+  width: 90px; 
+}
+
+button:hover {
+  background-color: #1E88E5; 
+}
+
+button:disabled {
+  background-color: #a5d6a7; 
+  cursor: not-allowed; 
+}
+
+h4, .attack-description {
+  color: #000000; 
+  margin: 5px 0; 
+}
+
+.equipped-attack2, .available-attack2 {
+  background-color: #b6d8f6;
+  width:150px;
+  border-radius: 10px;
+  margin-bottom: 40px;
+  margin-top: 10px;
 }
 
 /* Responsive Styles for Mobile */
 @media only screen and (max-width: 600px) {
-  .attacks-management {
-    flex-direction: column;
+  .packs {
+    justify-content: center;
   }
+
+  .pack {
+    width: calc(50% - 20px); 
 
   .equipped-attacks, .available-attacks {
-    width: 90%; 
-  }
-
-  .equipped-attack, .available-attack {
-    flex-direction: column; 
-    align-items: flex-start;
-  }
-
-  button {
     width: 100%; 
-    margin-top: 10px; 
   }
+}
 
-  .available-attack h4,
-  .available-attack .attack-description,
-  .available-attack button {
-    color: #000000; /* Cambiado a negro */
-  }
 }
 </style>

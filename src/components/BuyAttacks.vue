@@ -116,8 +116,8 @@ export default {
 
 /* Styles for the buy button */
 .buy-button {
-  background-color: #3D5CFF; /*Button background color*/
-  color: #ffffff; /* Button text color*/
+  background-color: #3D5CFF; 
+  color: #ffffff; 
   padding: 8px;
   border: none;
   cursor: pointer;
@@ -125,13 +125,13 @@ export default {
 
 /* Styles for the buy button on hover */
 .buy-button:hover {
-  background-color: #3D5CFF; /*Button background color*/
+  background-color: #3D5CFF; 
 }
 
 /* Styles for the disabled buy button */
 .buy-button[disabled] {
-  background-color: #a5d6a7; /*Disabled button background color*/
-  cursor: not-allowed; /*Disabled cursor style*/
+  background-color: #a5d6a7; 
+  cursor: not-allowed; 
 }
 
 .attacks {
@@ -142,13 +142,13 @@ export default {
 /* Responsive Styles for Mobile */
 @media only screen and (max-width: 600px) {
   .attack-item {
-    flex-direction: column; /* Stack elements vertically */
+    flex-direction: column; 
     align-items: flex-start;
   }
 
   .buy-button {
-    width: 100%; /* Full width button for easier interaction */
-    margin-top: 10px; /* Extra margin for stacked layout */
+    width: 100%; 
+    margin-top: 10px; 
   }
 
   .attacks {

@@ -84,7 +84,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px; /* Extra padding for spacing between objects */
+  padding: 20px; 
   background-color: #ffffff;
   max-width: 400px;
   margin: auto;
@@ -93,7 +93,7 @@ export default {
 /* Specific styles for the header */
 .login-form header {
   width: 100%;
-  background-color: #ffffff; /* Setting background color of header to white */
+  background-color: #ffffff; 
   padding: 10px 0;
   text-align: center;
 }
@@ -106,7 +106,7 @@ export default {
   }
 
   .input-field {
-    width: calc(100% - 20px); /* Adjust width for smaller screens */
+    width: calc(100% - 20px); 
   }
 }
 
@@ -115,44 +115,44 @@ export default {
   width: 100%;
   padding: 10px;
   margin: 5px 0;
-  border: 2px solid #3D5CFF; /* Border color */
-  border-radius: 5px; /* Border radius */
-  background-color: #ffffff; /* Background color */
-  color: #000000; /* Text color */
+  border: 2px solid #3D5CFF; 
+  border-radius: 5px; 
+  background-color: #ffffff; 
+  color: #000000; 
   outline: none;
 }
 
 /* Styles for the password toggle button in WebKit browsers */
 .input-field::-webkit-password-toggle-button {
-  -webkit-filter: invert(100%); /* Invert the color of the eye icon */
-  filter: invert(100%); /* Invert the color of the eye icon */
+  -webkit-filter: invert(100%); 
+  filter: invert(100%); 
 }
 
 /* Styles for the login form submit button */
 .custom-button1 {
   padding: 10px 15px;
   border: none;
-  border-radius: 5px; /* Border radius */
-  background-color: #3D5CFF; /* Button background color */
-  color: #ffffff; /* Text color */
+  border-radius: 5px; 
+  background-color: #3D5CFF; 
+  color: #ffffff;
   cursor: pointer;
-  outline: none; /* Remove default browser outline */
+  outline: none; 
 }
 
 /* Styles for the signup button */
 .custom-button2 {
   padding: 10px 15px;
   border: none;
-  border-radius: 5px; /* Border radius */
-  background-color: #ffffff; /* Button background color */
-  color: #3D5CFF; /* Text color */
+  border-radius: 5px; 
+  background-color: #ffffff; 
+  color: #3D5CFF;
   cursor: pointer;
-  outline: none; /* Remove default browser outline */
+  outline: none; 
 }
 
 /* Styles for the login title */
 #logInTitle {
-  color: #3D5CFF; /* Title color */
+  color: #3D5CFF; 
 }
 
 </style>

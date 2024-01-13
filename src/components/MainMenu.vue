@@ -168,7 +168,7 @@
   }
 
   .logo {
-    width: 100px; /* Adjust as needed */
+    width: 100px; 
   }
 }
 </style>

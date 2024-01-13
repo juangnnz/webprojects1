@@ -279,7 +279,7 @@ h3{
     background-position: center;
     background-color: white;
     border: none;
-    transition: transform 0.3s ease; /* Agrega transición para suavizar la rotación */
+    transition: transform 0.3s ease; 
   }
 
   .cursor-rotate-up { transform: rotate(0deg); }
@@ -288,7 +288,7 @@ h3{
   .cursor-rotate-left { transform: rotate(-90deg); }
 
   #gameTable .red-cell {
-  background-color: red; /* O el color que desees para las celdas resaltadas */
+  background-color: red; 
 }
 
 .arrow {

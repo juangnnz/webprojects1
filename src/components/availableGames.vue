@@ -136,15 +136,15 @@ export default {
   text-align: center;
   color: black;
   padding: 20px;
-  padding-bottom: 50px; /* You can adjust this if you need more space at the bottom */
+  padding-bottom: 50px; 
   background-color: #ffffff; 
-  display: flex; /* Flex display to help center the table */
-  flex-direction: column; /* Column direction for inner items */
-  align-items: center; /* Centers items horizontally */
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
 }
 
 .scrollable-table {
-  overflow-x: auto; /* Allows horizontal scrolling */
+  overflow-x: auto; 
 }
 
 /* Styles for the title of the available games section */
@@ -154,9 +154,9 @@ export default {
 
 /* Styles for the table */
 table {
-  margin: auto; /* Centers the table */
+  margin: auto; 
   width: 100%;
-  max-width: 1000px; /* Your desired max-width */
+  max-width: 1000px; 
   border-collapse: collapse;
   margin-top: 20px;
 }

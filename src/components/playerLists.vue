@@ -168,8 +168,8 @@ export default {
 .block1 {
   display: flex;
   flex-direction: row;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
+  justify-content: center; 
+  align-items: center; 
   width: 100%;
   height: auto;
   padding-top: 30px;
@@ -180,36 +180,36 @@ export default {
   display: flex;
   justify-content: center;
   width: 100%;
-  padding-top: 10px; /* Adjust the top padding as needed */
-  padding-bottom: 10px; /* Adjust the bottom padding as needed */
+  padding-top: 10px; 
+  padding-bottom: 10px; 
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .block1 {
-    flex-direction: column; /* Stack title and search input vertically */
+    flex-direction: column; 
     padding-top: 20px;
     padding-bottom: 20px;
   }
 
   .header2 {
-    padding-right: 0; /* Remove the right padding on mobile */
-    margin-bottom: 10px; /* Add some margin below the title */
+    padding-right: 0; 
+    margin-bottom: 10px;
   }
 
   .search-input {
-    width: 100%; /* Full width input on mobile */
-    max-width: 300px; /* Maximum width of the search input */
-    margin: 0 auto; /* Center the search input */
+    width: 100%; 
+    max-width: 300px; 
+    margin: 0 auto; 
   }
 
   .player-table {
-    width: 100%; /* Full width table on mobile */
+    width: 100%; 
   }
 
   .player-table th,
   .player-table td {
-    padding: 10px; /* Smaller padding for table cells */
+    padding: 10px; 
   }
 }
 

@@ -270,8 +270,8 @@ export default {
   }
 
 .search-input {
-  padding-right: 40px; /* Espacio para el ícono de búsqueda */
-  width: 200px; /* Ajusta el ancho según sea necesario */
+  padding-right: 40px; 
+  width: 200px; 
 }
 
   .search-input::after {
@@ -280,8 +280,8 @@ export default {
     top: 50%;
     right: 10px;
     transform: translateY(-50%);
-    width: 20px; /* Adjust the size as needed */
-    height: 20px; /* Adjust the size as needed */
+    width: 20px; 
+    height: 20px; 
     background: url('../assets/profilePicture.png') no-repeat center center; 
     background-size: cover;
     cursor: pointer;

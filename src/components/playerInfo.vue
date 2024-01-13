@@ -8,42 +8,46 @@
       <!-- Main section with player's statistics -->
       <main class="player-info-main">
         <!-- Container for player details -->
-        <section class="info-details">
-          <!-- Display player information -->
-          <p class="info-value">Experience: {{ playerExperience }}</p>
-          <p class="info-value">Level: {{ playerLevel }}</p>
-          <p class="info-value">Coins: {{ playerCoins }}</p>
-        </section>
+        <section class="first">
+          <section class="info-details">
+            <!-- Display player information -->
+            <p class="info-value">Experience: {{ playerExperience }}</p>
+            <p class="info-value">Level: {{ playerLevel }}</p>
+            <p class="info-value">Coins: {{ playerCoins }}</p>
+          </section>
 
-        <section class="info-attacks" v-if="backpackedAttacks.length > 0">
-          <h2 class="info-value">Backpacked Attacks:</h2>
-          <ul class="game-list">
-            <!-- Using <li> to represent each game -->
-            <li v-for="game in backpackedAttacks" :key="game.id" class="game-item">
-              <span class="game-name">{{ game.attack_ID }}:</span>
-              <span class="game-attacks">{{ game.power }}</span>
-            </li>
-          </ul>
-        </section>
-          <!-- Display equipped attacks for each game -->
-          <section class="info-attacks" v-if="equippedAttacksGames.length > 0">
-            <div class="info-value">Equipped Attacks:</div>
+          <section class="info-attacks" v-if="backpackedAttacks.length > 0">
+            <h2 class="info-value2">Backpacked Attacks:</h2>
             <ul class="game-list">
               <!-- Using <li> to represent each game -->
-              <li v-for="game in equippedAttacksGames" :key="game.id" class="game-item">
+              <li v-for="game in backpackedAttacks" :key="game.id" class="game-item">
                 <span class="game-name">{{ game.attack_ID }}:</span>
                 <span class="game-attacks">{{ game.power }}</span>
               </li>
             </ul>
           </section>
-          <div id="error-message"></div>
+            <!-- Display equipped attacks for each game -->
+            <section class="info-attacks" v-if="equippedAttacksGames.length > 0">
+              <h2 class="info-value2">Equipped Attacks:</h2>
+              <ul class="game-list">
+                <!-- Using <li> to represent each game -->
+                <li v-for="game in equippedAttacksGames" :key="game.id" class="game-item">
+                  <span class="game-name">{{ game.attack_ID }}:</span>
+                  <span class="game-attacks">{{ game.power }}</span>
+                </li>
+              </ul>
+            </section>
+            <div id="error-message"></div>
+          </section>
+
+          <!-- Buttons for log out and delete account -->
+          <section class="display-btn">
+            <button @click="logOut" class="btn">Log Out</button>
+            <button @click="deleteAccount" class="btn">Delete Account</button>
+          </section>
         </main>
 
-    <!-- Buttons for log out and delete account -->
-    <footer class="display-btn">
-      <button @click="logOut" class="btn">Log Out</button>
-      <button @click="deleteAccount" class="btn">Delete Account</button>
-    </footer>
+    
   </section>
 </template>
 
@@ -198,9 +202,12 @@ export default {
   background-color: #ffffff;
   color: #fff;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
+.first {
+  margin-right: 100px;
+}
 /* Styling for the container of player details */
 .info-details {
   display: flex;
@@ -211,9 +218,8 @@ export default {
 /* Styling for the buttons section */
 .display-btn {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
   margin-top: 30px;
 }
 
@@ -221,8 +227,8 @@ export default {
 .info-attacks {
   display: flex;
   flex-direction: row;
-  margin-bottom: 10px;
   color: black;
+  margin-top: 20px;
 }
 
 /* Styling for the individual statistics values */
@@ -230,6 +236,10 @@ export default {
   font-weight: bold;
   margin-bottom: 5px;
   color: black;
+}
+
+.info-value2 {
+  margin-right: 30px;
 }
 
 /* Styling for the list of equipped attacks */
@@ -266,4 +276,15 @@ export default {
   font-size: 20px;
   width: 200px;
 }
+
+@media (max-width: 768px) {
+  .player-info-main{
+    flex-direction: column;
+  }
+
+  .first{
+    margin-right: 0px;
+  }
+}
 </style>
+

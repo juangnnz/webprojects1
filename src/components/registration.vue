@@ -119,29 +119,29 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px; /* extra padding para dar espacio entre objetos */
+    padding: 20px; 
     background-color: #ffffff;
-    max-width: 500px; /* Set a max-width for large screens */
-    margin: auto; /* Center the form */
+    max-width: 500px; 
+    margin: auto; 
   }
   
    .input-field {
     width: 100%;
     padding: 10px;
     margin: 5px 0;
-    border: 2px solid #3D5CFF; /* Cambia el color del borde según tus preferencias */
-    border-radius: 5px; /* Ajusta el radio según tus preferencias */
-    background-color: #ffffff; /* Fondo blanco */
-    color: #000000; /* Texto negro */
+    border: 2px solid #3D5CFF; 
+    border-radius: 5px; 
+    background-color: #ffffff; 
+    color: #000000; 
     outline: none;
   }
   
   .custom-button1, .custom-button2 {
     padding: 10px 15px;
     border: none;
-    border-radius: 5px; /* Bordes redondos */
+    border-radius: 5px; 
     cursor: pointer;
-    outline: none; /* Elimina el contorno predeterminado del navegador */
+    outline: none;  
   }
 
   .custom-button1 {
@@ -160,20 +160,20 @@ export default {
   }
 
   fieldset {
-    border: none; /* Remove the default border */
-    padding: 10px; /* Add some padding inside the fieldset if needed */
-    margin: 0; /* Adjust margin as needed */
+    border: none; 
+    padding: 10px; 
+    margin: 0; 
   }
 
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .registration {
-    width: 95%; /* Use more of the screen on smaller devices */
+    width: 95%; 
   }
 
   .input-field, .custom-button1, .custom-button2 {
-    padding: 8px; /* Slightly smaller padding on smaller screens */
+    padding: 8px; 
   }
 
 }

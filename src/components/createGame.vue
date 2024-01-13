@@ -102,21 +102,21 @@ input {
   width: 100%;
   padding: 10px;
   margin: 5px 0;
-  border: 2px solid #3D5CFF; /* Cambia el color del borde según tus preferencias */
-  border-radius: 5px; /* Ajusta el radio según tus preferencias */
-  background-color: #ffffff; /* Fondo blanco */
-  color: #000000; /* Texto negro */
+  border: 2px solid #3D5CFF; 
+  border-radius: 5px; 
+  background-color: #ffffff; 
+  color: #000000; 
   outline: none;
 }
 
 .create-button {
   padding: 10px 15px;
   border: none;
-  border-radius: 5px; /* Bordes redondos */
-  background-color: #3D5CFF; /* Fondo del color especificado */
-  color: #ffffff; /* Texto blanco */
+  border-radius: 5px; 
+  background-color: #3D5CFF; 
+  color: #ffffff; 
   cursor: pointer;
-  outline: none; /* Elimina el contorno predeterminado del navegador */
+  outline: none; 
   width: 150px;
   margin: 0 auto;
 }
@@ -137,7 +137,7 @@ input {
   }
 
   input, .create-button {
-    padding: 8px; /* Slightly reduced padding for mobile */
+    padding: 8px; 
   }
 
 }

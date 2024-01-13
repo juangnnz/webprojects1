@@ -55,7 +55,7 @@ export default {
         if (response.ok) {
           const errorMessageDiv = document.getElementById('error-message');
           errorMessageDiv.textContent = '';
-          const responseData = await response.json();
+         
           this.$router.push({ name: 'arena', params: { gameId: this.gameId, rows: this.matrixSize, hp: this.hp, currentPlayer: 'player1' } });
 
         } else {

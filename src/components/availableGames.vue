@@ -28,7 +28,7 @@
 
           <!-- Display action column with Enter button for the selected game -->
           <td v-if="selectedGame === game.id" class="action-column">
-            <router-link :to="'/arena/' + game.id + '/' + game.size+ '/' + game.hpMax + '/player1'" class="game-link">
+            <router-link :to="'/arena/' + game.id + '/' + game.size+ '/' + game.hpMax + '/player1'" class="game-link" @keyup.enter="enterGame">
               Enter
             </router-link>
           </td>
@@ -92,6 +92,39 @@ export default {
       // Set the selectedGame to the clicked row
       this.selectedGame = gameId;
     },
+    async enterGame(){
+      
+      try {
+        
+        const token = localStorage.getItem('token');
+        const gameId = this.selectedGame;
+       
+        const response = await fetch(`https://balandrau.salle.url.edu/i3/arenas/${gameId}/play`, {
+          method: 'POST',
+          headers: {
+            'Bearer': `${token}`,
+          },
+        });
+
+
+        if (response.ok) {
+          const errorMessageDiv = document.getElementById('error-message');
+          errorMessageDiv.textContent = '';
+         
+          this.$router.push({ name: 'arena', params: { gameId: this.selectedGame, rows: this.matrixSize, hp: this.hp, currentPlayer: 'player1' } });
+
+        } else {
+          const errorData = await response.json(); 
+              
+          if (errorData.error && errorData.error.message) {
+            const errorMessage = errorData.error.message;
+            alert(errorMessage);
+          }  
+        }
+      } catch (error) {
+        alert('Error with the server');
+      }
+    }
   },
 };
 </script>

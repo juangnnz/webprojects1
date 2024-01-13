@@ -171,34 +171,8 @@ export default {
 
     },
 
-    async leaveGame() {
-      try {
-        const token = localStorage.getItem('token');
-
-        const response = await fetch(`https://balandrau.salle.url.edu/i3/arenas/${this.gameId}/play`, {
-          method: 'DELETE',
-          headers: {
-            'Bearer': `${token}`,
-          },
-        });
-
-        if (response.ok){
-          this.fetchAttacks();
-          this.$router.push('/available-games');
-        }
-        else{
-          const errorData = await response.json(); 
-              
-          if (errorData.error && errorData.error.message) {
-            const errorMessage = errorData.error.message;
-            alert(errorMessage);
-          }  
-          
-        }
-      } catch (error) {
-        alert('Error with the server');
-      }
-      
+    leaveGame() {
+      this.$router.push('/available-games');
     },
     attack1() {
     

@@ -47,6 +47,7 @@ export default {
           const token = responseData.token;
           localStorage.setItem('token', token);
           localStorage.setItem('playerID', this.userId);
+          console.log(token);
 
           // Assuming the response contains some user information, you can redirect to the player information page
           this.$router.push({

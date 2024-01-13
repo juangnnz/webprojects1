@@ -1,99 +1,150 @@
 <template>
+  
   <section id="block2">
     <article class="block1">
-      <h2>{{gameId}}</h2>
-      <table id="gameTable">
-        <tr v-for="row in rows" :key="row">
-          <td
-            v-for="col in rows"
-            :key="col"
-            :class="{
-              'cell': true,
-              'cursor-cell': player.currentRow === currentRow && player.currentColumn === currentColumn,
-              'player1-cell': player.id === 1,
-              'player2-cell': player.id === 2
-            }"
-            :style="{ backgroundColor: player.color }"
-          ></td>
-        </tr>
-      </table>
-      <footer class="block4">
-        <button @click="leaveGame" class="leave-game-btn">Leave Game</button>
-      </footer>
+        <h2>{{gameId}}</h2>
+        <table id="gameTable">
+            <tr v-for="row in rows" :key="row">
+                <!-- Crear celdas en cada fila según la longitud de la tabla -->
+                <td v-for="col in rows" :key="col" :class="{ 'cell': true, 'cursor-cell': row === currentRow && col === currentColumn }"></td>
+            </tr>
+        </table>
+        <!-- Leave Game Button -->
+        <footer class="block4">
+            <button @click="leaveGame" class="leave-game-btn">Leave Game</button>
+        </footer>
     </article>
 
+    <!-- Attack Options -->
     <aside class="block3">
       <h3>Attack with:</h3>
-      <button @click="attack1">Attack 1</button>
-      <button @click="attack2">Attack 2</button>
-      <button @click="attack3">Attack 3</button>
+      <button v-for="button in attackButtons" :key="button.text" @click="attack(button.text)">
+        {{ button.text }}
+      </button>
     </aside>
 
-    <nav class="block5">
-      <img src="../assets/arrow.png" alt="arrow" class="arrow" @click="up()"/>
-      <img src="../assets/arrow.png" alt="arrow" class="arrow" style="transform: rotate(180deg);" @click="down()"/>
-      <img src="../assets/arrow.png" alt="arrow" class="arrow" style="transform: rotate(90deg);" @click="right()"/>
-      <img src="../assets/arrow.png" alt="arrow" class="arrow" style="transform: rotate(-90deg);" @click="left()"/>
+    <nav class="block5">  
+        <img src="../assets/arrow.png" alt="arrow" class="arrow" @click="up()"/>
+        <img src="../assets/arrow.png" alt="arrow" class="arrow" style="transform: rotate(180deg);" @click="down()"/>
+        <img src="../assets/arrow.png" alt="arrow" class="arrow" style="transform: rotate(90deg);" @click="right()"/>
+        <img src="../assets/arrow.png" alt="arrow" class="arrow" style="transform: rotate(-90deg);" @click="left()"/>
     </nav>
   </section>
+ 
+  
 </template>
 
 <script>
 export default {
-  data() {
+   data() {
     return {
       gameId: '',
       rows: 0,
       hp: 0,
-      players: [
-        { id: 1, color: '#6495ED', currentRow: 1, currentColumn: 1 },
-        { id: 2, color: '#FF6347', currentRow: 1, currentColumn: 1 }
-      ],
-      activePlayerIndex: 0,
+      currentPlayer: '',
+      currentRow: 1,
+      currentColumn: 1,
+      attackButtons: [],
     };
   },
   methods: {
     up() {
-      this.players[this.activePlayerIndex].currentRow--;
-      this.switchPlayer();
+      //this.currentRow--;
+      this.rotateCursor('cursor-rotate-up');
+      //this.paintCellsRed();
     },
     down() {
-      this.players[this.activePlayerIndex].currentRow++;
-      this.switchPlayer();
+      //this.currentRow++;
+      this.rotateCursor('cursor-rotate-down');
+      this.paintCellsRed();
     },
     right() {
-      this.players[this.activePlayerIndex].currentColumn++;
-      this.switchPlayer();
+      //this.currentColumn++;
+      this.rotateCursor('cursor-rotate-right');
     },
     left() {
-      this.players[this.activePlayerIndex].currentColumn--;
-      this.switchPlayer();
+      //this.currentColumn--;
+      this.rotateCursor('cursor-rotate-left');
+    },
+    rotateCursor(rotationClass) {
+      const cursorCell = document.querySelector(`#gameTable tr:nth-child(${this.currentRow}) td:nth-child(${this.currentColumn})`);
+      if (cursorCell) {
+        cursorCell.classList.remove('cursor-rotate-up', 'cursor-rotate-down', 'cursor-rotate-right', 'cursor-rotate-left');
+        cursorCell.classList.add(rotationClass);
+      }
+    },
+    getCellsInCursorDirection() {
+      const cells = [];
+      for (let i = 1; i <= this.rows; i++) {
+        // Agregar celdas de la misma fila
+        cells.push(document.querySelector(`#gameTable tr:nth-child(${this.currentRow}) td:nth-child(${i})`));
+        // Agregar celdas de la misma columna
+        cells.push(document.querySelector(`#gameTable tr:nth-child(${i}) td:nth-child(${this.currentColumn})`));
+      }
+      return cells.filter(cell => cell !== null);
+    },
+    
+    // Método para pintar las celdas en rojo
+    paintCellsRed() {
+      const cells = this.getCellsInCursorDirection();
+      cells.forEach(cell => {
+        if (!cell.classList.contains('cursor-cell')) {
+          cell.classList.add('red-cell');
+        }
+      });
     },
     leaveGame() {
       this.$router.push('/available-games');
     },
     attack1() {
-      // Implement attack logic for player 1
+    
     },
     attack2() {
-      // Implement attack logic for player 1
+    
     },
     attack3() {
-      // Implement attack logic for player 1
+      
     },
-    switchPlayer() {
-      this.activePlayerIndex = 1 - this.activePlayerIndex;
+    async fetchAttacks() {
+      try {
+        // Fetch attacks information
+        const token = localStorage.getItem('token');
+        const attacksResponse = await fetch(`https://balandrau.salle.url.edu/i3/players/attacks`, {
+          method: 'GET',
+          headers: {
+            'accept': 'application/json',
+            'Bearer': `${token}`,
+          },
+        });
+
+        if (attacksResponse.ok) {
+          const attacksData = await attacksResponse.json();
+          
+          // Assign attack names to buttons
+          this.attackButtons = (attacksData.filter(attack => attack.equipped)).map(attack => ({
+            text: attack.attack_ID,
+          }));
+          console.log(this.attackButtons);
+        } else {
+          throw new Error('Failed to fetch attacks data');
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        // Handle the error, show a message to the user, etc.
+      }
     },
   },
   mounted() {
     this.gameId = this.$route.params.gameId;
     this.rows = parseInt(this.$route.params.rows);
     this.hp = this.$route.params.hp;
-    // Set initial active player based on currentPlayer parameter
-    this.activePlayerIndex = this.$route.params.currentPlayer === 1 ? 0 : 1;
+    this.currentPlayer = this.$route.params.currentPlayer;
+    this.fetchAttacks();
+    this.rotateCursor('cursor-rotate-up');
   },
 };
 </script>
+
 
 <style>
 #title {
@@ -104,26 +155,27 @@ h2 {
   color: #3D5CFF;
 }
 
-h3 {
-  color: black;
+h3{
+    color: black;
 }
 
-#block2 {
-  display: flex;
-  flex-direction: row;
-  max-width: 900px;
+#block2{
+    display: flex;
+    flex-direction: row;
+    max-width: 900px;
 }
 
 .block1, .block3, .block5 {
-  display: flex;
-  flex-direction: column;
-  width: 300px;
-  height: 400px;
-  margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 400px;
+    margin-left: 20px;
+
 }
 
-.block4 {
-  margin-top: 20px;
+.block4{
+    margin-top: 20px;
 }
 
 #gameTable {
@@ -143,16 +195,22 @@ h3 {
 }
 
 #gameTable .cursor-cell {
-  background-color: #e5e5ff;
-  border: 2px solid #3d5cff;
-}
+    background-image: url('../assets/cursor.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: white;
+    border: none;
+    transition: transform 0.3s ease; /* Agrega transición para suavizar la rotación */
+  }
 
-#gameTable .player1-cell {
-  background-color: #6495ED; /* Light Blue */
-}
+  .cursor-rotate-up { transform: rotate(0deg); }
+  .cursor-rotate-down { transform: rotate(180deg); }
+  .cursor-rotate-right { transform: rotate(90deg); }
+  .cursor-rotate-left { transform: rotate(-90deg); }
 
-#gameTable .player2-cell {
-  background-color: #FF6347; /* Tomato Red */
+  #gameTable .red-cell {
+  background-color: red; /* O el color que desees para las celdas resaltadas */
 }
 
 .arrow {
@@ -170,40 +228,42 @@ button {
   cursor: pointer;
 }
 
-.leave-game-btn {
-  width: 100px;
-  height: 35px;
-  border: 2px solid #3D5CFF;
-  border-radius: 4px;
-  background-color: white;
-  color: black;
+.leave-game-btn{
+    width: 100px;
+    height: 35px;
+    border: 2px solid #3D5CFF; 
+    border-radius: 4px;
+    background-color: white;
+    color: black;
 }
 
+/* Responsive Styles for Mobile */
 @media only screen and (max-width: 600px) {
-  #block2 {
-    flex-direction: column;
-    align-items: center;
-  }
+    #block2 {
+        flex-direction: column;
+        align-items: center;
+    }
 
-  .block1, .block3, .block5 {
-    width: 90%;
-    margin-left: 0;
-    margin-bottom: 20px;
-  }
+    .block1, .block3, .block5 {
+        width: 90%; 
+        margin-left: 0;
+        margin-bottom: 20px;
+    }
 
-  #gameTable {
-    width: 90%;
-    height: auto;
-  }
+    #gameTable {
+        width: 90%; 
+        height: auto; 
+    }
 
-  #gameTable td {
-    width: auto;
-    height: auto;
-  }
+    #gameTable td {
+        width: auto; 
+        height: auto;
+    }
 
-  .arrow {
-    width: 40px;
-    height: 60px;
-  }
+    .arrow {
+        width: 40px; 
+        height: 60px; 
+    }
 }
+
 </style>

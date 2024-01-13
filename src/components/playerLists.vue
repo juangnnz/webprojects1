@@ -25,8 +25,8 @@
         <tbody>
           <!-- Loop through filtered players and display in the table -->
           <tr v-for="player in filteredPlayers" :key="player.id" @click="showPlayerHistory(player.id)">
-            <td>{{ player.experience }}</td>
-            <td>{{ player.name }}</td>
+            <td>{{ player.xp }}</td>
+            <td>{{ player.player_ID }}</td>
           </tr>
         </tbody>
         <tfoot>
@@ -47,14 +47,11 @@ export default {
       // Data property for search input
       searchQuery: '',
       // Array of player data
-      players: [
-        { id: 1, name: 'Player 1', experience: 3 },
-        { id: 2, name: 'Player 2', experience: 5 },
-        { id: 3, name: 'Player 3', experience: 2 },
-        { id: 4, name: 'Player 4', experience: 7 },
-        { id: 5, name: 'Player 5', experience: 4 },
-      ],
+      players: [],
     };
+  },
+  mounted() {
+    this.fetchListOfPlayers();
   },
   computed: {
     // Computed property for filtering and sorting players based on search query
@@ -63,7 +60,7 @@ export default {
       // Apply search filter
       if (this.searchQuery) {
         filtered = filtered.filter(player =>
-          player.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+          player.player_ID.toLowerCase().includes(this.searchQuery.toLowerCase())
         );
       }
       // Sort players by experience in descending order
@@ -71,9 +68,36 @@ export default {
     },
   },
   methods: {
+    async fetchListOfPlayers() {
+
+      try {
+        const token = localStorage.getItem('token');
+
+          // Fetch player data
+          const playerResponse = await fetch(`https://balandrau.salle.url.edu/i3/players`, {
+            method: 'GET',
+            headers: {
+              'Bearer': `${token}`,
+            },
+          });
+
+          if (playerResponse.ok) {
+            const playerData = await playerResponse.json();
+            this.players = playerData;
+            
+          
+          } else {
+            throw new Error('Failed to fetch player data');
+          }
+
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        
+      }
+      },
     // Method to sort players by experience in descending order
     sortPlayersByExperience(players) {
-      return players.sort((a, b) => b.experience - a.experience);
+      return players.sort((a, b) => b.xp - a.xp);
     },
     // Method to navigate to player history view
     showPlayerHistory(playerId) {

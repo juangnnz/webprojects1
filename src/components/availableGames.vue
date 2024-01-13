@@ -43,10 +43,7 @@ export default {
   data() {
     // Data properties for available games and the selected game
     return {
-      availableGames: [
-        { id: 1, name: "Game 1", size: "5x5", hpMax: 100 },
-        { id: 2, name: "Game 2", size: "8x8", hpMax: 150 },
-      ],
+      availableGames: [],
       selectedGame: null, // Track the selected game
     };
   },

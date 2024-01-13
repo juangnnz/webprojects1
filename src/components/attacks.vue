@@ -2,27 +2,28 @@
   <main class="attacks-management">
     <h2 class="title">Manage Equipped Attacks</h2>
 
-    <section class="equipped-attacks">
+    <section class="equipped-attacks" v-if="equippedAttacks.length > 0">
       <h3>Equipped Attacks</h3>
       <ul>
         <li v-for="attack in equippedAttacks" :key="attack.id" class="equipped-attack">
-          <h4>{{ attack.name }}</h4>
-          <p class="attack-description">{{ attack.description }}</p>
+          <h4>{{ attack.attack_ID }}</h4>
+          <p class="attack-description">{{ attack.power }}</p>
           <button @click="unequipAttack(attack)">Unequip</button>
         </li>
       </ul>
     </section>
 
-    <section class="available-attacks">
+    <section class="available-attacks" v-if="availableAttacks.length > 0">
       <h3>Available Attacks</h3>
       <ul>
         <li v-for="attack in availableAttacks" :key="attack.id" class="available-attack">
-          <h4>{{ attack.name }}</h4>
-          <p class="attack-description">{{ attack.description }}</p>
+          <h4>{{ attack.attack_ID }}</h4>
+          <p class="attack-description">{{ attack.power }}</p>
           <button @click="equipAttack(attack)">Equip</button>
         </li>
       </ul>
     </section>
+    <div id="error-message"></div>
   </main>
 </template>
 
@@ -40,72 +41,100 @@ export default {
   methods: {
     async fetchAttacks() {
       try {
-        const token = this.$route.query.token;
-        const response = await fetch(`https://balandrau.salle.url.edu/i3/players/attacks?token=${token}`);
-        const data = await response.json();
+        const token = localStorage.getItem('token');
 
-        this.equippedAttacks = data.equippedAttacks;
-        this.availableAttacks = data.availableAttacks;
+        // Fetch attacks information
+        const attacksResponse = await fetch(`https://balandrau.salle.url.edu/i3/players/attacks`, {
+          method: 'GET',
+          headers: {
+            'accept': 'application/json',
+            'Bearer': `${token}`,
+          },
+        });
+
+        if (attacksResponse.ok) {
+          const attacksData = await attacksResponse.json();
+          console.log(attacksData);
+          
+          // Update attacks information
+          this.availableAttacks = attacksData.filter(attack => !attack.equipped);;
+          this.equippedAttacks = attacksData.filter(attack => attack.equipped);
+          
+        } else {
+          const errorMessageDiv = document.getElementById('error-message');
+          errorMessageDiv.textContent = 'Error fetching attacks';
+          errorMessageDiv.style.color = 'red'; 
+        }
+
       } catch (error) {
-        console.error('Error fetching attacks:', error);
+          const errorMessageDiv = document.getElementById('error-message');
+          errorMessageDiv.textContent = 'Error with the server';
+          errorMessageDiv.style.color = 'red'; 
       }
     },
     async equipAttack(attack) {
-      if (this.equippedAttacks.length < 3) {
-        try {
-          await this.performEquipAttack(attack.attack_ID);
-        } catch (error) {
-          console.error('Error equipping attack:', error);
+      
+      try {
+       
+        const token = localStorage.getItem('token');
+        const response = await fetch(`https://balandrau.salle.url.edu/i3/players/attacks/${attack.attack_ID}`, {
+          method: 'POST',
+          headers: {
+            'Bearer': `${token}`,
+          },
+        });
+       
+        if (response.ok){
+          this.fetchAttacks();
         }
+        else{
+          const errorData = await response.json(); 
+              
+          if (errorData.error && errorData.error.message) {
+            const errorMessage = errorData.error.message;
+            const errorMessageDiv = document.getElementById('error-message');
+            errorMessageDiv.textContent = errorMessage;
+            errorMessageDiv.style.color = 'red'; 
+          }  
+        }
+      } catch (error) {
+        const errorMessageDiv = document.getElementById('error-message');
+        errorMessageDiv.textContent = 'Error with the server';
+        errorMessageDiv.style.color = 'red'; 
+      
       }
     },
     async unequipAttack(attack) {
       try {
-        await this.performUnequipAttack(attack.attack_ID);
-      } catch (error) {
-        console.error('Error unequipping attack:', error);
-      }
-    },
-    async performEquipAttack(attackId) {
-      try {
-        const response = await fetch(`https://balandrau.salle.url.edu/i3/players/attacks/equip/${attackId}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            equipped: true, // Set to true for equip
-          }),
-        });
+        const token = localStorage.getItem('token');
 
-        const data = await response.json();
-
-        this.equippedAttacks = data.equippedAttacks;
-        this.availableAttacks = data.availableAttacks;
-      } catch (error) {
-        console.error('Error performing equip attack:', error);
-      }
-    },
-    async performUnequipAttack(attackId) {
-      try {
-        const response = await fetch(`https://balandrau.salle.url.edu/i3/players/attacks/unequip/${attackId}`, {
+        const response = await fetch(`https://balandrau.salle.url.edu/i3/players/attacks/${attack.attack_ID}`, {
           method: 'DELETE',
           headers: {
-            'Content-Type': 'application/json',
+            'Bearer': `${token}`,
           },
-          body: JSON.stringify({
-            equipped: false, // Set to false for unequip
-          }),
         });
 
-        const data = await response.json();
-
-        this.equippedAttacks = data.equippedAttacks;
-        this.availableAttacks = data.availableAttacks;
+        if (response.ok){
+          this.fetchAttacks();
+        }
+        else{
+          const errorData = await response.json(); 
+              
+          if (errorData.error && errorData.error.message) {
+            const errorMessage = errorData.error.message;
+            const errorMessageDiv = document.getElementById('error-message');
+            errorMessageDiv.textContent = errorMessage;
+            errorMessageDiv.style.color = 'red'; 
+          }  
+        }
       } catch (error) {
-        console.error('Error performing unequip attack:', error);
+        const errorMessageDiv = document.getElementById('error-message');
+        errorMessageDiv.textContent = 'Error with the server';
+        errorMessageDiv.style.color = 'red'; 
       }
     },
+    
   },
 };
 </script>
@@ -156,6 +185,12 @@ export default {
   cursor: not-allowed; /*Disabled cursor style*/
 }
 
+h4,
+.attack-description,
+button {
+  color: #000000; /* Cambiado a negro */
+}
+
 .attacks-management {
   display: flex;
   flex-direction: column;
@@ -192,6 +227,12 @@ export default {
   button {
     width: 100%; 
     margin-top: 10px; 
+  }
+
+  .available-attack h4,
+  .available-attack .attack-description,
+  .available-attack button {
+    color: #000000; /* Cambiado a negro */
   }
 }
 </style>

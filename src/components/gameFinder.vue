@@ -34,13 +34,15 @@
         </div>
       </section>
       <!-- List of games displayed based on applied filters -->
-      <ul class="game-list">
+      <ul v-if="hasFilteredGames" class="game-list">
         <li v-for="game in filteredGames" :key="game.id" class="game-item">
-          <span class="game-name">{{ game.name }} - {{ game.size }} with hp {{game.HP_max}},
-            Period: {{game.startDate}} - {{game.endDate}} </span>
+          <span class="game-name">{{ game.id }} - {{ game.size }} with hp {{game.hpMax}},
+            Creation date: {{ game.startDate }} </span>
           <button v-if="game.status === 'finished'" @click="viewRecord(game)">View Record</button>
         </li>
       </ul>
+      <p v-else  style="color: black;">No games to display</p>
+      <div id="error-message"></div>
     </form>
   </section>
 </template>
@@ -62,30 +64,104 @@ export default {
     this.fetchGames();
   },
   computed: {
+    hasFilteredGames() {
+      return this.filteredGames.length > 0;
+    },
     filteredGames() {
-      return this.games.filter((game) => {
-        const statusMatch = this.filterStatus === 'all' || game.finished === (this.filterStatus === 'finished');
-        const dateMatch =
-          (!this.startDate || new Date(game.creation_date) >= new Date(this.startDate)) &&
-          (!this.endDate || new Date(game.creation_date) <= new Date(this.endDate));
-        const searchMatch = game.game_ID.toLowerCase().includes(this.searchQuery.toLowerCase());
-        return statusMatch && dateMatch && searchMatch;
-      });
+      if (this.filterStatus === 'all') {
+
+        return this.games.filter((game) => {
+          const nameMatch = game.id.toLowerCase().includes(this.searchQuery.toLowerCase());
+          const dateMatch = this.matchCreationDate(game.startDate);
+          return nameMatch && dateMatch;
+        });
+
+      }
+      else if (this.filterStatus === 'available') {
+        
+        return this.games.filter((game) => {
+          const statusMatch = game.start === false && game.finished === false;
+          const nameMatch = game.id.toLowerCase().includes(this.searchQuery.toLowerCase());
+          const dateMatch = this.matchCreationDate(game.startDate);
+          return statusMatch && nameMatch && dateMatch;
+        });
+
+      } else if (this.filterStatus === 'finished') {
+        return this.games.filter((game) => {
+          const statusMatch = game.finished === true;
+          const nameMatch = game.id.toLowerCase().includes(this.searchQuery.toLowerCase());
+          const dateMatch = this.matchCreationDate(game.startDate);
+          return statusMatch && nameMatch && dateMatch;
+        });
+      }
     },
   },
   methods: {
-    async fetchGames() {
-      try {
-        const response = await fetch('https://balandrau.salle.url.edu/i3/arenas');
-        if (response.ok) {
-          const data = await response.json();
-          this.games = data;
-        } else {
-          console.error('Error fetching games:', response.statusText);
+      matchCreationDate(creationDate) {
+        if (!this.startDate || !creationDate) {
+          return true; // Si no hay fecha de inicio o fecha de creación, devuelve true
         }
+
+        const gameDate = new Date(creationDate);
+        const filterStartDate = new Date(this.startDate);
+        
+        return (
+          gameDate.getDate() === filterStartDate.getDate() &&
+          gameDate.getMonth() === filterStartDate.getMonth() &&
+          gameDate.getFullYear() === filterStartDate.getFullYear()
+        );
+    },
+    async fetchGames() {
+    
+      try {
+        const token = localStorage.getItem('token');
+
+        // Fetch player data
+        const playerResponse = await fetch(`https://balandrau.salle.url.edu/i3/arenas`, {
+          method: 'GET',
+          headers: {
+            'accept': 'application/json',
+            'Bearer': `${token}`,
+          },
+        });
+
+        if (playerResponse.ok) {
+          const playerData = await playerResponse.json();
+
+          const transformedData = playerData.map(game => ({
+            id: game.game_ID,
+            size: game.size,
+            hpMax: game.HP_max,
+            startDate: (new Date(game.creation_date)).toLocaleDateString('en-GB'),  // Convert creation_date to Date
+          }));
+
+          /*
+          const transformedData = playerData.map(game => ({
+            id: game.game_ID,
+            size: game.size,
+            hpMax: game.HP_max,
+            startDate: game.creation_date.toLocaleDateString('en-GB'),
+            
+          }));*/
+
+          // Actualizar availableGames con los datos transformados
+          this.games = transformedData;
+          console.log(this.games);
+          console.log(this.games[0].startDate);
+         
+        } else {
+         
+          const errorMessageDiv = document.getElementById('error-message');
+          errorMessageDiv.textContent = 'Error fetching data';
+          errorMessageDiv.style.color = 'red'; 
+        }
+
       } catch (error) {
-        console.error('Error fetching games:', error.message);
+        const errorMessageDiv = document.getElementById('error-message');
+        errorMessageDiv.textContent = 'Error with the server';
+        errorMessageDiv.style.color = 'red'; 
       }
+  
     },
     viewRecord(gameId) {
       console.log(`View Record for Game ID: ${gameId}`);

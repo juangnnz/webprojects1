@@ -51,20 +51,26 @@ export default {
     up() {
       //this.currentRow--;
       this.rotateCursor('cursor-rotate-up');
-      //this.paintCellsRed();
+      this.paintCellsRedUpDown();
+      this.fetchDirection('up');
     },
     down() {
       //this.currentRow++;
       this.rotateCursor('cursor-rotate-down');
-      this.paintCellsRed();
+      this.paintCellsRedUpDown();
+      this.fetchDirection('down');
     },
     right() {
       //this.currentColumn++;
       this.rotateCursor('cursor-rotate-right');
+      this.paintCellsRedLeftRight();
+      this.fetchDirection('right');
     },
     left() {
       //this.currentColumn--;
       this.rotateCursor('cursor-rotate-left');
+      this.paintCellsRedLeftRight();
+      this.fetchDirection('left');
     },
     rotateCursor(rotationClass) {
       const cursorCell = document.querySelector(`#gameTable tr:nth-child(${this.currentRow}) td:nth-child(${this.currentColumn})`);
@@ -75,26 +81,124 @@ export default {
     },
     getCellsInCursorDirection() {
       const cells = [];
+     
+      // Agregar celdas de la misma columna
       for (let i = 1; i <= this.rows; i++) {
-        // Agregar celdas de la misma fila
-        cells.push(document.querySelector(`#gameTable tr:nth-child(${this.currentRow}) td:nth-child(${i})`));
-        // Agregar celdas de la misma columna
-        cells.push(document.querySelector(`#gameTable tr:nth-child(${i}) td:nth-child(${this.currentColumn})`));
+          const cell = document.querySelector(`#gameTable tr:nth-child(${i}) td:nth-child(${this.currentColumn})`);
+          if (cell) {
+            cells.push(cell);
+          }
       }
-      return cells.filter(cell => cell !== null);
+
+      return cells;
+    },
+
+    getCellsInCursorDirectionLeftRight() {
+      const cells = [];
+     
+      // Agregar celdas de la misma fila
+      for (let i = 1; i <= this.rows; i++) {
+        const cell = document.querySelector(`#gameTable tr:nth-child(${this.currentRow}) td:nth-child(${i})`);
+        if (cell) {
+          cells.push(cell);
+        }
+      }
+
+      return cells;
     },
     
     // Método para pintar las celdas en rojo
-    paintCellsRed() {
+    paintCellsRedUpDown() {
+      // Limpiar celdas resaltadas anteriores
+      this.clearRedCells();
+
+      // Obtener las celdas en la dirección del cursor
       const cells = this.getCellsInCursorDirection();
-      cells.forEach(cell => {
+      cells.forEach((cell) => {
         if (!cell.classList.contains('cursor-cell')) {
           cell.classList.add('red-cell');
         }
       });
     },
-    leaveGame() {
-      this.$router.push('/available-games');
+
+    paintCellsRedLeftRight() {
+      // Limpiar celdas resaltadas anteriores
+      this.clearRedCells();
+
+      // Obtener las celdas en la dirección del cursor
+      const cells = this.getCellsInCursorDirectionLeftRight();
+      cells.forEach((cell) => {
+        if (!cell.classList.contains('cursor-cell')) {
+          cell.classList.add('red-cell');
+        }
+      });
+    },
+
+    clearRedCells() {
+      // Limpiar el color rojo de las celdas resaltadas anteriores
+      const redCells = document.querySelectorAll('#gameTable .red-cell');
+      redCells.forEach((cell) => {
+        cell.classList.remove('red-cell');
+      });
+    },
+
+    async fetchDirection(directionEntered){
+      try {
+        const token = localStorage.getItem('token');
+
+        const response = await fetch(`https://balandrau.salle.url.edu/i3/arenas/direction`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Bearer': `${token}`,
+          },
+          body: JSON.stringify({
+            direction: directionEntered,
+          }),
+        });
+
+        if (!response.ok){
+          const errorData = await response.json(); 
+              
+          if (errorData.error && errorData.error.message) {
+            const errorMessage = errorData.error.message;
+            alert(errorMessage);
+          }  
+        }
+      } catch (error) {
+        alert('Error with the server');
+      }
+
+    },
+
+    async leaveGame() {
+      try {
+        const token = localStorage.getItem('token');
+
+        const response = await fetch(`https://balandrau.salle.url.edu/i3/arenas/${this.gameId}/play`, {
+          method: 'DELETE',
+          headers: {
+            'Bearer': `${token}`,
+          },
+        });
+
+        if (response.ok){
+          this.fetchAttacks();
+          this.$router.push('/available-games');
+        }
+        else{
+          const errorData = await response.json(); 
+              
+          if (errorData.error && errorData.error.message) {
+            const errorMessage = errorData.error.message;
+            alert(errorMessage);
+          }  
+          
+        }
+      } catch (error) {
+        alert('Error with the server');
+      }
+      
     },
     attack1() {
     

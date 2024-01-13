@@ -98,12 +98,20 @@ export default {
 
 <style scoped>
 /* Styles for the available games component */
+
 .available-games {
   text-align: center;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
   color: black;
+  padding: 20px;
+  padding-bottom: 50px; /* You can adjust this if you need more space at the bottom */
+  background-color: #ffffff; 
+  display: flex; /* Flex display to help center the table */
+  flex-direction: column; /* Column direction for inner items */
+  align-items: center; /* Centers items horizontally */
+}
+
+.scrollable-table {
+  overflow-x: auto; /* Allows horizontal scrolling */
 }
 
 /* Styles for the title of the available games section */
@@ -113,7 +121,9 @@ export default {
 
 /* Styles for the table */
 table {
+  margin: auto; /* Centers the table */
   width: 100%;
+  max-width: 1000px; /* Your desired max-width */
   border-collapse: collapse;
   margin-top: 20px;
 }
@@ -147,7 +157,7 @@ th {
 
 /* Styles for the action column when the row is selected */
 .selected-row .action-column {
-  visibility: visible; /* when the selected row is clicked, only there the column where the button is will be visible*/
+  visibility: visible; 
 }
 
 /* Styles for the Enter button link */
@@ -176,16 +186,16 @@ th {
   }
 
   table {
-    font-size: 14px; /* Smaller font size for better readability on mobile */
+    font-size: 14px; 
   }
 
   th, td {
-    padding: 6px; /* Reduced padding for compact display */
+    padding: 6px; 
   }
 
   .game-link {
-    padding: 8px 16px; /* Slightly smaller padding for the button */
-    font-size: 16px; /* Adjusted font size for mobile */
+    padding: 8px 16px; 
+    font-size: 16px; 
   }
 }
 </style>

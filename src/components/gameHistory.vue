@@ -3,7 +3,7 @@
   <section class="game-history">
     <h2 id="playersGameTitle">Players Game History</h2>
     <!-- Table for displaying player information -->
-    <table>
+    <table class="table1">
       <thead>
         <tr>
           <!-- Table header columns -->
@@ -148,8 +148,16 @@ export default {
 .game-history {
   padding: 20px;
   background-color: white;
-  max-width: 700px;
+  width: auto;
   margin: 0 auto;
+  display: flex; /* Flex display to help center the table */
+  flex-direction: column; /* Column direction for inner items */
+  align-items: center; 
+}
+
+.table1 {
+  width: 100%;
+  max-width: 700px;
 }
 
 table {

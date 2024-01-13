@@ -4,7 +4,7 @@
     <!-- Header block with title and search input -->
     <div class="block1">
       <!-- Heading for the player ranking section -->
-      <h2>Player's Ranking</h2>
+      <h2  class="header2">Player's Ranking</h2>
       <!-- Input for searching players -->
       <input v-model="searchQuery" placeholder="Search players" class="search-input" />
     </div>
@@ -110,10 +110,11 @@ export default {
 <style scoped>
 /* Styling for the main container */
 .list-players {
-  width: 800px;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  margin-left: 195px;
+  align-items: center;
+  background-color: #ffffff;
 }
 
 /* Styling for the search input */
@@ -125,8 +126,10 @@ export default {
   border-radius: 5px;
   background: white;
   color: black;
-  margin-top: 5px;
-  margin-left: 325px;
+}
+
+.header2 {
+  padding-right: 40px;
 }
 
 /* Styling for the player ranking table */
@@ -135,7 +138,6 @@ export default {
   border-collapse: collapse;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-color: #fff;
-  margin-top: 10px;
 }
 
 /* Styling for table headers */
@@ -166,8 +168,49 @@ export default {
 .block1 {
   display: flex;
   flex-direction: row;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
   width: 100%;
-  height: 100%;
-  margin-left: 0px;
+  height: auto;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
+
+.block1-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding-top: 10px; /* Adjust the top padding as needed */
+  padding-bottom: 10px; /* Adjust the bottom padding as needed */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .block1 {
+    flex-direction: column; /* Stack title and search input vertically */
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .header2 {
+    padding-right: 0; /* Remove the right padding on mobile */
+    margin-bottom: 10px; /* Add some margin below the title */
+  }
+
+  .search-input {
+    width: 100%; /* Full width input on mobile */
+    max-width: 300px; /* Maximum width of the search input */
+    margin: 0 auto; /* Center the search input */
+  }
+
+  .player-table {
+    width: 100%; /* Full width table on mobile */
+  }
+
+  .player-table th,
+  .player-table td {
+    padding: 10px; /* Smaller padding for table cells */
+  }
+}
+
 </style>

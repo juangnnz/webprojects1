@@ -1,6 +1,7 @@
 <template>
   <main id="sale-attacks">
     <h2 id="title">Attacks on Sale</h2>
+    <section class="attacks">
     <ul class="attack-list">
       <li v-for="(attack, index) in attacksForSale" :key="index" class="attack-item">
         <span class="attack-info">
@@ -11,6 +12,7 @@
         </button>
       </li>
     </ul>
+  </section>
   </main>
 </template>
 
@@ -90,8 +92,10 @@ export default {
 }
 
 #sale-attacks{
-  display:flex;
+  display: flex;
   flex-direction: column;
+  align-items: center;
+  background-color: #ffffff;
   align-items: center;
 }
 
@@ -130,6 +134,11 @@ export default {
   cursor: not-allowed; /*Disabled cursor style*/
 }
 
+.attacks {
+  width: 100%;
+  max-width: 600px;
+}
+
 /* Responsive Styles for Mobile */
 @media only screen and (max-width: 600px) {
   .attack-item {
@@ -140,6 +149,11 @@ export default {
   .buy-button {
     width: 100%; /* Full width button for easier interaction */
     margin-top: 10px; /* Extra margin for stacked layout */
+  }
+
+  .attacks {
+    width: 100%;
+    max-width: 400px;
   }
 }
 

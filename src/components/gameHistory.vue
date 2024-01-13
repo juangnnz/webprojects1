@@ -16,12 +16,12 @@
       <tbody>
         <!-- Loop through players and display information in table rows -->
         <tr v-for="player in players" :key="player.id">
-          <td>{{ player.name }}</td>
+          <td>{{ player.player_ID }}</td>
           <td>{{ player.gamesPlayed }}</td>
           <td>{{ player.gamesWon }}</td>
           <td>
             <!-- Button to show games played by a specific player -->
-            <button @click="showPlayerGames(player.id)">Show Games</button>
+            <button @click="showPlayerGames(player.player_ID)">Show Games</button>
           </td>
         </tr>
       </tbody>
@@ -32,7 +32,7 @@
       <!-- List to display games played by the selected player -->
       <ul class="player-games">
         <li v-for="game in selectedPlayerGames" :key="game.id">
-          {{ game.name }} - {{game.size}} - hpMax {{game.hpMax}}
+          {{ game.game_ID }} - {{game.size}} (size) - hpMax {{game.HP_max}}
         </li>
       </ul>
     </div>
@@ -44,34 +44,95 @@ export default {
   data() {
     // Data properties for player information, selected player's games, and selected player's name
     return {
-      players: [
-        { id: 1, name: "Pol", gamesPlayed: 5, gamesWon: "60%" },
-        { id: 2, name: "Clara", gamesPlayed: 3, gamesWon: "66,67%" },
-      ],
+      players: null,
       selectedPlayerGames: null,
       selectedPlayerName: '',
     };
   },
+  mounted() {
+    this.fetchListOfPlayers();
+  },
   methods: {
     // Method to show the games played by a specific player
-    showPlayerGames(playerId) {
-      console.log("entra i playerID es ", playerId);
-      // Simulate fetching player games from the database based on the player ID
-      if (playerId === 1) {
-        // Simulated games for player Pol
-        this.selectedPlayerGames = [
-          { id: 3, name: "Game 3", size: "5x5", hpMax: 100 },
-          { id: 4, name: "Game 4", size: "5x5", hpMax: 200 },
-        ];
-        this.selectedPlayerName = "Pol";
-      } else {
-        // Simulated games for player Clara
-        this.selectedPlayerGames = [
-          { id: 8, name: "Game 8", size: "6x6", hpMax: 100 },
-          { id: 9, name: "Game 9", size: "5x5", hpMax: 200 },
-        ];
-        this.selectedPlayerName = "Clara";
+    async fetchListOfPlayers() {
+      try {
+        const token = localStorage.getItem('token');
+
+          // Fetch player data
+          const playerResponse = await fetch(`https://balandrau.salle.url.edu/i3/players`, {
+            method: 'GET',
+            headers: {
+              'Bearer': `${token}`,
+            },
+          });
+
+          if (playerResponse.ok) {
+            const playerData = await playerResponse.json();
+            this.players = playerData;
+            for (let i = 0; i < this.players.length; i++) {
+              await this.fetchStatistics(i);
+            }
+            
+
+          } else {
+            throw new Error('Failed to fetch player data');
+          }
+
+      } catch (error) {
+        console.error('Error fetching data:', error);
       }
+    },
+    async fetchStatistics(index){
+        try {
+          const playerId = this.players[index].player_ID;
+          
+          const token = localStorage.getItem('token');
+          const response = await fetch(`https://balandrau.salle.url.edu/i3/players/${playerId}/statistics`, {
+            method: 'GET',
+            headers: {
+              'Bearer': `${token}`,
+            },
+          });
+
+          if (response.ok) {
+            const statistics = await response.json();
+            this.players[index] = {
+              ...this.players[index],
+              gamesPlayed: statistics.games_played,
+              gamesWon: statistics.games_won,
+            };
+           
+          } else {
+            throw new Error('Failed to fetch player data');
+          }
+        } catch (error) {
+          console.error('Error loading player data:', error);
+        }
+      },
+    async showPlayerGames(playerId) {
+      
+      try {
+          console.log(playerId);
+          const token = localStorage.getItem('token');
+          const response = await fetch(`https://balandrau.salle.url.edu/i3/players/${playerId}/games/finished`, {
+            method: 'GET',
+            headers: {
+              'Bearer': `${token}`,
+            },
+          });
+
+          if (response.ok) {
+            const games = await response.json();
+            this.selectedPlayerGames = games;
+            this.selectedPlayerName = playerId;
+           
+          } else {
+            throw new Error('Failed to fetch player data');
+          }
+        } catch (error) {
+          console.error('Error loading player data:', error);
+        }
+     
     },
   },
 };

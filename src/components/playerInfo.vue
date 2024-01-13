@@ -41,7 +41,7 @@
 
     <!-- Buttons for log out and delete account -->
     <footer class="display-btn">
-      <button @click="logOut" class="btn" style="margin-top: 40px;">Log Out</button>
+      <button @click="logOut" class="btn">Log Out</button>
       <button @click="deleteAccount" class="btn">Delete Account</button>
     </footer>
   </section>
@@ -211,9 +211,10 @@ export default {
 /* Styling for the buttons section */
 .display-btn {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
+  margin-top: 30px;
 }
 
 /* Styling for the section displaying equipped attacks */
@@ -261,9 +262,8 @@ export default {
   border-radius: 10px;
   background-color: #ffffff;
   color: #000000;
-  padding: 10px 20px;
+  padding: 10px 10px;
   font-size: 20px;
-  margin-top: 10px;
   width: 200px;
 }
 </style>

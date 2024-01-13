@@ -36,9 +36,10 @@ const routes = [
     props: true,
   },  
   {
-    path: '/player-history',
+    path: '/player-history/:id',
     name: 'PlayerHistory',
     component: PlayerHistory,
+    props: true,
   },
   {
     path: '/record-game-by-id/:gameName/:rows',

@@ -24,7 +24,7 @@
         </thead>
         <tbody>
           <!-- Loop through filtered players and display in the table -->
-          <tr v-for="player in filteredPlayers" :key="player.id" @click="showPlayerHistory(player.id)">
+          <tr v-for="player in filteredPlayers" :key="player.id" @click="showPlayerHistory(player.player_ID)">
             <td>{{ player.xp }}</td>
             <td>{{ player.player_ID }}</td>
           </tr>
@@ -85,7 +85,6 @@ export default {
             const playerData = await playerResponse.json();
             this.players = playerData;
             
-          
           } else {
             throw new Error('Failed to fetch player data');
           }
@@ -101,6 +100,7 @@ export default {
     },
     // Method to navigate to player history view
     showPlayerHistory(playerId) {
+      
       this.$router.push({ name: 'PlayerHistory', params: { id: playerId } });
     },
   },

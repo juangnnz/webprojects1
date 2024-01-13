@@ -2,6 +2,7 @@
   <!-- Container for available games component -->
   <main class="available-games">
     <h2 id="availableGamesTitle">Available Arenas</h2>
+    
     <table>
       <!-- Table header -->
       <thead>

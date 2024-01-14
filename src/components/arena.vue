@@ -18,8 +18,8 @@
     <!-- Attack Options -->
     <aside class="block3">
       <h3>Attack with:</h3>
-      <button v-for="button in attackButtons" :key="button.text" @click="attack(button.text)">
-        {{ button.text }}
+      <button v-for="button in attackButtons" :key="button.text" @click="attack(button)">
+        {{ button.text }} - {{ button.position }}
       </button>
     </aside>
 
@@ -45,88 +45,104 @@ export default {
       currentRow: 1,
       currentColumn: 1,
       attackButtons: [],
+      direccionMirada: null,
     };
   },
   methods: {
     up() {
-      //this.currentRow--;
+      
       this.rotateCursor('cursor-rotate-up');
-      this.paintCellsRedUpDown();
+      this.direccionMirada = 'up';
+      this.paintCellsRed();
       this.fetchDirection('up');
+  
     },
     down() {
-      //this.currentRow++;
+    
       this.rotateCursor('cursor-rotate-down');
-      this.paintCellsRedUpDown();
+      this.direccionMirada = 'down';
+      this.paintCellsRed();
       this.fetchDirection('down');
+      
     },
     right() {
-      //this.currentColumn++;
+     
       this.rotateCursor('cursor-rotate-right');
-      this.paintCellsRedLeftRight();
+      this.direccionMirada = 'right';
+      this.paintCellsRed();
       this.fetchDirection('right');
+
     },
     left() {
-      //this.currentColumn--;
+    
       this.rotateCursor('cursor-rotate-left');
-      this.paintCellsRedLeftRight();
+      this.direccionMirada = 'left';
+      this.paintCellsRed();
       this.fetchDirection('left');
+      
     },
     rotateCursor(rotationClass) {
       const cursorCell = document.querySelector(`#gameTable tr:nth-child(${this.currentRow}) td:nth-child(${this.currentColumn})`);
       if (cursorCell) {
         cursorCell.classList.remove('cursor-rotate-up', 'cursor-rotate-down', 'cursor-rotate-right', 'cursor-rotate-left');
-        cursorCell.classList.add(rotationClass);
+        cursorCell.classList.add(`${rotationClass}`);
       }
+      console.log(rotationClass);
     },
     getCellsInCursorDirection() {
       const cells = [];
+
+      if (this.direccionMirada  === 'right'){
+
+        for (let i = this.currentColumn + 1; i <= this.rows; i++) {
+          const cell = document.querySelector(`#gameTable tr:nth-child(${this.currentRow}) td:nth-child(${i})`);
+          if (cell) {
+            cells.push(cell);
+          }
+        }
+
+      }
+      else if (this.direccionMirada  === 'left'){
+      
+        for (let i = 1; i < this.currentColumn; i++) {
+          const cell = document.querySelector(`#gameTable tr:nth-child(${this.currentRow}) td:nth-child(${i})`);
+          if (cell) {
+            cells.push(cell);
+          }
+        }
+      }
      
-      // Agregar celdas de la misma columna
-      for (let i = 1; i <= this.rows; i++) {
+      else if (this.direccionMirada  === 'down'){
+        for (let i = this.currentRow + 1; i <= this.rows; i++) {
           const cell = document.querySelector(`#gameTable tr:nth-child(${i}) td:nth-child(${this.currentColumn})`);
           if (cell) {
             cells.push(cell);
           }
-      }
-
-      return cells;
-    },
-
-    getCellsInCursorDirectionLeftRight() {
-      const cells = [];
-     
-      // Agregar celdas de la misma fila
-      for (let i = 1; i <= this.rows; i++) {
-        const cell = document.querySelector(`#gameTable tr:nth-child(${this.currentRow}) td:nth-child(${i})`);
-        if (cell) {
-          cells.push(cell);
         }
+
+      }
+      
+      else if (this.direccionMirada  === 'up'){
+        for (let i = 1; i < this.currentRow; i++) {
+          const cell = document.querySelector(`#gameTable tr:nth-child(${i}) td:nth-child(${this.currentColumn})`);
+          if (cell) {
+            cells.push(cell);
+          }
+        }
+
       }
 
       return cells;
     },
+
     
     // Método para pintar las celdas en rojo
-    paintCellsRedUpDown() {
+    paintCellsRed() {
       // Limpiar celdas resaltadas anteriores
       this.clearRedCells();
 
       // Obtener las celdas en la dirección del cursor
       const cells = this.getCellsInCursorDirection();
-      cells.forEach((cell) => {
-        if (!cell.classList.contains('cursor-cell')) {
-          cell.classList.add('red-cell');
-        }
-      });
-    },
-
-    paintCellsRedLeftRight() {
-      // Limpiar celdas resaltadas anteriores
-      this.clearRedCells();
-
-      // Obtener las celdas en la dirección del cursor
-      const cells = this.getCellsInCursorDirectionLeftRight();
       cells.forEach((cell) => {
         if (!cell.classList.contains('cursor-cell')) {
           cell.classList.add('red-cell');
@@ -174,14 +190,51 @@ export default {
     leaveGame() {
       this.$router.push('/available-games');
     },
-    attack1() {
-    
-    },
-    attack2() {
-    
-    },
-    attack3() {
-      
+    attack(button){
+      this.clearRedCells();
+      console.log(button.position);
+      const [x, y] = button.position.slice(1, -1).split(',').map(Number);
+      // Coordenadas a las que deseas llegar
+      const coordenadaObjetivoX = x;
+      const coordenadaObjetivoY = y;
+      const coordenadaInicialX = this.currentColumn;
+      const coordenadaInicialY = this.currentRow;
+
+
+      // Calcular la diferencia en coordenadas
+      const diferenciaX = coordenadaObjetivoX - coordenadaInicialX;
+      const diferenciaY = coordenadaObjetivoY - coordenadaInicialY;
+
+      // Ajustar las coordenadas según la dirección de la mirada
+      let nuevaCoordenadaX, nuevaCoordenadaY;
+
+      switch (this.direccionMirada) {
+        case 'up':
+          nuevaCoordenadaX = diferenciaX;
+          nuevaCoordenadaY = diferenciaY;
+          break;
+        case 'down':
+          console.log("en aquest cas");
+          nuevaCoordenadaX = this.currentColumn + x;
+          nuevaCoordenadaY = this.currentRow + y;
+          break;
+        case 'left':
+          nuevaCoordenadaX = this.currentColumn + x;
+          nuevaCoordenadaY = this.currentRow + y;
+          break;
+        case 'right':
+          nuevaCoordenadaX = this.currentRow ;
+          nuevaCoordenadaY = this.currentColumn + y -1 ;
+          break;
+        default:
+          console.error('Dirección no válida');
+      }
+
+      // Sumar las coordenadas ajustadas a las coordenadas iniciales
+      this.currentColumn = coordenadaInicialX + nuevaCoordenadaX;
+      this.currentRow = coordenadaInicialY + nuevaCoordenadaY;
+      this.rotateCursor(`cursor-rotate-${this.direccionMirada}`);
+     
     },
     async fetchAttacks() {
       try {
@@ -201,6 +254,7 @@ export default {
           // Assign attack names to buttons
           this.attackButtons = (attacksData.filter(attack => attack.equipped)).map(attack => ({
             text: attack.attack_ID,
+            position: attack.positions,
           }));
           console.log(this.attackButtons);
         } else {
@@ -218,7 +272,7 @@ export default {
     this.hp = this.$route.params.hp;
     this.currentPlayer = this.$route.params.currentPlayer;
     this.fetchAttacks();
-    this.rotateCursor('cursor-rotate-up');
+   // this.rotateCursor('cursor-rotate-up');
   },
 };
 </script>
@@ -282,10 +336,10 @@ h3{
     transition: transform 0.3s ease; 
   }
 
-  .cursor-rotate-up { transform: rotate(0deg); }
-  .cursor-rotate-down { transform: rotate(180deg); }
-  .cursor-rotate-right { transform: rotate(90deg); }
-  .cursor-rotate-left { transform: rotate(-90deg); }
+  #gameTable .cursor-rotate-up { transform: rotate(0deg); }
+#gameTable .cursor-rotate-down { transform: rotate(180deg); }
+#gameTable .cursor-rotate-right { transform: rotate(90deg); }
+#gameTable .cursor-rotate-left { transform: rotate(-90deg); }
 
   #gameTable .red-cell {
   background-color: red; 

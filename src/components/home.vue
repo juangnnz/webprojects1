@@ -1,25 +1,25 @@
 <template>
-  <section class="login-form">
-    <header>
-      <h2 id="logInTitle">Log In</h2>
-    </header>
-    <form @submit.prevent="submitForm">
+  <section class="login-form"> <!-- Login form section -->
+    <header> <!-- Header section -->
+      <h2 id="logInTitle">Log In</h2> <!-- Title for the login form -->
+    </header> 
+    <form @submit.prevent="submitForm"> <!-- Form for user login -->
       <input type="text" v-model="userId" placeholder="Enter ID" class="input-field" required>
       <br>
       <input type="password" v-model="password" placeholder="Enter password" class="input-field" required>
       <br>
       <br>
-      <button class="custom-button1">Enter</button>
+      <button class="custom-button1">Enter</button> <!-- Button to submit the form -->
     </form>
-    <footer>
-      <div id="error-message"></div>
-      <button @click="signup" class="custom-button2">Sign Up</button>
+    <footer> <!-- Footer section -->
+      <div id="error-message"></div> <!-- Error message div -->
+      <button @click="signup" class="custom-button2">Sign Up</button> <!-- Button to navigate to the signup page -->
     </footer>
   </section>
 </template>
 
 <script>
-export default {
+export default { // Data property for the component
   data() {
     return {
       userId: '',
@@ -28,15 +28,15 @@ export default {
     };
   },
   methods: {
-    async submitForm() {
+    async submitForm() { // Method to handle form submission
       try {
         const response = await fetch('https://balandrau.salle.url.edu/i3/players/join', {
-          method: 'POST',
+          method: 'POST', // Send a POST request
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            player_ID: this.userId,
+            player_ID: this.userId, // Send the user ID and password in the body of the request
             password: this.password,
           }),
         });
@@ -56,20 +56,20 @@ export default {
         } else {
           const errorData = await response.json(); 
               
-          if (errorData.error && errorData.error.message) {
+          if (errorData.error && errorData.error.message) { // Check if the response contains an error message
             const errorMessage = errorData.error.message;
             const errorMessageDiv = document.getElementById('error-message');
             errorMessageDiv.textContent = errorMessage;
             errorMessageDiv.style.color = 'red'; 
           }  
         }
-      } catch (error) {
+      } catch (error) { // Catch any errors and display them
         const errorMessageDiv = document.getElementById('error-message');
         errorMessageDiv.textContent = 'Error with the server';
         errorMessageDiv.style.color = 'red'; 
       }
     },
-    signup() {
+    signup() { // Method to navigate to the signup page
       this.$router.push('/register');
     },
   },

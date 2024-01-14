@@ -25,17 +25,17 @@
         <tbody>
           <!-- Loop through filtered players and display in the table -->
           <tr v-for="player in filteredPlayers" :key="player.id" @click="showPlayerHistory(player.player_ID)">
-            <td>{{ player.xp }}</td>
-            <td>{{ player.player_ID }}</td>
+            <td>{{ player.xp }}</td> <!-- Display player experience -->
+            <td>{{ player.player_ID }}</td> <!-- Display player name -->
           </tr>
         </tbody>
         <tfoot>
           <!-- Display total number of filtered players -->
           <tr>
-            <td colspan="2">Total Players: {{ filteredPlayers.length }}</td>
+            <td colspan="2">Total Players: {{ filteredPlayers.length }}</td> <!-- Display total number of filtered players -->
           </tr>
-        </tfoot>
-      </table>
+        </tfoot> 
+      </table> <!-- End of player ranking table -->
     </div>
   </div>
 </template>
@@ -50,7 +50,7 @@ export default {
       players: [],
     };
   },
-  mounted() {
+  mounted() { // Fetch player data when the component is mounted
     this.fetchListOfPlayers();
   },
   computed: {
@@ -71,7 +71,7 @@ export default {
     async fetchListOfPlayers() {
 
       try {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('token'); // Get token from local storage
 
           // Fetch player data
           const playerResponse = await fetch(`https://balandrau.salle.url.edu/i3/players`, {
@@ -81,17 +81,15 @@ export default {
             },
           });
 
-          if (playerResponse.ok) {
+          if (playerResponse.ok) { // Check if the response is ok
             const playerData = await playerResponse.json();
-            this.players = playerData;
+            this.players = playerData; // Update player data
             
-          } else {
+          } else { // Throw an error if the response is not ok
             throw new Error('Failed to fetch player data');
           }
 
       } catch (error) {
-        console.error('Error fetching data:', error);
-        
       }
       },
     // Method to sort players by experience in descending order
@@ -101,7 +99,7 @@ export default {
     // Method to navigate to player history view
     showPlayerHistory(playerId) {
       
-      this.$router.push({ name: 'PlayerHistory', params: { id: playerId } });
+      this.$router.push({ name: 'PlayerHistory', params: { id: playerId } }); // Navigate to player history view
     },
   },
 };
@@ -192,23 +190,23 @@ export default {
     padding-bottom: 20px;
   }
 
-  .header2 {
+  .header2 { /* Styling for the player ranking section heading */
     padding-right: 0; 
     margin-bottom: 10px;
   }
 
-  .search-input {
+  .search-input { /* Styling for the search input */
     width: 100%; 
     max-width: 300px; 
     margin: 0 auto; 
   }
 
-  .player-table {
+  .player-table { /* Styling for the player ranking table */
     width: 100%; 
   }
 
   .player-table th,
-  .player-table td {
+  .player-table td { /* Styling for table headers and data cells */
     padding: 10px; 
   }
 }

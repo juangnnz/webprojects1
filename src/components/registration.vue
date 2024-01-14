@@ -59,7 +59,7 @@ export default {
               password: this.password,
               img: this.url || 'string'
             };
-
+            // Send a POST request to the server with the user data
             let response = await fetch('https://balandrau.salle.url.edu/i3/players', {
               method: 'POST',
               headers: {
@@ -69,7 +69,7 @@ export default {
             });
 
             if (response.ok) {
-              
+              // Redirect to the login  page if passwords match
               const errorMessageDiv = document.getElementById('error-message');
               errorMessageDiv.textContent = 'Registered';
               errorMessageDiv.style.color = 'black'; 
@@ -82,7 +82,7 @@ export default {
               
             } else {
               const errorData = await response.json(); 
-              
+              // Display error message if the request fails
               if (errorData.error && errorData.error.message) {
                 const errorMessage = errorData.error.message;
                 const errorMessageDiv = document.getElementById('error-message');
@@ -91,16 +91,15 @@ export default {
               } 
               
             }
-          } catch (error) {
+          } catch (error) { // Catch any errors and display them
             const errorMessageDiv = document.getElementById('error-message');
             errorMessageDiv.textContent = 'Error with the server';
             errorMessageDiv.style.color = 'red'; 
           }
-        } else {
-          console.log('Password must be between 1 and 20 characters');
+        } else { // Display error message if the password length is not between 1 and 20 characters
+        
         }
-      } else {
-        console.log('Passwords do not match');
+      } else { // Display error message if the passwords do not match
       }
     },
 
@@ -115,7 +114,7 @@ export default {
 
 <style scoped>
 
-  .registration {
+  .registration { /* Styling for the main container */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -125,7 +124,7 @@ export default {
     margin: auto; 
   }
   
-   .input-field {
+   .input-field { /* Styling for the input fields */
     width: 100%;
     padding: 10px;
     margin: 5px 0;
@@ -136,7 +135,7 @@ export default {
     outline: none;
   }
   
-  .custom-button1, .custom-button2 {
+  .custom-button1, .custom-button2 { /* Styling for the buttons */
     padding: 10px 15px;
     border: none;
     border-radius: 5px; 
@@ -144,22 +143,22 @@ export default {
     outline: none;  
   }
 
-  .custom-button1 {
+  .custom-button1 { /* Styling for the sign up button */
     margin-top: 30px;
     background-color: #3D5CFF;
     color: #ffffff;
   }
 
-  .custom-button2 {
+  .custom-button2 { /* Styling for the log in button */
     background-color: #ffffff;
     color: #3D5CFF;
   }
 
-   #signUpTitle {
+   #signUpTitle { /* Styling for the sign up title */
     color: #3D5CFF;
   }
 
-  fieldset {
+  fieldset { /* Styling for the fieldset */
     border: none; 
     padding: 10px; 
     margin: 0; 
@@ -172,8 +171,8 @@ export default {
     width: 95%; 
   }
 
-  .input-field, .custom-button1, .custom-button2 {
-    padding: 8px; 
+  .input-field, .custom-button1, .custom-button2 { /* Styling for the input fields and buttons */
+    padding: 8px;  
   }
 
 }

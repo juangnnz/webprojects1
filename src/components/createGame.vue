@@ -1,27 +1,27 @@
 <template>
-  <main class="create-game">
-    <h2 id="createArenaTitle">Create an Arena</h2>
-    <form @submit.prevent="createGame">
+  <main class="create-game"> <!-- Main container for creating a game -->
+    <h2 id="createArenaTitle">Create an Arena</h2> <!-- Heading for the component -->
+    <form @submit.prevent="createGame"> <!-- Form for creating a game -->
       <div class="form-group">
-        <label id="createArenaTitle">Enter Game ID</label>
-        <input type="text" v-model="gameId" id="gameId" required>
-      </div>
+        <label id="createArenaTitle">Enter Game ID</label> <!-- Label for the input field -->
+        <input type="text" v-model="gameId" id="gameId" required> <!-- Input field for the game ID -->
+      </div> 
 
-      <div class="form-group">
+      <div class="form-group"> <!-- Form group for the matrix size -->
         <label id="createArenaTitle">Enter size of Arena (2-10)</label>
         <input type="number" v-model="matrixSize" id="matrixSize" min="2" max="10" required>
       </div>
 
-      <div class="form-group">
-        <label id="createArenaTitle">Enter starting HP for players</label>
-        <input type="number" v-model="hp" id="hp" required>
-      </div>
+      <div class="form-group"> <!-- Form group for the starting HP -->
+        <label id="createArenaTitle">Enter starting HP for players</label> 
+        <input type="number" v-model="hp" id="hp" required> <!-- Input field for the starting HP -->
+      </div>  
 
       <button class="create-button" type="submit">Create</button>
       <div id="error-message"></div>
-    </form>
-  </main>
-</template>
+    </form>  
+  </main> 
+</template> 
 
 <script>
 export default {
@@ -33,7 +33,7 @@ export default {
     };
   },
   methods: {
-    async createGame() {
+    async createGame() { // Method to handle form submission 
       
       try {
         
@@ -46,7 +46,7 @@ export default {
             'Bearer': `${token}`,
           },
           body: JSON.stringify({
-            game_ID: this.gameId,
+            game_ID: this.gameId, // Send the game ID, matrix size, and starting HP in the body of the request
             size: this.matrixSize,
             HP_max: this.hp,
           }),
@@ -55,9 +55,10 @@ export default {
         if (response.ok) {
           const errorMessageDiv = document.getElementById('error-message');
           errorMessageDiv.textContent = '';
-         
-          this.$router.push({ name: 'arena', params: { gameId: this.gameId, rows: this.matrixSize, hp: this.hp, currentPlayer: 'player1' } });
 
+          this.$router.push({ name: 'arena', params: { gameId: this.gameId, rows: this.matrixSize, hp: this.hp, currentPlayer: 'player1' } }); 
+          // Redirect to the arena page
+             
         } else {
           const errorData = await response.json(); 
               
@@ -68,7 +69,7 @@ export default {
             errorMessageDiv.style.color = 'red'; 
           }  
         }
-      } catch (error) {
+      } catch (error) { // Catch any errors and display them
         const errorMessageDiv = document.getElementById('error-message');
         errorMessageDiv.textContent = 'Error with the server';
         errorMessageDiv.style.color = 'red'; 
@@ -80,7 +81,7 @@ export default {
 </script>
 
 <style scoped>
-.create-game {
+.create-game { /* Styles for the main container */
   text-align: center;
   max-width: 400px;
   margin: 0 auto;
@@ -88,17 +89,17 @@ export default {
   background: white;
 }
 
-.form-group {
+.form-group { /* Styles for the form group */
   margin: 10px 0;
   text-align: left;
 }
 
-label {
+label { /* Styles for the label */
   display: block;
   font-weight: bold;
 }
 
-input {
+input { /* Styles for the input field */
   width: 100%;
   padding: 10px;
   margin: 5px 0;
@@ -109,7 +110,7 @@ input {
   outline: none;
 }
 
-.create-button {
+.create-button { /* Styles for the create button */
   padding: 10px 15px;
   border: none;
   border-radius: 5px; 
@@ -121,11 +122,11 @@ input {
   margin: 0 auto;
 }
 
-.create-button:hover {
+.create-button:hover { /* Styles for the create button when hovered over */
   background-color: #0056b3;
 }
 
-#createArenaTitle {
+#createArenaTitle { /* Styles for the title */
   color: #3D5CFF;
 }
 

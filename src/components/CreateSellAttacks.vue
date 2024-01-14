@@ -1,24 +1,24 @@
 <template>
-  <section class="attack-container">
-    <div class="block1">
-      <h2 id="titles">Create Attacks</h2>
+  <section class="attack-container"> <!-- Main container for the component -->
+    <div class="block1"> <!-- Block for creating attacks -->
+      <h2 id="titles">Create Attacks</h2> <!-- Heading for the block -->
       <form @submit.prevent="createAttack" class="attack-form">
-        <input v-model="newAttack.name" type="text" placeholder="Enter attack name" class="input-field" required>
-        <input v-model="newAttack.position" type="text" placeholder="Enter positions" class="input-field" required>
-        <button class="button" type="submit">Create Attack</button>
+        <input v-model="newAttack.name" type="text" placeholder="Enter attack name" class="input-field" required> <!-- Input field for attack name -->
+        <input v-model="newAttack.position" type="text" placeholder="Enter positions" class="input-field" required> <!-- Input field for attack positions -->
+        <button class="button" type="submit">Create Attack</button> <!-- Button to submit the form -->
       </form>
-      <div id="error-message"></div>
+      <div id="error-message"></div> <!-- Error message div -->
     </div>
     <div class="block2">
-      <h2 id="titleAttack">Your Attacks:</h2>
-      <ul class="attack-list">
-        <li v-for="(attack, index) in userAttacks" :key="index" class="attack-item">
+      <h2 id="titleAttack">Your Attacks:</h2> <!-- Heading for the block -->
+      <ul class="attack-list"> <!-- List of attacks -->
+        <li v-for="(attack, index) in userAttacks" :key="index" class="attack-item"> <!-- Using <li> to represent each attack -->
           <span class="attack-info">
-            {{ attack.name }} - Position: {{ attack.position }}
+            {{ attack.name }} - Position: {{ attack.position }}  <!-- Display attack name and position -->
           </span>
           <form @submit.prevent="sellAttack(index)" class="sell-attack">
             <input v-if="attack.textButton !== 'In store'" v-model="attack.askingPrice" type="number" id="input-price" placeholder="Enter price" required>
-            <button class="button">{{ attack.textButton }}</button>
+            <button class="button">{{ attack.textButton }}</button> <!-- Button to sell the attack -->
           </form>
         </li>
       </ul>
@@ -40,10 +40,10 @@ export default {
     };
   },
   mounted() {
-    this.fetchAttacks();
+    this.fetchAttacks(); // Fetch the list of attacks when the component is mounted
   },
   methods: {
-    async fetchAttacks() {
+    async fetchAttacks() { // Fetch the list of attacks
           
       try {
         const token = localStorage.getItem('token');
@@ -56,13 +56,13 @@ export default {
           },
         });
 
-        const data = await response.json();
-       
-        this.userAttacks = data.map(attack => ({
+        const data = await response.json(); // Get the list of attacks from the response
+        
+        this.userAttacks = data.map(attack => ({  // Map the list of attacks to the userAttacks array
             name: attack.attack_ID, 
             position: attack.positions, 
             textButton: attack.on_sale ? 'In store' : 'Sell', 
-        }));
+        }));     
 
       } catch (error) {
         const errorMessageDiv = document.getElementById('error-message');
@@ -70,20 +70,20 @@ export default {
         errorMessageDiv.style.color = 'red'; 
       }
     },
-    async createAttack() {
+    async createAttack() { // Method to create an attack
       try {
         const token = localStorage.getItem('token');
 
         const response = await fetch('https://balandrau.salle.url.edu/i3/shop/attacks', {
-          method: 'POST',
+          method: 'POST', // Send a POST request
           headers: {
             'Content-Type': 'application/json',
             'Bearer': `${token}`,
           },
           body: JSON.stringify({
-            attack_ID: this.newAttack.name,
+            attack_ID: this.newAttack.name, // Send the attack name and positions in the body of the request
             positions: this.newAttack.position,
-            img: 'https://www.shutterstock.com/image-vector/battle-game-cross-swords-concept-260nw-1888899151.jpg',
+            img: 'https://www.shutterstock.com/image-vector/battle-game-cross-swords-concept-260nw-1888899151.jpg', // Default image
           }),
         });
 
@@ -91,7 +91,7 @@ export default {
           const errorMessageDiv = document.getElementById('error-message');
           errorMessageDiv.textContent = '';
 
-        } else {
+        } else { // Display error message if the request fails
          
           const errorData = await response.json(); 
               
@@ -120,8 +120,8 @@ export default {
     },
     async sellAttack(index) {
       try {
-        const token = localStorage.getItem('token');
-        if (this.userAttacks[index].textButton === 'Sell') {
+        const token = localStorage.getItem('token'); // Get token from local storage
+        if (this.userAttacks[index].textButton === 'Sell') { 
           
           const response = await fetch(`https://balandrau.salle.url.edu/i3/shop/attacks/${this.userAttacks[index].name}/sell`, {
             method: 'POST',
@@ -130,7 +130,7 @@ export default {
               'Bearer': `${token}`,
             },
             body: JSON.stringify({
-              price: this.userAttacks[index].askingPrice
+              price: this.userAttacks[index].askingPrice // Send the price in the body of the request
             }),
           });
           
@@ -150,7 +150,7 @@ export default {
             }
           }
         }
-      } catch (error) {
+      } catch (error) { // Catch any errors and display them
           const errorMessageDiv = document.getElementById('error-message');
           errorMessageDiv.textContent = 'Error with the server';
           errorMessageDiv.style.color = 'red'; 
@@ -161,16 +161,16 @@ export default {
 </script>
   
 <style>
-
-  #titles {
+ 
+  #titles {  /* Title for the block */
     color: #3D5CFF;
   }
 
-  #title-attack{
+  #title-attack{ /* Title for the block */
     color: black;
   }
 
-  .input-field {
+  .input-field { /* Input field styles */
     width: 100%;
     padding: 10px;
     margin: 5px 0;
@@ -181,7 +181,7 @@ export default {
     outline: none;
   }
 
-  #input-price{
+  #input-price{ /* Input field styles */
     width: 80px;
     margin: 5px 0;
     border: 2px solid #3D5CFF; 
@@ -191,14 +191,14 @@ export default {
     outline: none;
   }
 
-  .attack-container {
+  .attack-container { /* Main container for the component */
     margin: 20px auto;
     background-color: white;
     display: flex;
     flex-direction: row;
   }
 
-  .block2{
+  .block2{ /* Block for displaying attacks */
     margin-left: 150px;
     display: flex;
     flex-direction: column;
@@ -206,26 +206,26 @@ export default {
     align-items: center;
   }
   
-  .attack-form {
+  .attack-form { /* Form for creating attacks */
     margin-bottom: 20px;
   }
   
-  label {
+  label { /* Label styles */
     display: block;
     margin-bottom: 5px;
   }
   
-  input {
+  input { /* Input field styles */
     width: 100%;
     padding: 8px;
     margin-bottom: 10px;
   }
   
-  .attack-list {
+  .attack-list { /* List of attacks styles */
     list-style: none;
   }
   
-  .attack-item {
+  .attack-item { /* Attack item styles */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -233,7 +233,7 @@ export default {
     max-width: 1000px;
   }
   
-  .button {
+  .button { /* Button styles */
     padding: 10px 15px;
     border: none;
     border-radius: 5px; 

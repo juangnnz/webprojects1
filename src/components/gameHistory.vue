@@ -50,7 +50,7 @@ export default {
     };
   },
   mounted() {
-    this.fetchListOfPlayers();
+    this.fetchListOfPlayers(); // Fetch player data when the component is mounted
   },
   methods: {
     // Method to show the games played by a specific player
@@ -79,12 +79,11 @@ export default {
           }
 
       } catch (error) {
-        console.error('Error fetching data:', error);
       }
     },
-    async fetchStatistics(index){
+    async fetchStatistics(index){ // Fetch statistics for a specific player
         try {
-          const playerId = this.players[index].player_ID;
+          const playerId = this.players[index].player_ID; // Get player ID from the player object
           
           const token = localStorage.getItem('token');
           const response = await fetch(`https://balandrau.salle.url.edu/i3/players/${playerId}/statistics`, {
@@ -98,22 +97,20 @@ export default {
             const statistics = await response.json();
             this.players[index] = {
               ...this.players[index],
-              gamesPlayed: statistics.games_played,
-              gamesWon: statistics.games_won,
+              gamesPlayed: statistics.games_played, // Update player object with statistics
+              gamesWon: statistics.games_won, 
             };
            
           } else {
             throw new Error('Failed to fetch player data');
           }
         } catch (error) {
-          console.error('Error loading player data:', error);
         }
       },
-    async showPlayerGames(playerId) {
+    async showPlayerGames(playerId) { // Method to show the games played by a specific player
       
-      try {
-          console.log(playerId);
-          const token = localStorage.getItem('token');
+      try { 
+          const token = localStorage.getItem('token'); // Get token from local storage
           const response = await fetch(`https://balandrau.salle.url.edu/i3/players/${playerId}/games/finished`, {
             method: 'GET',
             headers: {
@@ -130,7 +127,6 @@ export default {
             throw new Error('Failed to fetch player data');
           }
         } catch (error) {
-          console.error('Error loading player data:', error);
         }
      
     },
@@ -145,7 +141,7 @@ export default {
   margin-bottom: 50px;
 }
 
-.game-history {
+.game-history { /* Styles for the game history component */
   padding: 20px;
   background-color: white;
   width: auto;
@@ -155,38 +151,38 @@ export default {
   align-items: center; 
 }
 
-.table1 {
+.table1 { /* Styles for the table */
   width: 100%;
   max-width: 700px;
 }
 
-table {
+table {   /* Styles for the table */
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
 }
 
-th, td {
+th, td { /* Styles for the table header and table data */
   padding: 10px;
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
 
-th {
+th { /* Styles for the table header */
   background-color: #354a5e;
   color: #fff;
 }
 
-td {
+td { /* Styles for the table data */
   color: black;
 }
 
-.column {
+.column { /* Styles for the table columns */
   color: #3D5CFF;
   background: #ffffff;
 }
 
-#playedBy {
+#playedBy { /* Styles for the title */
   color: black;
 }
 
@@ -211,16 +207,16 @@ button:hover {
   margin-top: 10px;
 }
 
-.player-games li {
+.player-games li { /* Styles for the list items */
   margin-bottom: 5px;
   color: black;
 }
 
-.moreinfo {
+.moreinfo { /* Styles for the div containing the list of player games */
   margin-top: 60px;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 600px) { /* Responsive adjustments */
   .game-history {
     padding: 10px;
   }

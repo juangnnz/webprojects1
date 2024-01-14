@@ -33,7 +33,7 @@
 
     <nav class="block5">  
         <img src="../assets/arrow.png" alt="arrow" class="arrow" @click="up()"/>
-        <img src="../assets/arrow.png" alt="arrow" class="arrow" style="transform: rotate(180deg);" @click="down()"/>
+        <img src="../assets/arrow.png" alt="arrow" class="arrow" style="transform: rotate(180deg);" @click="down()"/> 
         <img src="../assets/arrow.png" alt="arrow" class="arrow" style="transform: rotate(90deg);" @click="right()"/>
         <img src="../assets/arrow.png" alt="arrow" class="arrow" style="transform: rotate(-90deg);" @click="left()"/>
     </nav>
@@ -61,15 +61,15 @@ export default {
     };
   },
   methods: {
-    up() {
+    up() { //mira cap a dalt
       
-      this.rotateCursor('cursor-rotate-up');
+      this.rotateCursor('cursor-rotate-up'); 
       this.direccionMirada = 'up';
       this.paintCellsRed();
       this.fetchDirection('up');
   
     },
-    down() {
+    down() { //mira cap a baix
     
       this.rotateCursor('cursor-rotate-down');
       this.direccionMirada = 'down';
@@ -77,7 +77,7 @@ export default {
       this.fetchDirection('down');
       
     },
-    right() {
+    right() { //mira cap a la dreta
      
       this.rotateCursor('cursor-rotate-right');
       this.direccionMirada = 'right';
@@ -85,7 +85,7 @@ export default {
       this.fetchDirection('right');
 
     },
-    left() {
+    left() { //mira cap a l'esquerra 
     
       this.rotateCursor('cursor-rotate-left');
       this.direccionMirada = 'left';
@@ -93,26 +93,26 @@ export default {
       this.fetchDirection('left');
       
     },
-    rotateCursor(rotationClass) {
+    rotateCursor(rotationClass) { //rotar el cursor
       const cursorCell = document.querySelector(`#gameTable tr:nth-child(${this.currentRow}) td:nth-child(${this.currentColumn})`);
-      if (cursorCell) {
+      if (cursorCell) { 
         cursorCell.classList.remove('cursor-rotate-up', 'cursor-rotate-down', 'cursor-rotate-right', 'cursor-rotate-left');
-        cursorCell.classList.add(`${rotationClass}`);
+        cursorCell.classList.add(`${rotationClass}`); 
       }
       console.log(rotationClass);
     },
-    rotateCursorSecondP(rotationClass) {
+    rotateCursorSecondP(rotationClass) { //rotar el cursor
       const cursorCell = document.querySelector(`#gameTable tr:nth-child(${this.player2Row}) td:nth-child(${this.player2Column})`);
-      if (cursorCell) {
+      if (cursorCell) { 
         cursorCell.classList.remove('cursor-rotate-up', 'cursor-rotate-down', 'cursor-rotate-right', 'cursor-rotate-left');
         cursorCell.classList.add(`${rotationClass}`);
       }
       console.log(rotationClass);
     },
-    getCellsInCursorDirection() {
+    getCellsInCursorDirection() { //obtenir les cel·les en la direcció del cursor
       const cells = [];
 
-      if (this.direccionMirada  === 'right'){
+      if (this.direccionMirada  === 'right'){ //si mira cap a la dreta
 
         for (let i = this.currentColumn + 1; i <= this.rows; i++) {
           const cell = document.querySelector(`#gameTable tr:nth-child(${this.currentRow}) td:nth-child(${i})`);
@@ -122,17 +122,17 @@ export default {
         }
 
       }
-      else if (this.direccionMirada  === 'left'){
+      else if (this.direccionMirada  === 'left'){ //si mira cap a l'esquerra
       
         for (let i = 1; i < this.currentColumn; i++) {
           const cell = document.querySelector(`#gameTable tr:nth-child(${this.currentRow}) td:nth-child(${i})`);
-          if (cell) {
-            cells.push(cell);
+          if (cell) { 
+            cells.push(cell); 
           }
         }
       }
      
-      else if (this.direccionMirada  === 'down'){
+      else if (this.direccionMirada  === 'down'){ //si mira cap avall
         for (let i = this.currentRow + 1; i <= this.rows; i++) {
           const cell = document.querySelector(`#gameTable tr:nth-child(${i}) td:nth-child(${this.currentColumn})`);
           if (cell) {
@@ -142,7 +142,7 @@ export default {
 
       }
       
-      else if (this.direccionMirada  === 'up'){
+      else if (this.direccionMirada  === 'up'){ //si mira cap a dalt
         for (let i = 1; i < this.currentRow; i++) {
           const cell = document.querySelector(`#gameTable tr:nth-child(${i}) td:nth-child(${this.currentColumn})`);
           if (cell) {
@@ -155,39 +155,8 @@ export default {
       return cells;
     },
 
-    getCellsInCursorDirectionSP() {
+    getCellsInCursorDirectionSP() { //obtenir les cel·les en la direcció del cursor
       const cells = [];
-
-      /*if (this.direccionMirada  === 'right'){
-
-        for (let i = this.currentColumn + 1; i <= this.rows; i++) {
-          const cell = document.querySelector(`#gameTable tr:nth-child(${this.currentRow}) td:nth-child(${i})`);
-          if (cell) {
-            cells.push(cell);
-          }
-        }
-
-      }
-      else if (this.direccionMirada  === 'left'){
-      
-        for (let i = 1; i < this.currentColumn; i++) {
-          const cell = document.querySelector(`#gameTable tr:nth-child(${this.currentRow}) td:nth-child(${i})`);
-          if (cell) {
-            cells.push(cell);
-          }
-        }
-      }
-     
-      else if (this.direccionMirada  === 'down'){
-        for (let i = this.currentRow + 1; i <= this.rows; i++) {
-          const cell = document.querySelector(`#gameTable tr:nth-child(${i}) td:nth-child(${this.currentColumn})`);
-          if (cell) {
-            cells.push(cell);
-          }
-        }
-
-      }
-      */
      
         for (let i = 1; i < this.player2Row; i++) {
           const cell = document.querySelector(`#gameTable tr:nth-child(${i}) td:nth-child(${this.player2Column})`);
@@ -195,9 +164,6 @@ export default {
             cells.push(cell);
           }
         }
-
-      
-
       return cells;
     },
     
@@ -276,7 +242,7 @@ export default {
     },
 
     leaveGame() {
-      this.$router.push('/available-games');
+      this.$router.push('/available-games'); // Redirect to the available games page
     },
     attack(button){
       this.getLogs();
@@ -297,7 +263,7 @@ export default {
       // Ajustar las coordenadas según la dirección de la mirada
       let nuevaCoordenadaX, nuevaCoordenadaY;
 
-      switch (this.direccionMirada) {
+      switch (this.direccionMirada) { //mirar cap a la dreta
         case 'up':
           nuevaCoordenadaX = diferenciaX;
           nuevaCoordenadaY = diferenciaY;
@@ -325,13 +291,13 @@ export default {
       this.rotateCursor(`cursor-rotate-${this.direccionMirada}`);
      
     },
-    async getLogs(){
+    async getLogs(){ //obtenir els logs
       try {
         console.log("hey");
         // Fetch attacks information
         const token = localStorage.getItem('token');
         const attacksResponse = await fetch(`https://balandrau.salle.url.edu/i3/arenas/${this.gameId}/logs`, {
-          method: 'GET',
+          method: 'GET', 
           headers: {
             'accept': 'application/json',
             'Bearer': `${token}`,
@@ -341,31 +307,11 @@ export default {
         if (attacksResponse.ok) {
           this.logs = await attacksResponse.json();
           
-          /*
-          if (logs.length >= 3) {
-            /*const thirdLog = logs[2];
-            if (thirdLog){
-              const regex = /position \((\d+),(\d+)\)/;
-              const matches = thirdLog.description.match(regex);
-
-              if (matches) {
-                  // Extraer las coordenadas X e Y
-                  this.player2Row = parseInt(matches[1], 10) + 1;
-                  this.player2Column = parseInt(matches[2], 10) + 1;
-                  this.rotateCursorSecondP('cursor-rotate-left');
-                  
-              }
           
-            }
-            
-            console.log(logs);
-          }
-          */
         } else {
           throw new Error('Failed to fetch attacks data');
         }
       } catch (error) {
-        console.error('Error fetching data:', error);
         
       }
     },
@@ -389,12 +335,10 @@ export default {
             text: attack.attack_ID,
             position: attack.positions,
           }));
-          console.log(this.attackButtons);
         } else {
           throw new Error('Failed to fetch attacks data');
         }
       } catch (error) {
-        console.error('Error fetching data:', error);
         // Handle the error, show a message to the user, etc.
       }
     },
@@ -402,7 +346,7 @@ export default {
       
       await this.getLogs();
 
-      if (this.currentLogIndex == 1){
+      if (this.currentLogIndex == 1){ //si és el primer log
         const positionPattern = /\((\d+),\s*(\d+)\)/;
         const directionPattern = /looking to the (right|left|up|down)/;
        
@@ -416,9 +360,7 @@ export default {
 
           const direction = directionMatch[1];
 
-          // Mostrar la información
-          //console.log(`Player position: (${x}, ${y})`);
-          //console.log(`Player direction: ${direction}`);
+          
           this.rotateCursor(`cursor-rotate-${direction}`);
           this.currentRow = x+1;
           this.currentColumn = y+1;
@@ -442,24 +384,6 @@ export default {
           this.paintCellsBlue();
         }
       }
-      
-
-      /*
-      // Verificar si hay un tercer log (índice 2) y realizar acciones si es así
-      if (this.logs.length >= 3) {
-        const thirdLog = this.logs[2];
-        const regex = /position \((\d+),(\d+)\)/;
-        const matches = thirdLog.description.match(regex);
-
-        if (matches) {
-          // Extraer las coordenadas X e Y
-          this.player2Row = parseInt(matches[1], 10) + 1;
-          this.player2Column = parseInt(matches[2], 10) + 1;
-        }
-
-        // Mostrar una alerta con la descripción del tercer log
-        alert(`Alerta: ${thirdLog.description}`);
-      }*/
 
       // Incrementar el índice para avanzar al siguiente log (movimiento)
       this.currentLogIndex++;
@@ -496,25 +420,25 @@ export default {
 
 
 <style>
-#title {
+#title { /* Title of the page */
   color: black;
 }
 
-h2 {
+h2 { /* Main heading */
   color: #3D5CFF;
 }
 
-h3{
+h3{ /* Subheading */
     color: black;
 }
 
-#block2{
+#block2{ /* Main container of the component */
     display: flex;
     flex-direction: row;
     max-width: 900px;
 }
 
-.block1, .block3, .block5 {
+.block1, .block3, .block5 { /* Blocks for displaying game information, history and arrows */
     display: flex;
     flex-direction: column;
     width: 300px;
@@ -523,27 +447,27 @@ h3{
 
 }
 
-.block4{
+.block4{ /* Block for displaying the leave game button */
     margin-top: 20px;
 }
 
-#gameTable {
+#gameTable { /* Table for displaying the game */
   border-collapse: collapse;
   width: 100%;
   height: 300px;
 }
 
-#gameTable td {
+#gameTable td { /* Table cells */
   border: 1px solid black;
   width: 30px;
   height: 30px;
 }
 
-.cell {
+.cell { /* Table cells */
   background-color: white;
 }
 
-#gameTable .player1-cursor {
+#gameTable .player1-cursor { /* Cursor for player 1 */
     background-image: url('../assets/cursor.png');
     background-size: contain;
     background-repeat: no-repeat;
@@ -553,7 +477,7 @@ h3{
     transition: transform 0.3s ease; 
   }
 
-  #gameTable .player2-cursor {
+  #gameTable .player2-cursor {  /* Cursor for player 2 */
     background-image: url('../assets/secondP.png');
     background-size: contain;
     background-repeat: no-repeat;
@@ -562,25 +486,25 @@ h3{
     border: none;
     transition: transform 0.3s ease; 
   }
-  #gameTable .cursor-rotate-up { transform: rotate(0deg); }
-#gameTable .cursor-rotate-down { transform: rotate(180deg); }
+  #gameTable .cursor-rotate-up { transform: rotate(0deg); } /* Rotations for the cursor */
+#gameTable .cursor-rotate-down { transform: rotate(180deg); } 
 #gameTable .cursor-rotate-right { transform: rotate(90deg); }
 #gameTable .cursor-rotate-left { transform: rotate(-90deg); }
 
-  #gameTable .red-cell {
+  #gameTable .red-cell { 
   background-color: red; 
 }
 
-#gameTable .blue-cell {
+#gameTable .blue-cell {  /* Color for the cells */
   background-color: #6CE5E8; 
 }
 
-.arrow {
+.arrow { /* Arrows for moving the cursor */
   width: 60px;
   height: 90px;
 }
 
-button {
+button { /* Button styles */
   margin: 10px;
   padding: 8px;
   background-color: #3d5cff;
@@ -590,7 +514,7 @@ button {
   cursor: pointer;
 }
 
-.leave-game-btn{
+.leave-game-btn{ /* Leave game button */
     width: 100px;
     height: 35px;
     border: 2px solid #3D5CFF; 

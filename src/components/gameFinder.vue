@@ -64,27 +64,27 @@ export default {
     this.fetchGames();
   },
   computed: {
-    hasFilteredGames() {
+    hasFilteredGames() { // Check if there are filtered games
       return this.filteredGames.length > 0;
     },
-    filteredGames() {
+    filteredGames() { // Filter games based on applied filters
       if (this.filterStatus === 'all') {
 
         return this.games.filter((game) => {
-          const nameMatch = game.id.toLowerCase().includes(this.searchQuery.toLowerCase());
-          const dateMatch = this.matchCreationDate(game.startDate);
-          return nameMatch && dateMatch;
+          const nameMatch = game.id.toLowerCase().includes(this.searchQuery.toLowerCase()); 
+          const dateMatch = this.matchCreationDate(game.startDate); 
+          return nameMatch && dateMatch; 
         });
 
-      }
-      else if (this.filterStatus === 'available') {
+      } 
+      else if (this.filterStatus === 'available') { 
         
         return this.games.filter((game) => {
           const statusMatch = game.start === false && game.finished === false;
           const nameMatch = game.id.toLowerCase().includes(this.searchQuery.toLowerCase());
           const dateMatch = this.matchCreationDate(game.startDate);
           return statusMatch && nameMatch && dateMatch;
-        });
+        }); // Filter games that are available
 
       } else if (this.filterStatus === 'finished') {
         return this.games.filter((game) => {
@@ -92,18 +92,18 @@ export default {
           const nameMatch = game.id.toLowerCase().includes(this.searchQuery.toLowerCase());
           const dateMatch = this.matchCreationDate(game.startDate);
           return statusMatch && nameMatch && dateMatch;
-        });
+        }); // Filter games that are finished
       }
     },
   },
   methods: {
-      matchCreationDate(creationDate) {
+      matchCreationDate(creationDate) { // Check if the game creation date matches the filter start date
         if (!this.startDate || !creationDate) {
           return true; // Si no hay fecha de inicio o fecha de creación, devuelve true
         }
 
         const gameDate = new Date(creationDate);
-        const filterStartDate = new Date(this.startDate);
+        const filterStartDate = new Date(this.startDate); // Convertir a Date
         
         return (
           gameDate.getDate() === filterStartDate.getDate() &&
@@ -111,10 +111,10 @@ export default {
           gameDate.getFullYear() === filterStartDate.getFullYear()
         );
     },
-    async fetchGames() {
-    
+    async fetchGames() { // Fetch the list of games
+     
       try {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('token');  // Get token from local storage
 
         // Fetch player data
         const playerResponse = await fetch(`https://balandrau.salle.url.edu/i3/arenas`, {
@@ -135,19 +135,8 @@ export default {
             startDate: (new Date(game.creation_date)).toLocaleDateString('en-GB'),  // Convert creation_date to Date
           }));
 
-          /*
-          const transformedData = playerData.map(game => ({
-            id: game.game_ID,
-            size: game.size,
-            hpMax: game.HP_max,
-            startDate: game.creation_date.toLocaleDateString('en-GB'),
-            
-          }));*/
-
           // Actualizar availableGames con los datos transformados
           this.games = transformedData;
-          console.log(this.games);
-          console.log(this.games[0].startDate);
          
         } else {
          
@@ -164,10 +153,9 @@ export default {
   
     },
     viewRecord(gameId) {
-      console.log(`View Record for Game ID: ${gameId}`);
       //aqui vemos el record del juego
     },
-    viewGameDetails(gameId) {
+    viewGameDetails(gameId) { // Method to view the details of a specific game
       this.selectedGame = this.games.find((game) => game.game_ID === gameId);
     },
   },
@@ -186,7 +174,7 @@ export default {
     background-color: #ffffff;  /*Styling for the background color */
   }
   
-  .filter-group, .date-group, .search-group {
+  .filter-group, .date-group, .search-group { /* Styling for the filter groups */
     margin-bottom: 10px;
   }
 
@@ -203,7 +191,7 @@ export default {
     color: #3D5CFF;
   }
 
-  .selector, .search-input {
+  .selector, .search-input { /* Styling for the selector and search input */
     padding: 10px;
     border-radius: 5px;
     border: 1px solid black;
@@ -212,7 +200,7 @@ export default {
   }
 
 
-  .dates{
+  .dates{ /* Styling for the dates */
       color: white;
       background-color: black;
       padding: 10px;
@@ -274,7 +262,7 @@ export default {
   width: 200px; 
 }
 
-  .search-input::after {
+  .search-input::after {  /* Styling for the search icon */
     content: '';
     position: absolute;
     top: 50%;
@@ -287,7 +275,7 @@ export default {
     cursor: pointer;
   }
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 600px) {  
   .game-item {
     align-items: center;
   }

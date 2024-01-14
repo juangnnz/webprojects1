@@ -97,7 +97,7 @@ export default {
       try {
         
         const token = localStorage.getItem('token');
-        const gameId = this.selectedGame;
+        const gameId = this.selectedGame; // Get the selected game ID from the selectedGame property
        
         const response = await fetch(`https://balandrau.salle.url.edu/i3/arenas/${gameId}/play`, {
           method: 'POST',
@@ -113,7 +113,7 @@ export default {
          
           this.$router.push({ name: 'arena', params: { gameId: this.selectedGame, rows: this.matrixSize, hp: this.hp, currentPlayer: 'player1' } });
 
-        } else {
+        } else { 
           const errorData = await response.json(); 
               
           if (errorData.error && errorData.error.message) {

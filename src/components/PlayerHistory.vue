@@ -1,19 +1,19 @@
 <template>
     <section class="Player-History">
       <article class="info">
+        <!-- Heading for the player information section -->
         <h2>Information on {{ player.player_ID }}</h2>
-    
-        <p><strong>Experience:</strong> {{ player.xp }}</p>
-        <p><strong>Level:</strong> {{ player.level }}</p>
-        <p><strong>Coins:</strong> {{ player.coins }}</p>
+        <!-- Display player information -->
+        <p><strong>Experience:</strong> {{ player.xp }}</p> <!-- Display player experience -->
+        <p><strong>Level:</strong> {{ player.level }}</p> <!-- Display player level -->
+        <p><strong>Coins:</strong> {{ player.coins }}</p> <!-- Display player coins -->
         <p><strong>Games Played:</strong> {{ player.gamesPlayed }}</p>
         <p><strong>Games Won:</strong> {{ player.gamesWon }}</p>
       </article>
-  
       <article class="attacks" >
           <div >
-            <button @click="toggleBackpackAttacks">Show Backpacked Attacks</button>
-            <div v-if="showBackpackAttacks">
+            <button @click="toggleBackpackAttacks">Show Backpacked Attacks</button> <!-- Button to toggle display of backpacked attacks -->
+            <div v-if="showBackpackAttacks"> <!-- Display backpacked attacks if the button is clicked -->
               <h3>Backpacked Attacks:</h3>
               <ul style=" list-style-type: none;">
                 <li v-for="attack in player.backpackAttacks" :key="attack.id">
@@ -22,7 +22,7 @@
               </ul>
             </div>
           </div>
-      
+          <!-- Display equipped attacks for each game -->
           <div>
             <button @click="toggleEquippedAttacks">Show Equipped Attacks</button>
             <div v-if="showEquippedAttacks">
@@ -34,13 +34,13 @@
               </ul>
             </div>
           </div>
-
+        
         </article>
       </section>
   </template>
   
   <script>
-  export default {
+  export default { // Data property for the component
     data() {
       return {
         player: {
@@ -53,27 +53,27 @@
           backpackAttacks: [],
           equippedAttacks: [],
         },
-        showBackpackAttacks: false,
+        showBackpackAttacks: false, 
         showEquippedAttacks: false,
       };
     },
-    created() {
+    created() { // Fetch player data when the component is created
       this.loadPlayer();
     },
     methods: {
-      async loadPlayer() {
+      async loadPlayer() { // Fetch player data
         try {
           const playerId = this.$route.params.id;
           
-          const token = localStorage.getItem('token');
+          const token = localStorage.getItem('token'); // Get token from local storage
           const response = await fetch(`https://balandrau.salle.url.edu/i3/players/${playerId}`, {
-            method: 'GET',
+            method: 'GET', // Send a GET request
             headers: {
               'Bearer': `${token}`,
             },
           });
 
-          if (response.ok) {
+          if (response.ok) { // Check if the response is ok
             const playerData = await response.json();
             this.player = playerData;
             // Fetch statistics
@@ -85,12 +85,11 @@
             throw new Error('Failed to fetch player data');
           }
         } catch (error) {
-          console.error('Error loading player data:', error);
         }
       },
-      async fetchAttacks(){
+      async fetchAttacks(){ // Fetch attacks
         try {
-          const playerId = this.$route.params.id;
+          const playerId = this.$route.params.id; // Get player ID from the route parameters
           
           const token = localStorage.getItem('token');
           const response = await fetch(`https://balandrau.salle.url.edu/i3/players/${playerId}/attacks`, {
@@ -109,12 +108,11 @@
             throw new Error('Failed to fetch player data');
           }
         } catch (error) {
-          console.error('Error loading player data:', error);
         }
       },
-      async fetchStatistics(){
+      async fetchStatistics(){ // Fetch statistics
         try {
-          const playerId = this.$route.params.id;
+          const playerId = this.$route.params.id; // Get player ID from the route parameters
           
           const token = localStorage.getItem('token');
           const response = await fetch(`https://balandrau.salle.url.edu/i3/players/${playerId}/statistics`, {
@@ -133,13 +131,12 @@
             throw new Error('Failed to fetch player data');
           }
         } catch (error) {
-          console.error('Error loading player data:', error);
         }
       },
-      toggleBackpackAttacks() {
+      toggleBackpackAttacks() {   // Method to toggle display of backpacked attacks
         this.showBackpackAttacks = !this.showBackpackAttacks;
       },
-      toggleEquippedAttacks() {
+      toggleEquippedAttacks() {     // Method to toggle display of equipped attacks
         this.showEquippedAttacks = !this.showEquippedAttacks;
       },
     },
@@ -148,41 +145,41 @@
   
   <style scoped>
 
-  .Player-History {
+  .Player-History { /* Styles for the player history component */
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
   }
 
-  .info, .attacks {
+  .info, .attacks { /* Styles for the player information and attacks sections */
     max-width: 90%;
     margin: 10px;
     background-color: #f5f5f5;
     border-radius: 10px;
     padding: 20px;
   }
-  .info p {
+  .info p { 
   color: black;
 }
 
-  .attacks {
+  .attacks { /* Styles for the attacks section */
     display: flex;
     flex-direction: column;
   }
 
-  button {
+  button { /* Styles for the buttons */
     margin-top: 10px;
     padding: 5px 10px;
     cursor: pointer;
   }
 
-  li {
+  li { /* Styles for the list items */
     color: black;
   }
 
-  @media (max-width: 768px) {
-    .Player-History {
+  @media (max-width: 768px) { /* Responsive adjustments */
+    .Player-History { 
       flex-direction: column;
     }
 
@@ -191,7 +188,7 @@
       margin: 5px 0;
     }
 
-    .attacks {
+    .attacks { 
       flex-direction: column;
     }
   }

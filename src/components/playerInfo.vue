@@ -22,7 +22,7 @@
               <!-- Using <li> to represent each game -->
               <li v-for="game in backpackedAttacks" :key="game.id" class="game-item">
                 <span class="game-name">{{ game.attack_ID }}:</span>
-                <span class="game-attacks">{{ game.power }}</span>
+                <span class="game-attacks">{{ game.power }}</span> 
               </li>
             </ul>
           </section>
@@ -46,14 +46,13 @@
             <button @click="deleteAccount" class="btn">Delete Account</button>
           </section>
         </main>
-
-    
   </section>
 </template>
 
 <script>
 export default {
   data() {
+    // Data properties for the component
     return {
       playerName: '',
       playerExperience: 0,
@@ -67,19 +66,19 @@ export default {
   },
   async mounted() {
     try {
-      const token = localStorage.getItem('token');
-      const playerId = localStorage.getItem('playerID');
+      const token = localStorage.getItem('token'); // Get token from local storage
+      const playerId = localStorage.getItem('playerID'); // Get player ID from local storage
 
       // Fetch player data
       const playerResponse = await fetch(`https://balandrau.salle.url.edu/i3/players/${playerId}`, {
         method: 'GET',
         headers: {
           'accept': 'application/json',
-          'Bearer': `${token}`,
+          'Bearer': `${token}`, // Send token in the headers
         },
       });
 
-      if (playerResponse.ok) {
+      if (playerResponse.ok) { // Check if the response is ok
         const playerData = await playerResponse.json();
 
         // Update player data
@@ -88,7 +87,7 @@ export default {
         this.playerLevel = playerData.level;
         this.playerCoins = playerData.coins;
       } else {
-        throw new Error('Failed to fetch player data');
+        throw new Error('Failed to fetch player data'); // Throw an error if the response is not ok
       }
 
       // Fetch attacks information
@@ -106,66 +105,64 @@ export default {
         
         // Update attacks information
         this.backpackedAttacks = attacksData;
-        this.equippedAttacksGames = attacksData.filter(attack => attack.equipped);
+        this.equippedAttacksGames = attacksData.filter(attack => attack.equipped); // Filter equipped attacks
       } else {
         throw new Error('Failed to fetch attacks data');
       }
     } catch (error) {
-      console.error('Error fetching data:', error);
+      
       // Handle the error, show a message to the user, etc.
     }
   },
   methods: {
-    toggleBackpackedAttacks() {
-      this.showBackpackedAttacks = !this.showBackpackedAttacks;
+    toggleBackpackedAttacks() { // Method to toggle the display of backpacked attacks
+      this.showBackpackedAttacks = !this.showBackpackedAttacks; 
     },
-    toggleEquippedAttacks() {
+    toggleEquippedAttacks() { // Method to toggle the display of equipped attacks
       this.showEquippedAttacks = !this.showEquippedAttacks;
     },
     deleteAccount() {
       try {
         
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('token'); // Get token from local storage
 
         // Realizar la solicitud DELETE para eliminar la cuenta
         fetch(`https://balandrau.salle.url.edu/i3/players/`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
-            'Bearer': `${token}`,
+            'Bearer': `${token}`, 
           },
         }).then(async deleteResponse => {
           if (deleteResponse.ok) {
             alert("Account successfully deleted!");
-            this.$router.push('/home');
+            this.$router.push('/home'); // Redirect to the home page
           } else {
             const errorData = await deleteResponse.json();
               
-            if (errorData.error && errorData.error.message) {
+            if (errorData.error && errorData.error.message) { // Display error message if the request fails
               const errorMessage = errorData.error.message;
               const errorMessageDiv = document.getElementById('error-message');
               errorMessageDiv.textContent = errorMessage;
               errorMessageDiv.style.color = 'red'; 
             }  
-            
           }
-        }).catch(error => {
+        }).catch(error => { // Catch any errors and display them
           const errorMessageDiv = document.getElementById('error-message');
           errorMessageDiv.textContent = 'Error with the server';
           errorMessageDiv.style.color = 'red'; 
           
         });
-      } catch (error) {
+      } catch (error) { // Catch any errors and display them
         const errorMessageDiv = document.getElementById('error-message');
         errorMessageDiv.textContent = 'Error with the server';
         errorMessageDiv.style.color = 'red'; 
         
       }
     },
-
-    logOut() {
-      this.$router.push('/home');
-    }
+    logOut() { // Method to log out
+      this.$router.push('/home'); 
+    } 
   },
 };
 </script>
@@ -277,12 +274,12 @@ export default {
   width: 200px;
 }
 
-@media (max-width: 768px) {
-  .player-info-main{
+@media (max-width: 768px) { /* Responsive adjustments */
+  .player-info-main{ /* Styling for the main section containing player's statistics */
     flex-direction: column;
   }
 
-  .first{
+  .first{ /* Styling for the container of player details */
     margin-right: 0px;
   }
 }

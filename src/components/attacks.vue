@@ -1,19 +1,19 @@
 <template>
-  <main class="attacks-management">
-    <h2 class="title">Manage Equipped Attacks</h2>
+  <main class="attacks-management"> <!-- Attacks Management Block -->
+    <h2 class="title">Manage Equipped Attacks</h2> <!-- Heading for the component -->
 
-    <section class="equipped-attacks" v-if="equippedAttacks.length > 0">
-      <h3>Equipped Attacks</h3>
+    <section class="equipped-attacks" v-if="equippedAttacks.length > 0"> <!-- Container for equipped attacks -->
+      <h3>Equipped Attacks</h3> <!-- Heading for the container -->
       <div class="packs">
             <div v-for="attack in equippedAttacks" :key="attack.id" class="equipped-attack2">
               <h4>{{ attack.attack_ID }}</h4>
-              <p class="attack-description">{{ attack.power }}</p>
-              <button @click="unequipAttack(attack)">Unequip</button>
+              <p class="attack-description">{{ attack.power }}</p> <!-- Display attack information -->
+              <button @click="unequipAttack(attack)">Unequip</button> <!-- Button to unequip the attack -->
             </div>
-      </div>
-    </section>
+      </div> <!-- End of equipped attacks container -->
+    </section> <!-- End of equipped attacks section -->
 
-    <section class="available-attacks" v-if="availableAttacks.length > 0">
+    <section class="available-attacks" v-if="availableAttacks.length > 0"> <!-- Container for available attacks -->
       <h3>Available Attacks</h3>
       <div class="packs">
             <div v-for="attack in availableAttacks" :key="attack.id" class="available-attack2">
@@ -23,14 +23,14 @@
             </div>
           </div>
       </section>
-    <div id="error-message"></div>
+    <div id="error-message"></div> <!-- Display error messages -->
   </main>
 </template>
 
 <script>
 export default {
   data() {
-    return {
+    return { // Data properties for the component
       equippedAttacks: [],
       availableAttacks: [],
     };
@@ -39,7 +39,7 @@ export default {
     this.fetchAttacks();
   },
   methods: {
-    async fetchAttacks() {
+    async fetchAttacks() { // Fetch attacks information
       try {
         const token = localStorage.getItem('token');
 
@@ -57,8 +57,8 @@ export default {
           console.log(attacksData);
           
           // Update attacks information
-          this.availableAttacks = attacksData.filter(attack => !attack.equipped);;
-          this.equippedAttacks = attacksData.filter(attack => attack.equipped);
+          this.availableAttacks = attacksData.filter(attack => !attack.equipped);; 
+          this.equippedAttacks = attacksData.filter(attack => attack.equipped); 
           
         } else {
           const errorMessageDiv = document.getElementById('error-message');
@@ -72,7 +72,7 @@ export default {
           errorMessageDiv.style.color = 'red'; 
       }
     },
-    async equipAttack(attack) {
+    async equipAttack(attack) { // Equip an attack
       
       try {
        
@@ -85,7 +85,7 @@ export default {
         });
        
         if (response.ok){
-          this.fetchAttacks();
+          this.fetchAttacks(); // Fetch attacks information
         }
         else{
           const errorData = await response.json(); 
@@ -109,14 +109,14 @@ export default {
         const token = localStorage.getItem('token');
 
         const response = await fetch(`https://balandrau.salle.url.edu/i3/players/attacks/${attack.attack_ID}`, {
-          method: 'DELETE',
+          method: 'DELETE', // Send a DELETE request
           headers: {
             'Bearer': `${token}`,
           },
         });
 
         if (response.ok){
-          this.fetchAttacks();
+          this.fetchAttacks(); // Fetch attacks information
         }
         else{
           const errorData = await response.json(); 
@@ -141,7 +141,7 @@ export default {
 
 
 <style>
-.attacks-management {
+.attacks-management { /* Attacks Management Block */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -149,19 +149,19 @@ export default {
   padding: 20px;
 }
 
-.title {
+.title { /* Heading for the component */
   color: #3D5CFF;
   margin-bottom: 40px;
 }
 
-.packs {
+.packs { /* Container for the packs */
   display: flex;
   justify-content: center;
   flex-wrap: wrap; 
   gap: 10px; 
 }
 
-.pack {
+.pack { /* Container for each pack */
   display: flex;
   flex-direction: column; 
   align-items: center;
@@ -173,7 +173,7 @@ export default {
   background-color: #eceff1; 
 }
 
-button {
+button { /* Styles for the buttons */
   background-color: #3D5CFF; 
   color: #ffffff; 
   padding: 10px 15px;
@@ -185,21 +185,21 @@ button {
   width: 90px; 
 }
 
-button:hover {
+button:hover { /* Styles for the buttons when hovered over */
   background-color: #1E88E5; 
 }
 
-button:disabled {
+button:disabled { /* Styles for the disabled buttons */
   background-color: #a5d6a7; 
   cursor: not-allowed; 
 }
 
-h4, .attack-description {
+h4, .attack-description { /* Styles for the attack information */
   color: #000000; 
   margin: 5px 0; 
 }
 
-.equipped-attack2, .available-attack2 {
+.equipped-attack2, .available-attack2 { /* Styles for the equipped and available attacks */
   background-color: #b6d8f6;
   width:150px;
   border-radius: 10px;
@@ -208,7 +208,7 @@ h4, .attack-description {
 }
 
 /* Responsive Styles for Mobile */
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 600px) { 
   .packs {
     justify-content: center;
   }

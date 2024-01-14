@@ -54,6 +54,15 @@ export default {
       }
     };
   },
+  created() {
+   /*
+    const storedToken = localStorage.getItem('token');
+
+    if (storedToken) {
+     
+      this.$router.push('/player-info');
+    }*/
+  },
   methods: {
     toggleSubMenu(menu) {
       this.showSubmenu[menu] = !this.showSubmenu[menu];

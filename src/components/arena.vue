@@ -6,7 +6,15 @@
         <table id="gameTable">
             <tr v-for="row in rows" :key="row">
                 <!-- Crear celdas en cada fila según la longitud de la tabla -->
-                <td v-for="col in rows" :key="col" :class="{ 'cell': true, 'cursor-cell': row === currentRow && col === currentColumn }"></td>
+                <td
+                  v-for="col in rows"
+                  :key="col"
+                  :class="{
+                    'cell': true,
+                    'player1-cursor': row === currentRow && col === currentColumn,
+                    'player2-cursor': row === player2Row && col === player2Column,
+                  }"
+                ></td>
             </tr>
         </table>
         <!-- Leave Game Button -->
@@ -46,6 +54,10 @@ export default {
       currentColumn: 1,
       attackButtons: [],
       direccionMirada: null,
+      logsInterval: null,
+      player2Row: null,
+      player2Column: null,
+      logs: [],
     };
   },
   methods: {
@@ -83,6 +95,14 @@ export default {
     },
     rotateCursor(rotationClass) {
       const cursorCell = document.querySelector(`#gameTable tr:nth-child(${this.currentRow}) td:nth-child(${this.currentColumn})`);
+      if (cursorCell) {
+        cursorCell.classList.remove('cursor-rotate-up', 'cursor-rotate-down', 'cursor-rotate-right', 'cursor-rotate-left');
+        cursorCell.classList.add(`${rotationClass}`);
+      }
+      console.log(rotationClass);
+    },
+    rotateCursorSecondP(rotationClass) {
+      const cursorCell = document.querySelector(`#gameTable tr:nth-child(${this.player2Row}) td:nth-child(${this.player2Column})`);
       if (cursorCell) {
         cursorCell.classList.remove('cursor-rotate-up', 'cursor-rotate-down', 'cursor-rotate-right', 'cursor-rotate-left');
         cursorCell.classList.add(`${rotationClass}`);
@@ -135,17 +155,78 @@ export default {
       return cells;
     },
 
+    getCellsInCursorDirectionSP() {
+      const cells = [];
+
+      /*if (this.direccionMirada  === 'right'){
+
+        for (let i = this.currentColumn + 1; i <= this.rows; i++) {
+          const cell = document.querySelector(`#gameTable tr:nth-child(${this.currentRow}) td:nth-child(${i})`);
+          if (cell) {
+            cells.push(cell);
+          }
+        }
+
+      }
+      else if (this.direccionMirada  === 'left'){
+      
+        for (let i = 1; i < this.currentColumn; i++) {
+          const cell = document.querySelector(`#gameTable tr:nth-child(${this.currentRow}) td:nth-child(${i})`);
+          if (cell) {
+            cells.push(cell);
+          }
+        }
+      }
+     
+      else if (this.direccionMirada  === 'down'){
+        for (let i = this.currentRow + 1; i <= this.rows; i++) {
+          const cell = document.querySelector(`#gameTable tr:nth-child(${i}) td:nth-child(${this.currentColumn})`);
+          if (cell) {
+            cells.push(cell);
+          }
+        }
+
+      }
+      */
+     
+        for (let i = 1; i < this.player2Row; i++) {
+          const cell = document.querySelector(`#gameTable tr:nth-child(${i}) td:nth-child(${this.player2Column})`);
+          if (cell) {
+            cells.push(cell);
+          }
+        }
+
+      
+
+      return cells;
+    },
     
-    // Método para pintar las celdas en rojo
+    
     paintCellsRed() {
       // Limpiar celdas resaltadas anteriores
       this.clearRedCells();
 
       // Obtener las celdas en la dirección del cursor
       const cells = this.getCellsInCursorDirection();
+
       cells.forEach((cell) => {
-        if (!cell.classList.contains('cursor-cell')) {
+        if (!cell.classList.contains('player1-cursor')) {
           cell.classList.add('red-cell');
+        }
+      });
+    },
+
+    paintCellsBlue() {
+      // Limpiar celdas resaltadas anteriores
+      this.clearBlueCells();
+      console.log("pinta blau");
+
+      // Obtener las celdas en la dirección del cursor
+      const cells = this.getCellsInCursorDirectionSP();
+      //console.log(cells);
+      cells.forEach((cell) => {
+        if (!cell.classList.contains('player2-cursor')) {
+          cell.classList.add('blue-cell');
         }
       });
     },
@@ -155,6 +236,13 @@ export default {
       const redCells = document.querySelectorAll('#gameTable .red-cell');
       redCells.forEach((cell) => {
         cell.classList.remove('red-cell');
+      });
+    },
+    clearBlueCells() {
+      // Limpiar el color rojo de las celdas resaltadas anteriores
+      const blueCells = document.querySelectorAll('#gameTable .blue-cell');
+      blueCells.forEach((cell) => {
+        cell.classList.remove('blue-cell');
       });
     },
 
@@ -191,6 +279,7 @@ export default {
       this.$router.push('/available-games');
     },
     attack(button){
+      this.getLogs();
       this.clearRedCells();
       console.log(button.position);
       const [x, y] = button.position.slice(1, -1).split(',').map(Number);
@@ -236,6 +325,50 @@ export default {
       this.rotateCursor(`cursor-rotate-${this.direccionMirada}`);
      
     },
+    async getLogs(){
+      try {
+        console.log("hey");
+        // Fetch attacks information
+        const token = localStorage.getItem('token');
+        const attacksResponse = await fetch(`https://balandrau.salle.url.edu/i3/arenas/${this.gameId}/logs`, {
+          method: 'GET',
+          headers: {
+            'accept': 'application/json',
+            'Bearer': `${token}`,
+          },
+        });
+
+        if (attacksResponse.ok) {
+          this.logs = await attacksResponse.json();
+          
+          /*
+          if (logs.length >= 3) {
+            /*const thirdLog = logs[2];
+            if (thirdLog){
+              const regex = /position \((\d+),(\d+)\)/;
+              const matches = thirdLog.description.match(regex);
+
+              if (matches) {
+                  // Extraer las coordenadas X e Y
+                  this.player2Row = parseInt(matches[1], 10) + 1;
+                  this.player2Column = parseInt(matches[2], 10) + 1;
+                  this.rotateCursorSecondP('cursor-rotate-left');
+                  
+              }
+          
+            }
+            
+            console.log(logs);
+          }
+          */
+        } else {
+          throw new Error('Failed to fetch attacks data');
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        
+      }
+    },
     async fetchAttacks() {
       try {
         // Fetch attacks information
@@ -265,14 +398,98 @@ export default {
         // Handle the error, show a message to the user, etc.
       }
     },
+    async checkForNewLogs() {
+      
+      await this.getLogs();
+
+      if (this.currentLogIndex == 1){
+        const positionPattern = /\((\d+),\s*(\d+)\)/;
+        const directionPattern = /looking to the (right|left|up|down)/;
+       
+        const positionMatch = this.logs[1].description.match(positionPattern);
+        const directionMatch = this.logs[1].description.match(directionPattern);
+
+        if (positionMatch && directionMatch) {
+          // Extraer las coordenadas x e y de la posición
+          const x = parseInt(positionMatch[1], 10);
+          const y = parseInt(positionMatch[2], 10);
+
+          const direction = directionMatch[1];
+
+          // Mostrar la información
+          //console.log(`Player position: (${x}, ${y})`);
+          //console.log(`Player direction: ${direction}`);
+          this.rotateCursor(`cursor-rotate-${direction}`);
+          this.currentRow = x+1;
+          this.currentColumn = y+1;
+          this.direccionMirada = 'up';
+          this.paintCellsRed();
+        }
+      }
+      else if (this.currentLogIndex > 2){
+        // Definir una expresión regular para buscar el movimiento y la posición
+        const moveRegex = /'(\w+)' moves (\w+) \((\d+),(\d+)\) -> \((\d+),(\d+)\)/;
+        // Buscar coincidencias en el mensaje
+        const moveMatches = this.logs[this.currentLogIndex].description.match(moveRegex);
+
+        if (moveMatches) {
+
+          const finalX = parseInt(moveMatches[5], 10) + 1;
+          const finalY = parseInt(moveMatches[6], 10) + 1;
+
+          this.player2Row = finalX ;
+          this.player2Column = finalY ;
+          this.paintCellsBlue();
+        }
+      }
+      
+
+      /*
+      // Verificar si hay un tercer log (índice 2) y realizar acciones si es así
+      if (this.logs.length >= 3) {
+        const thirdLog = this.logs[2];
+        const regex = /position \((\d+),(\d+)\)/;
+        const matches = thirdLog.description.match(regex);
+
+        if (matches) {
+          // Extraer las coordenadas X e Y
+          this.player2Row = parseInt(matches[1], 10) + 1;
+          this.player2Column = parseInt(matches[2], 10) + 1;
+        }
+
+        // Mostrar una alerta con la descripción del tercer log
+        alert(`Alerta: ${thirdLog.description}`);
+      }*/
+
+      // Incrementar el índice para avanzar al siguiente log (movimiento)
+      this.currentLogIndex++;
+
+      // Verificar si hay más logs disponibles
+      if (this.currentLogIndex < this.logs.length) {
+        // Obtener el siguiente log
+        const nextLog = this.logs[this.currentLogIndex];
+
+        // Mostrar una alerta con la descripción del siguiente log (esto es solo un ejemplo, puedes ajustarlo según tus necesidades)
+        //alert(`Siguiente movimiento: ${nextLog.description}`);
+      }
+    },
+    setupLogChecker() {
+      
+      setInterval(this.checkForNewLogs, 2000);
+    },
   },
-  mounted() {
+  async mounted() {
     this.gameId = this.$route.params.gameId;
     this.rows = parseInt(this.$route.params.rows);
     this.hp = this.$route.params.hp;
     this.currentPlayer = this.$route.params.currentPlayer;
-    this.fetchAttacks();
-   // this.rotateCursor('cursor-rotate-up');
+    await this.fetchAttacks();
+    this.rotateCursor('cursor-rotate-up');
+    this.currentLogIndex = 0;
+    this.setupLogChecker();
+    //await this.getLogs();
+
+
   },
 };
 </script>
@@ -326,7 +543,7 @@ h3{
   background-color: white;
 }
 
-#gameTable .cursor-cell {
+#gameTable .player1-cursor {
     background-image: url('../assets/cursor.png');
     background-size: contain;
     background-repeat: no-repeat;
@@ -336,6 +553,15 @@ h3{
     transition: transform 0.3s ease; 
   }
 
+  #gameTable .player2-cursor {
+    background-image: url('../assets/secondP.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: white;
+    border: none;
+    transition: transform 0.3s ease; 
+  }
   #gameTable .cursor-rotate-up { transform: rotate(0deg); }
 #gameTable .cursor-rotate-down { transform: rotate(180deg); }
 #gameTable .cursor-rotate-right { transform: rotate(90deg); }
@@ -343,6 +569,10 @@ h3{
 
   #gameTable .red-cell {
   background-color: red; 
+}
+
+#gameTable .blue-cell {
+  background-color: #6CE5E8; 
 }
 
 .arrow {
